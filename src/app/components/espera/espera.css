@@ -1,0 +1,10 @@
+.fondo{
+    background-image: url('/assets/img/fondo.jpg');
+    overflow-x: hidden;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
