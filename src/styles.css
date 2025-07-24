@@ -1,7 +1,55 @@
 @import "tailwindcss";
+@import "@ng-select/ng-select/themes/default.theme.css";
+/* @import "@ng-select/ng-select/themes/material.theme.css"; */
 
 *{
     box-sizing: border-box;
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/* CONFIGURACION DE NG SELECT */
+/* Borde por defecto: negro */
+.ng-select .ng-select-container {
+  border: 1px solid black !important;
+  transition: border-color 0.3s ease;
+}
+
+/* Cuando está enfocado */
+.ng-select.ng-select-focused .ng-select-container {
+  border: 1px solid #009DD5 !important;
+}
+
+
+.ng-placeholder{
+    @apply text-black!;
+}
+
+
+.ng-select.ng-select-single .ng-select-container .ng-value-container, .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: black;
+}
+/* Ajustar el panel del dropdown */
+.ng-dropdown-panel {
+    min-width: min-content !important; 
+    min-height: min-content !important;
+}
+
+/* Estilo para las opciones multi-línea */
+.ng-option {
+    white-space: normal !important;
+    word-break: break-word !important;
+    border-radius: 10px !important;
+    line-height: 1.5 !important;
+    padding: 8px 12px !important;
+}
+
+.ng-option:hover {
+    background-color: #ebf5ff !important;
+    color: #000000 !important;
+}
+/* ------------------------------------------------------- */
