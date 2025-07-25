@@ -12,18 +12,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 /* CONFIGURACION DE NG SELECT */
 /* Borde por defecto: negro */
 .ng-select .ng-select-container {
-  border: 1px solid black !important;
-  transition: border-color 0.3s ease;
+  @apply h-full w-full rounded-[7px] bg-transparent px-3 py-2.5 border border-black focus:outline-none transition-colors;
 }
-
 /* Cuando está enfocado */
 .ng-select.ng-select-focused .ng-select-container {
-  border: 1px solid #009DD5 !important;
+  @apply bg-gray-100 border-[#009DD5];
 }
 
-
 .ng-placeholder{
-    @apply text-black!;
+    @apply text-black! uppercase;
 }
 
 

@@ -23,11 +23,6 @@ export default class Login {
 
   }
 
-
-  async login() { 
-    this.router.navigate(['/formulario']);
-  }
-
   esperaBtn(){
     this.router.navigate(['/espera']);
   }

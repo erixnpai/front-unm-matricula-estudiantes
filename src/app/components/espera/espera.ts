@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-espera',
@@ -7,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './espera.css'
 })
 export default class Espera {
+  constructor(private readonly router: Router) {}
 
+    async formregistro() { 
+    this.router.navigate(['/formulario']);
+  }
 }

@@ -1,0 +1,20 @@
+export const DEPARTAMENTOS = [
+  { id: '1', name: 'Boaco' },
+  { id: '2', name: 'Carazo' },
+  { id: '3', name: 'Chinandega' },
+  { id: '4', name: 'Chontales' },
+  { id: '5', name: 'RACCN' },
+  { id: '6', name: 'RACCS' },
+  { id: '7', name: 'Estelí' },
+  { id: '8', name: 'Granada' },
+  { id: '9', name: 'Jinotega' },
+  { id: '10', name: 'León' },
+  { id: '11', name: 'Madriz' },
+  { id: '12', name: 'Managua' },
+  { id: '13', name: 'Masaya' },
+  { id: '14', name: 'Matagalpa' },
+  { id: '15', name: 'Nueva Segovia' },
+  { id: '16', name: 'Río San Juan' },
+  { id: '17', name: 'Rivas' },
+  { id: '18', name: 'No Definido' }
+];

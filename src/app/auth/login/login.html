@@ -1,53 +1,63 @@
-<div class="bg-white flex justify-center items-center h-screen">
+<div class="bg-gray-50 h-screen md:flex items-center ">
 
   <div class="w-1/2 h-screen bg-contain hidden lg:block">
-    <img src="/assets/img/Sin-título.png" alt="Placeholder Image" class="object-cover w-full h-full">
+    <img src="/assets/img/Sin-título.png" alt="Placeholder Image"
+      class="full h-full object-cover bg-no-repeat bg-cover mask-fade-right">
   </div>
 
-  <div class="min-h-screen w-1/2 flex justify-center items-center">
-    <div class="max-w-md overflow-y-auto px-0 lg:px-8 ">
+  <div class="w-full xl:w-1/2 min-h-screen flex items-center justify-center relative">
+    <div class="max-w-md px-0">
       <div class="flex items-center justify-center">
-        <div class="image-protector flex items-center justify-center space-x-2 w-4/3 lg:w-3/4 mb-4">
+        <div class="image-protector flex items-center justify-center space-x-2 w-2/3 lg:w-3/4 mb-4">
           <img src="/assets/img/logo-unm.png" alt="">
         </div>
       </div>
+      <h1 class="text-xl md:text-2xl font-bold text-black text-center leading-tight mt-4 mb-4">Iniciar Sesión</h1>
+
       <form [formGroup]="loginForm">
         <!-- Username Input -->
         <div class="mb-4">
-          <div class="relative h-10 w-full min-w-[200px]">
-            <input formControlName="Cedula" (input)="formatearCedula($event)" autocomplete="off"
-              class="peer h-full w-full rounded-[7px] border border-[#009DD5] border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-black outline-0 transition-all placeholder-shown:border placeholder-shown:border-black focus:border-2 focus:border-[#009DD5] focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-              placeholder=" " />
-            <label
-              class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-[#009DD5] transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-[#009DD5] before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-[#009DD5] after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-black peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-[#009DD5] peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-[#009DD5] peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-[#009DD5] peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-black">
-              Cedula de Identidad
-            </label>
-          </div>
+          <label class="block tracking-wide text-black font-bold mb-2">
+            Cedula
+            <span class="text-red-500">*</span>
+          </label>
+          <input formControlName="Cedula" (input)="formatearCedula($event)" autocomplete="off"
+            class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-transparent border border-black focus:outline-none focus:border-[#009DD5]"
+            type="" placeholder="000-000000-0000M">
           <div *ngIf="loginForm.controls['Cedula'].touched && loginForm.controls['Cedula'].invalid"
             class="text-red-500 text-xs font-medium ml-2">
             Este campo es requerido
           </div>
         </div>
         <!-- Password Input -->
-        <div class="mb-4">
-          <div class="relative h-10 w-full min-w-[200px]">
-            <input formControlName="Pass" type="password" autocomplete="off"
-              class="peer h-full w-full rounded-[7px] border border-[#009DD5] border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-black outline-0 transition-all placeholder-shown:border placeholder-shown:border-black focus:border-2 focus:border-[#009DD5] focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
-              placeholder=" " />
-            <label
-              class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-[#009DD5] transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-[#009DD5] before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-[#009DD5] after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-black peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-[#009DD5] peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-[#009DD5] peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-[#009DD5] peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-black">
-              Contraseña
-            </label>
+        <div class="mb-4 relative group">
+          <label class="block tracking-wide text-black font-bold mb-2">
+            Contraseña
+            <span class="text-red-500">*</span>
+          </label>
+          <input formControlName="Pass" type="password" autocomplete="off"
+            class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-transparent border border-black focus:outline-none focus:border-[#009DD5]"
+            placeholder="****" />
+          <div
+            class="absolute top-full mt-1 left-0 w-max max-w-full rounded bg-gray-800 text-white text-sm px-3 py-2 opacity-0 group-focus-within:opacity-100 transition-opacity z-10">
+            Su contraseña corresponde a los últimos cuatro dígitos de su número de cédula.
+          </div>
+          <div *ngIf="loginForm.controls['Cedula'].touched && loginForm.controls['Cedula'].invalid"
+            class="text-red-500 text-xs font-medium ml-2">
+            Este campo es requerido
           </div>
         </div>
-        <div class="flex justify-center lg:justify-end">
+
+<!-- 
+        <div class="flex justify-center w-full lg:justify-end">
           <span class="text-sm text-[#009DD5] hover:underline cursor-pointer">Olvidé mi contrasena</span>
-        </div>
+        </div> -->
         <div>
-          <button (click)="login()"
+          <button (click)="esperaBtn()"
             class="mt-4 cursor-pointer mb-3 w-full bg-green-500 hover:bg-[#5AB24B] text-white py-2 rounded-md transition duration-100">Ingresar</button>
         </div>
       </form>
+
     </div>
   </div>
 </div>
