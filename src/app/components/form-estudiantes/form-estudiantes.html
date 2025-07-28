@@ -449,11 +449,19 @@
 
                     <mat-step label="ESTRUCTURA FAMILIAR">
                         <div class="grid gap-8 lg:grid-cols-2 mt-2 lg:mt-2 text-lg lg:text-sm uppercase">
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    Tipo de parentesco
+                                    <span class="text-red-500">*</span></label>
+                                <ng-select placeholder="Seleccione" [items]="dimensionNacionalidad" appendTo="html"
+                                    bindLabel="name" bindValue="id">
+                                </ng-select>
+                            </div>
                             <div class="h-10 w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Nombres del Tutor
                                     <span class="text-red-500">*</span></label>
-                                    <input autocomplete="off" type="number" min="1" max="12"
+                                <input autocomplete="off" type="number" min="1" max="12"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Nombres del Tutor" />
                             </div>
@@ -461,15 +469,15 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Primer apellido del Tutor
                                     <span class="text-red-500">*</span></label>
-                                    <input autocomplete="off" type="number" min="1" max="12"
+                                <input autocomplete="off" type="number" min="1" max="12"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Primer apellido del Tutor" />
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                 <label class="block tracking-wide text-black font-bold mb-2">
+                                <label class="block tracking-wide text-black font-bold mb-2">
                                     Segundo apellido del Tutor
                                     <span class="text-red-500">*</span></label>
-                                    <input autocomplete="off" type="number" min="1" max="12"
+                                <input autocomplete="off" type="number" min="1" max="12"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Segundo apellido del Tutor" />
                             </div>
@@ -492,26 +500,26 @@
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    Centro de trabajo del Tutor
-                                    <span class="text-red-500">*</span></label>
-                                <input formControlName="Numero_hijos" autocomplete="off" type="number" min="1" max="12"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="Numero celular" />
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Numero celular
-                                    <span class="text-red-500">*</span>
+                                    Depende económicamente </label>
+                                <label for="toggle-embarazo" class="flex items-center cursor-pointer">
+                                    <span class="mr-3 text-gray-900 text-sm font-medium">No</span>
+                                    <mat-slide-toggle formControlName="Trabaja"></mat-slide-toggle>
+                                    <span class="ml-3 text-gray-900 text-sm font-medium">Si</span>
                                 </label>
-                                <input formControlName="Numero_hijos" autocomplete="off" type="number" min="1" max="12"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="Numero celular" />
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Centro de trabajo del Tutor
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Numero_hijos" autocomplete="off" type="number" min="1" max="12"
+                                <input autocomplete="off" type="number" min="1" max="12"
+                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    placeholder="Centro de trabajo del Tutor" />
+                            </div>
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    Ingresos mensual
+                                    <span class="text-red-500">*</span></label>
+                                <input autocomplete="off" type="number" min="1" max="12"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Numero celular" />
                             </div>
@@ -537,21 +545,3 @@
     </footer>
 
 </section>
-
-<!-- <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Fecha de Nacimiento
-                                    <span class="text-red-500">*</span></label>
-                                <div class="relative h-10 w-full">
-                                    <div class="relative h-10 w-full">
-                                        <div class="absolute top-0 right-1">
-                                            <mat-datepicker-toggle matIconSuffix
-                                                [for]="picker1"></mat-datepicker-toggle>
-                                        </div>
-                                        <input matInput [matDatepicker]="picker1"
-                                            class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                            placeholder="D/M/A" autocomplete="off">
-                                    </div>
-                                    <mat-datepicker #picker1></mat-datepicker>
-                                </div>
-                            </div> -->
