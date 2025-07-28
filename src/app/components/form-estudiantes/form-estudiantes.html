@@ -58,7 +58,7 @@
                                     bindValue="id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class=" w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     ¿Está embarazada?
                                     <span class="text-red-500">*</span></label>
@@ -67,19 +67,20 @@
                                     <mat-slide-toggle formControlName="Embarazo"></mat-slide-toggle>
                                     <span class="ml-3 text-gray-900 text-sm font-medium">Si</span>
                                 </label>
+
+                                <div class=" w-full min-w-[200px] mt-2 lg:mt-2 mb-0"
+                                    *ngIf="estudiantesForm.get('Embarazo')?.value">
+                                    <label class="block tracking-wide text-black font-bold mb-2">
+                                        Meses de embarazo
+                                        <span class="text-red-500">*</span>
+                                    </label>
+                                    <input formControlName="Meses_embarazo" autocomplete="off" type="number" min="1"
+                                        max="12"
+                                        class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                        placeholder="Meses de embarazo" />
+                                </div>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2"
-                                *ngIf="estudiantesForm.get('Embarazo')?.value">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Meses de embarazo
-                                    <span class="text-red-500">*</span>
-                                </label>
-                                <input formControlName="Meses_embarazo" autocomplete="off" type="number" min="1"
-                                    max="12"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="Meses de embarazo" />
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class=" w-full min-w-[200px] mt-0 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     ¿Tiene Hijos?
                                     <span class="text-red-500">*</span>
@@ -90,18 +91,20 @@
                                         color="primary"></mat-slide-toggle>
                                     <span class="ml-3 text-gray-900 text-sm font-medium">Sí</span>
                                 </label>
+
+                                <div class=" w-full min-w-[200px] mt-2 lg:mt-2"
+                                    *ngIf="estudiantesForm.get('Tiene_hijos')?.value">
+                                    <label class="block tracking-wide text-black font-bold mb-2">
+                                        N.° de hijos
+                                        <span class="text-red-500">*</span>
+                                    </label>
+                                    <input formControlName="Numero_hijos" autocomplete="off" type="number" min="1"
+                                        max="12"
+                                        class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                        placeholder="N.° de hijos" />
+                                </div>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2"
-                                *ngIf="estudiantesForm.get('Tiene_hijos')?.value">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    N.° de hijos
-                                    <span class="text-red-500">*</span>
-                                </label>
-                                <input formControlName="Numero_hijos" autocomplete="off" type="number" min="1" max="12"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="N.° de hijos" />
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class=" w-full min-w-[200px] mt-0 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     ¿Domina Idiomas?
                                     <span class="text-red-500">*</span></label>
@@ -110,17 +113,18 @@
                                     <mat-slide-toggle formControlName="Domina_idioma"></mat-slide-toggle>
                                     <span class="ml-3 text-gray-900 text-sm font-medium">Si</span>
                                 </label>
+
+                                <div class=" w-full min-w-[200px] mt-2 lg:mt-2"
+                                    *ngIf="estudiantesForm.get('Domina_idioma')?.value">
+                                    <label class="block tracking-wide text-black font-bold mb-2">
+                                        Dominio de idiomas
+                                        <span class="text-red-500">*</span></label>
+                                    <ng-select formControlName="Dominio_idioma" placeholder="Seleccione"
+                                        [items]="dimensionNacionalidad" appendTo="html" bindLabel="name" bindValue="id">
+                                    </ng-select>
+                                </div>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2"
-                                *ngIf="estudiantesForm.get('Domina_idioma')?.value">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Dominio de idiomas
-                                    <span class="text-red-500">*</span></label>
-                                <ng-select formControlName="Dominio_idioma" placeholder="Seleccione"
-                                    [items]="dimensionNacionalidad" appendTo="html" bindLabel="name" bindValue="id">
-                                </ng-select>
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class=" w-full min-w-[200px] mt-0 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     ¿Domina lenguas?
                                     <span class="text-red-500">*</span></label>
@@ -129,15 +133,15 @@
                                     <mat-slide-toggle formControlName="Domina_lenguas"></mat-slide-toggle>
                                     <span class="ml-3 text-gray-900 text-sm font-medium">Si</span>
                                 </label>
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2"
-                                *ngIf="estudiantesForm.get('Domina_lenguas')?.value">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Dominio de idiomas
-                                    <span class="text-red-500">*</span></label>
-                                <ng-select formControlName="Dominio_lengua" placeholder="Seleccione"
-                                    [items]="dimensionNacionalidad" appendTo="html" bindLabel="name" bindValue="id">
-                                </ng-select>
+                                <div class=" w-full min-w-[200px] mt-2 lg:mt-2"
+                                    *ngIf="estudiantesForm.get('Domina_lenguas')?.value">
+                                    <label class="block tracking-wide text-black font-bold mb-2">
+                                        Dominio de idiomas
+                                        <span class="text-red-500">*</span></label>
+                                    <ng-select formControlName="Dominio_lengua" placeholder="Seleccione"
+                                        [items]="dimensionNacionalidad" appendTo="html" bindLabel="name" bindValue="id">
+                                    </ng-select>
+                                </div>
                             </div>
                         </div>
                         <div class="flex flex-col mt-12 lg:mt-10">
@@ -235,7 +239,7 @@
                             <label class="block uppercase tracking-wide text-black font-bold mb-2">
                                 DIRECCIÓN DE RESIDENCIA
                                 <span class="text-red-500">*</span></label>
-                            <input  autocomplete="off" type="text"
+                            <input autocomplete="off" type="text"
                                 class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                 placeholder="DIRECCIÓN DE RESIDENCIA" />
                         </div>
@@ -251,152 +255,51 @@
                     </mat-step>
 
                     <mat-step label="SITUACIÓN LABORAL">
+                        <div class="h-10 w-full min-w-[200px] mt-6 lg:mt-6 text-lg lg:text-sm uppercase">
+                            <label class="block tracking-wide text-black font-bold mb-2">
+                                ¿Trabaja?</label>
+                            <label for="toggle-embarazo" class="flex items-center cursor-pointer">
+                                <span class="mr-3 text-gray-900 text-sm font-medium">No</span>
+                                <mat-slide-toggle formControlName="Trabaja"></mat-slide-toggle>
+                                <span class="ml-3 text-gray-900 text-sm font-medium">Si</span>
+                            </label>
+                        </div>
                         <div class="grid gap-8 lg:grid-cols-2 mt-6 lg:mt-6 text-lg lg:text-sm uppercase">
-                            <div class="h-10 w-full min-w-[200px]">
-                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    ¿Trabaja?
-                                    <span class="text-red-500">*</span></label>
-                                <label for="toggle-embarazo" class="flex items-center cursor-pointer">
-                                    <span class="mr-3 text-gray-900 text-sm font-medium">No</span>
-                                    <mat-slide-toggle formControlName="Trabaja"></mat-slide-toggle>
-                                    <span class="ml-3 text-gray-900 text-sm font-medium">Si</span>
-                                </label>
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-0">
+                            <div class="h-10 w-full min-w-[200px] mt-6 lg:mt-4"
+                                *ngIf="estudiantesForm.get('Trabaja')?.value">
                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    Comunidad de residencia
-                                    <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="people$ | async" appendTo="html"
-                                    bindLabel="name" bindValue="id">
-                                </ng-select>
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block  tracking-wide text-black font-bold mb-2">
-                                    Zona de residencia
-                                    <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="people$ | async" appendTo="html"
-                                    bindLabel="name" bindValue="id">
-                                </ng-select>
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block  tracking-wide text-black font-bold mb-2">
-                                    Estado Civil
-                                    <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="estadocivil" appendTo="html"
-                                    bindLabel="name" bindValue="id">
-                                </ng-select>
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block  tracking-wide text-black font-bold mb-2">
-                                    Tipo de conexión
-                                    <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="tipoconexion" appendTo="html"
-                                    bindLabel="name" bindValue="id">
-                                </ng-select>
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block  tracking-wide text-black font-bold mb-2">
                                     Ocupación
                                     <span class="text-red-500">*</span></label>
                                 <ng-select placeholder="Seleccione" [items]="people$ | async" appendTo="html"
                                     bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class="h-10 w-full min-w-[200px] mt-6 lg:mt-4"
+                                *ngIf="estudiantesForm.get('Trabaja')?.value">
                                 <label class="block  tracking-wide text-black font-bold mb-2">
-                                    Sector Ocupación
+                                    Sector de Ocupación
                                     <span class="text-red-500">*</span></label>
                                 <ng-select placeholder="Seleccione" [items]="people$ | async" appendTo="html"
                                     bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2"
+                                *ngIf="estudiantesForm.get('Trabaja')?.value">
                                 <label class="block  tracking-wide text-black font-bold mb-2">
                                     Entidad Laboral
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="people$ | async" appendTo="html"
+                                <ng-select placeholder="Seleccione" [items]="estadocivil" appendTo="html"
                                     bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2"
+                                *ngIf="estudiantesForm.get('Trabaja')?.value">
                                 <label class="block  tracking-wide text-black font-bold mb-2">
-                                    Empresa de Internet
-                                    <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="people$ | async" appendTo="html"
-                                    bindLabel="name" bindValue="id">
-                                </ng-select>
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    N.° de hijos
+                                    N.° de inss
                                     <span class="text-red-500">*</span></label>
                                 <input autocomplete="off"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="N.° de hijos" />
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Dirección de residencia
-                                    <span class="text-red-500">*</span></label>
-                                <input autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="Dirección de residencia" />
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Peso en libras
-                                    <span class="text-red-500">*</span></label>
-                                <input autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="Peso en libras" />
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Altura en cm
-                                    <span class="text-red-500">*</span></label>
-                                <input autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="Altura en cm" />
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Embarazo
-                                    <span class="text-red-500">*</span></label>
-                                <input autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="Embarazo" />
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Meses de embarazo
-                                    <span class="text-red-500">*</span></label>
-                                <input autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="Meses de embarazo" />
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Dominio lengua
-                                    <span class="text-red-500">*</span></label>
-                                <input autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="Dominio lengua" />
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Dominio idioma
-                                    <span class="text-red-500">*</span></label>
-                                <input autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="Dominio idioma" />
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Trabaja
-                                    <span class="text-red-500">*</span></label>
-                                <input autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="Trabaja" />
+                                    placeholder="N.° de inss" />
                             </div>
                         </div>
                         <div class="grid gap-6 lg:grid-cols-2 mt-14">
@@ -413,103 +316,216 @@
                         <div class="grid gap-8 lg:grid-cols-2 mt-6 lg:mt-6 text-lg lg:text-sm uppercase">
                             <div class="h-10 w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    Periodo Académico
+                                    Departamento que culminó
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="datos" appendTo="html" bindLabel="name"
-                                    bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="departamentos" appendTo="html"
+                                    bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-0">
                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    Oferta Académica
+                                    Municipio que culminó
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="people$ | async" appendTo="html"
-                                    bindLabel="name" bindValue="id">
-                                </ng-select>
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block  tracking-wide text-black font-bold mb-2">
-                                    Ingreso
-                                    <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="people$ | async" appendTo="html"
+                                <ng-select placeholder="Seleccione" [items]="departamentos" appendTo="html"
                                     bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    Motivo de traslado
+                                    Centro de secundaria
+                                    <span class="text-red-500">*</span></label>
+                                <ng-select placeholder="Seleccione" [items]="departamentos" appendTo="html"
+                                    bindLabel="name" bindValue="id">
+                                </ng-select>
+                            </div>
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    Año bachillerato
                                     <span class="text-red-500">*</span></label>
                                 <input autocomplete="off"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Motivo de traslado" />
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class="w-full min-w-[200px] mt-6 lg:mt-6 text-lg lg:text-sm uppercase">
                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    N.° de asignaturas según plan
-                                    <span class="text-red-500">*</span></label>
-                                <input autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="N.° de asignaturas según plan" />
+                                    ¿Tiene carrera técnica?</label>
+                                <label for="toggle-embarazo" class="flex items-center cursor-pointer">
+                                    <span class="mr-3 text-gray-900 text-sm font-medium">No</span>
+                                    <mat-slide-toggle formControlName="tiene_tecnica"></mat-slide-toggle>
+                                    <span class="ml-3 text-gray-900 text-sm font-medium">Si</span>
+                                </label>
+                                <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2"
+                                    *ngIf="estudiantesForm.get('tiene_tecnica')?.value">
+                                    <label class="block tracking-wide text-black font-bold mb-2">
+                                        Carrera Técnica
+                                        <span class="text-red-500">*</span></label>
+                                    <ng-select placeholder="Seleccione" [items]="departamentos" appendTo="html"
+                                        bindLabel="name" bindValue="id">
+                                    </ng-select>
+                                </div>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    N.° de asignaturas inscritas
+                                    Año que ingresó a la universidad
                                     <span class="text-red-500">*</span></label>
-                                <input autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="N.° de asignaturas inscritas" />
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    N.° de electivas
-                                    <span class="text-red-500">*</span></label>
-                                <input autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="N.° de electivas" />
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-6 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    N.° de asignaturas convalidadas
-                                    <span class="text-red-500">*</span></label>
-                                <input autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="N.° de asignaturas convalidadas" />
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    N.° de asignaturas aprobadas
-                                    <span class="text-red-500">*</span></label>
-                                <input autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="N.° de asignaturas aprobadas" />
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    N.° de asignaturas reprobadas
-                                    <span class="text-red-500">*</span></label>
-                                <input autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="N.° de asignaturas reprobadas" />
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Movilidad académica
-                                    <span class="text-red-500">*</span></label>
-                                <input autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="Movilidad académica" />
+                                <ng-select placeholder="Seleccione" [items]="anio_ingreso" appendTo="html"
+                                    bindLabel="name" bindValue="id">
+                                </ng-select>
                             </div>
                         </div>
-                        <div class="flex flex-col mt-12 lg:mt-10">
+                        <div class="grid gap-6 lg:grid-cols-2 mt-14">
                             <button
-                                class="uppercase cursor-pointer mt-4 w-full bg-[#1da2fc] hover:bg-[#009cd5] text-white py-4 lg:py-2 rounded-md transition duration-100"
-                                matStepperNext>Guardar</button>
+                                class="uppercase cursor-pointer w-full border border-green-500 hover:bg-[#5AB24B] text-green-500 hover:text-white py-4 lg:py-2 rounded-md transition duration-100"
+                                matStepperPrevious>Anterior</button>
+
+                            <button
+                                class="uppercase cursor-pointer w-full bg-[#1da2fc] hover:bg-[#009cd5] text-white py-4 lg:py-2 rounded-md transition duration-100"
+                                matStepperNext>Siguiente</button>
                         </div>
                     </mat-step>
                     <mat-step label="DISPOSITIVOS Y CONECTIVIDAD">
+                        <div class="grid gap-8 lg:grid-cols-2 mt-2 lg:mt-2 text-lg lg:text-sm uppercase">
+                            <div class="h-10 w-full min-w-[200px]">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    Dipositivo
+                                    <span class="text-red-500">*</span></label>
+                                <ng-select placeholder="Seleccione" [items]="dimensionNacionalidad" appendTo="html"
+                                    bindLabel="name" bindValue="id">
+                                </ng-select>
+                            </div>
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-0">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    tipo DE CONEXIÓN A INTERNET
+                                    <span class="text-red-500">*</span></label>
+                                <ng-select placeholder="Seleccione" [items]="dimensionNacionalidad" appendTo="html"
+                                    bindLabel="name" bindValue="id">
+                                </ng-select>
+                            </div>
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    Proveedor de internet
+                                    <span class="text-red-500">*</span></label>
+                                <ng-select placeholder="Seleccione" [items]="dimensionNacionalidad" appendTo="html"
+                                    bindLabel="name" bindValue="id">
+                                </ng-select>
+                            </div>
+                            <!-- <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    ¿Posee teléfono móvil?</label>
+                                <label for="toggle-embarazo" class="flex items-center cursor-pointer">
+                                    <span class="mr-3 text-gray-900 text-sm font-medium">No</span>
+                                    <mat-slide-toggle></mat-slide-toggle>
+                                    <span class="ml-3 text-gray-900 text-sm font-medium">Si</span>
+                                </label>
+                            </div> -->
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    COMPAÑÍA TELEFóNICA
+                                    <span class="text-red-500">*</span></label>
+                                <ng-select placeholder="Seleccione" [items]="dimensionNacionalidad" appendTo="html"
+                                    bindLabel="name" bindValue="id">
+                                </ng-select>
+                            </div>
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    Numero celular
+                                    <span class="text-red-500">*</span>
+                                </label>
+                                <input formControlName="Numero_hijos" autocomplete="off" type="number" min="1" max="12"
+                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    placeholder="Numero celular" />
+                            </div>
+                        </div>
+                        <div class="grid gap-6 lg:grid-cols-2 mt-14">
+                            <button
+                                class="uppercase cursor-pointer w-full border border-green-500 hover:bg-[#5AB24B] text-green-500 hover:text-white py-4 lg:py-2 rounded-md transition duration-100"
+                                matStepperPrevious>Anterior</button>
 
+                            <button
+                                class="uppercase cursor-pointer w-full bg-[#1da2fc] hover:bg-[#009cd5] text-white py-4 lg:py-2 rounded-md transition duration-100"
+                                matStepperNext>Siguiente</button>
+                        </div>
                     </mat-step>
-                    <mat-step label="ESTRUCTURA FAMILIAR"></mat-step>
+
+                    <mat-step label="ESTRUCTURA FAMILIAR">
+                        <div class="grid gap-8 lg:grid-cols-2 mt-2 lg:mt-2 text-lg lg:text-sm uppercase">
+                            <div class="h-10 w-full min-w-[200px]">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    Nombres del Tutor
+                                    <span class="text-red-500">*</span></label>
+                                    <input autocomplete="off" type="number" min="1" max="12"
+                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    placeholder="Nombres del Tutor" />
+                            </div>
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-0">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    Primer apellido del Tutor
+                                    <span class="text-red-500">*</span></label>
+                                    <input autocomplete="off" type="number" min="1" max="12"
+                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    placeholder="Primer apellido del Tutor" />
+                            </div>
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                                 <label class="block tracking-wide text-black font-bold mb-2">
+                                    Segundo apellido del Tutor
+                                    <span class="text-red-500">*</span></label>
+                                    <input autocomplete="off" type="number" min="1" max="12"
+                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    placeholder="Segundo apellido del Tutor" />
+                            </div>
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    Fecha de Nacimiento del Tutor
+                                    <span class="text-red-500">*</span></label>
+                                <div class="relative h-10 w-full">
+                                    <div class="relative h-10 w-full">
+                                        <div class="absolute top-0 right-1">
+                                            <mat-datepicker-toggle matIconSuffix
+                                                [for]="picker1"></mat-datepicker-toggle>
+                                        </div>
+                                        <input matInput [matDatepicker]="picker1"
+                                            class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                            placeholder="D/M/A" autocomplete="off">
+                                    </div>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                </div>
+                            </div>
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    Centro de trabajo del Tutor
+                                    <span class="text-red-500">*</span></label>
+                                <input formControlName="Numero_hijos" autocomplete="off" type="number" min="1" max="12"
+                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    placeholder="Numero celular" />
+                            </div>
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    Numero celular
+                                    <span class="text-red-500">*</span>
+                                </label>
+                                <input formControlName="Numero_hijos" autocomplete="off" type="number" min="1" max="12"
+                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    placeholder="Numero celular" />
+                            </div>
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    Centro de trabajo del Tutor
+                                    <span class="text-red-500">*</span></label>
+                                <input formControlName="Numero_hijos" autocomplete="off" type="number" min="1" max="12"
+                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    placeholder="Numero celular" />
+                            </div>
+                        </div>
+                        <div class="grid gap-6 lg:grid-cols-2 mt-14">
+                            <button
+                                class="uppercase cursor-pointer w-full border border-green-500 hover:bg-[#5AB24B] text-green-500 hover:text-white py-4 lg:py-2 rounded-md transition duration-100"
+                                matStepperPrevious>Anterior</button>
+
+                            <button
+                                class="uppercase cursor-pointer w-full bg-[#1da2fc] hover:bg-[#009cd5] text-white py-4 lg:py-2 rounded-md transition duration-100"
+                                matStepperNext>Siguiente</button>
+                        </div>
+                    </mat-step>
                     <mat-step label="INSCRIPCIÓN DE ASIGNATURA"></mat-step>
 
                 </form>

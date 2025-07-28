@@ -26,6 +26,7 @@ import { OPCIONES_CLASIFICO } from '../../services/data/opcionclasifico';
 import { ESTADO_CIVIL } from '../../services/data/estadocivil';
 import { TIPO_CONEXION } from '../../services/data/tipoconexion';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { ANIO_INGRESO } from '../../services/data/anio_ingreso';
 
 @Component({
   selector: 'app-form-estudiantes',
@@ -56,6 +57,7 @@ export default class FormEstudiantes {
    opcionclasifico = OPCIONES_CLASIFICO
    estadocivil = ESTADO_CIVIL
    tipoconexion = TIPO_CONEXION
+   anio_ingreso = ANIO_INGRESO;
 
   people$!: Observable<Person[]>;
 	selectedPersonId = '5a15b13c36e7a7f00cf0d7cb';
@@ -76,9 +78,10 @@ export default class FormEstudiantes {
       Codigo_Persona: new FormControl('', [Validators.required]),
       Anio_bachillerato: new FormControl('', [Validators.required]),
       // pendiente
+      tiene_tecnica: new FormControl(false),
       Carrera_tecnica: new FormControl('', [Validators.required]),
       Numero_identidad: new FormControl('', [Validators.required]),
-      Fecha_nacimiento: new FormControl('', [Validators.required]),
+      // Fecha_nacimiento: new FormControl('', [Validators.required]),
       FNota_promedio_ingreso: new FormControl('', [Validators.required]),
       Nota_final_ingreso: new FormControl('', [Validators.required]),
       Anio_ingreso_carrera: new FormControl('', [Validators.required]),
@@ -108,8 +111,8 @@ export default class FormEstudiantes {
       Id_zona_residencia: new FormControl(null,[Validators.required]),
       Id_estado_civil: new FormControl(null,[Validators.required]),
       Id_tipo_conexion: new FormControl(null,[Validators.required]),
-      Id_ocupacion: new FormControl(null,[Validators.required]),
-      Id_sector_ocupacion: new FormControl(null,[Validators.required]),
+      // Id_ocupacion: new FormControl(null,[Validators.required]),
+      // Id_sector_ocupacion: new FormControl(null,[Validators.required]),
       Id_entidad_laboral: new FormControl(null,[Validators.required]),
       Id_empesa_internet: new FormControl(null,[Validators.required]),
       Tiene_hijos: new FormControl(false),
@@ -138,11 +141,24 @@ export default class FormEstudiantes {
       Numero_asignaturas_aprovadas: new FormControl(null,[Validators.required]),
       Numero_asignaturas_reprobadas: new FormControl(null,[Validators.required]),
       Movilidad_academica: new FormControl(null,[Validators.required]),
+
+      // ESTRUCTURA FAMILIAR STEPPER 6
+      Id_tipo_parentesco: new FormControl(null,[Validators.required]),
+      Id_ocupacion: new FormControl(null,[Validators.required]),
+      Id_sector_ocupacion: new FormControl(null,[Validators.required]),
+      NombresTutor: new FormControl('',[Validators.required]),
+      Apellidos1tutor: new FormControl('',[Validators.required]),
+      Apellidos2tutor: new FormControl('',[Validators.required]),
+      Centro_trabajo: new FormControl('',[Validators.required]),
+      Fecha_nacimientoTutor: new FormControl('',[Validators.required]),
+      TrabajaTutor: new FormControl('',[Validators.required]),
+      Depende_economicamente: new FormControl('',[Validators.required]),
+      Ingreso_mensual: new FormControl('',[Validators.required]),
+      // -----------------------------------------------------------
     });
   }
   ngOnInit() {
     this.people$ = this.dataService.getPeople();
-   
   }
 
   datos = [
