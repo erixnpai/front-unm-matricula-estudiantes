@@ -25,10 +25,11 @@ import { ZONAS_PROCEDENCIA } from '../../services/data/zonaprocedencia';
 import { OPCIONES_CLASIFICO } from '../../services/data/opcionclasifico';
 import { ESTADO_CIVIL } from '../../services/data/estadocivil';
 import { TIPO_CONEXION } from '../../services/data/tipoconexion';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-form-estudiantes',
-  imports: [MatStepperModule, FormsModule, ReactiveFormsModule, CommonModule, MatInputModule, MatDatepickerModule, NgSelectModule, MatFormFieldModule, MatInputModule],
+  imports: [MatStepperModule, MatSlideToggleModule, FormsModule, ReactiveFormsModule, CommonModule, MatInputModule, MatDatepickerModule, NgSelectModule, MatFormFieldModule, MatInputModule],
   templateUrl: './form-estudiantes.html',
   styleUrl: './form-estudiantes.css',
   providers: [
@@ -111,14 +112,18 @@ export default class FormEstudiantes {
       Id_sector_ocupacion: new FormControl(null,[Validators.required]),
       Id_entidad_laboral: new FormControl(null,[Validators.required]),
       Id_empesa_internet: new FormControl(null,[Validators.required]),
+      Tiene_hijos: new FormControl(false),
       Numero_hijos: new FormControl(null,[Validators.required]),
       Direccion_residencia: new FormControl('', [Validators.required]),
       Peso_libras: new FormControl('', [Validators.required]),
       Altura_cm: new FormControl('', [Validators.required]),
       Embarazo: new FormControl('', [Validators.required]),
       Meses_embarazo: new FormControl('', [Validators.required]),
-      Dominio_lengua: new FormControl('', [Validators.required]),
-      Dominio_idioma: new FormControl('', [Validators.required]),
+      Domina_lenguas: new FormControl(false),
+      Dominio_lengua: new FormControl(null, [Validators.required]),
+      Domina_idioma: new FormControl(false),
+      Dominio_idioma: new FormControl(null, [Validators.required]),
+      // PregTrabaja: new FormControl(false),
       Trabaja: new FormControl('', [Validators.required]),
 
       // Stepper 4

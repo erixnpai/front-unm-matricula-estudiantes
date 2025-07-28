@@ -5,94 +5,139 @@
     </div>
     <div class="flex flex-col items-center justify-center">
 
-        <div class="bg-white rounded z-50 w-full mt-0 lg:mt-2 xl:mt-2 lg:w-1/2 xl:w-5/12 px-4 shadow-lg">
+        <div class="bg-white rounded z-50 w-full mt-0 lg:mt-2 xl:mt-2 lg:full xl:w-5/6 px-4 shadow-lg">
             <mat-stepper linear #stepper [orientation]="(stepperOrientation | async)!">
                 <form [formGroup]="estudiantesForm" class="flex flex-col min-w-full space-y-8 mt-0 relative">
-                    <mat-step label="DATOS">
+                    <mat-step label="DATOS PERSONALES">
                         <div class="grid gap-8 lg:grid-cols-2 mt-2 lg:mt-2 text-lg lg:text-sm uppercase">
                             <div class="h-10 w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    Nombres
-                                    <span class="text-red-500">*</span>
-                                </label>
-                                <input formControlName="Nombres" autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    type="" placeholder="Nombres">
+                                    Estado Civil
+                                    <span class="text-red-500">*</span></label>
+                                <ng-select placeholder="Seleccione" [items]="dimensionNacionalidad" appendTo="html"
+                                    bindLabel="name" bindValue="id">
+                                </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-0">
                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    Primer Apellido
+                                    Tipo de Sangre
+                                    <span class="text-red-500">*</span></label>
+                                <ng-select placeholder="Seleccione" [items]="dimensionNacionalidad" appendTo="html"
+                                    bindLabel="name" bindValue="id">
+                                </ng-select>
+                            </div>
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    Peso en libras
+                                    <span class="text-red-500">*</span></label>
+                                <input autocomplete="off"
+                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    type="" placeholder="Peso libras">
+                            </div>
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    Altura en centímetros
+                                    <span class="text-red-500">*</span></label>
+                                <input autocomplete="off"
+                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    type="" placeholder="Altura en centímetros">
+                            </div>
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    Código Mined
+                                    <span class="text-red-500">*</span></label>
+                                <input autocomplete="off"
+                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    type="" placeholder="Código Mined">
+                            </div>
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    Etnia
+                                    <span class="text-red-500">*</span></label>
+                                <ng-select placeholder="Seleccione" [items]="etnias" appendTo="html" bindLabel="name"
+                                    bindValue="id">
+                                </ng-select>
+                            </div>
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    ¿Está embarazada?
+                                    <span class="text-red-500">*</span></label>
+                                <label for="toggle-embarazo" class="flex items-center cursor-pointer">
+                                    <span class="mr-3 text-gray-900 text-sm font-medium">No</span>
+                                    <mat-slide-toggle formControlName="Embarazo"></mat-slide-toggle>
+                                    <span class="ml-3 text-gray-900 text-sm font-medium">Si</span>
+                                </label>
+                            </div>
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2"
+                                *ngIf="estudiantesForm.get('Embarazo')?.value">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    Meses de embarazo
                                     <span class="text-red-500">*</span>
                                 </label>
-                                <input formControlName="Apellidos1" autocomplete="off"
+                                <input formControlName="Meses_embarazo" autocomplete="off" type="number" min="1"
+                                    max="12"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    type="" placeholder="Primer Apellido">
+                                    placeholder="Meses de embarazo" />
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    Segundo Apellido
-                                    <span class="text-red-500">*</span></label>
-                                <input formControlName="Apellido2" autocomplete="off"
+                                    ¿Tiene Hijos?
+                                    <span class="text-red-500">*</span>
+                                </label>
+                                <label for="toggle-hijos" class="flex items-center cursor-pointer">
+                                    <span class="mr-3 text-gray-900 text-sm font-medium">No</span>
+                                    <mat-slide-toggle formControlName="Tiene_hijos" id="toggle-hijos"
+                                        color="primary"></mat-slide-toggle>
+                                    <span class="ml-3 text-gray-900 text-sm font-medium">Sí</span>
+                                </label>
+                            </div>
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2"
+                                *ngIf="estudiantesForm.get('Tiene_hijos')?.value">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    N.° de hijos
+                                    <span class="text-red-500">*</span>
+                                </label>
+                                <input formControlName="Numero_hijos" autocomplete="off" type="number" min="1" max="12"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    type="" placeholder="Segundo Apellido">
+                                    placeholder="N.° de hijos" />
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    Codigo MINED
+                                    ¿Domina Idiomas?
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Codigo_MINED" autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    type="" placeholder="Codigo MINED">
+                                <label for="toggle-embarazo" class="flex items-center cursor-pointer">
+                                    <span class="mr-3 text-gray-900 text-sm font-medium">No</span>
+                                    <mat-slide-toggle formControlName="Domina_idioma"></mat-slide-toggle>
+                                    <span class="ml-3 text-gray-900 text-sm font-medium">Si</span>
+                                </label>
+                            </div>
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2"
+                                *ngIf="estudiantesForm.get('Domina_idioma')?.value">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    Dominio de idiomas
+                                    <span class="text-red-500">*</span></label>
+                                <ng-select formControlName="Dominio_idioma" placeholder="Seleccione"
+                                    [items]="dimensionNacionalidad" appendTo="html" bindLabel="name" bindValue="id">
+                                </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    Año Bachillerato
+                                    ¿Domina lenguas?
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Anio_bachillerato" autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    type="" placeholder="Año Bachillerato">
+                                <label for="toggle-embarazo" class="flex items-center cursor-pointer">
+                                    <span class="mr-3 text-gray-900 text-sm font-medium">No</span>
+                                    <mat-slide-toggle formControlName="Domina_lenguas"></mat-slide-toggle>
+                                    <span class="ml-3 text-gray-900 text-sm font-medium">Si</span>
+                                </label>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2"
+                                *ngIf="estudiantesForm.get('Domina_lenguas')?.value">
                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    Carrera Técnica
+                                    Dominio de idiomas
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Carrera_tecnica" autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    type="" placeholder="Carrera Técnica">
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Cédula de Identidad
-                                    <span class="text-red-500">*</span></label>
-                                <input formControlName="Numero_identidad" autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    type="" placeholder="Cédula de Identidad">
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Fecha de Nacimiento
-                                    <span class="text-red-500">*</span></label>
-                                <div class="relative h-10 w-full">
-                                    <div class="relative h-10 w-full">
-                                        <div class="absolute top-0 right-1">
-                                            <mat-datepicker-toggle matIconSuffix
-                                                [for]="picker1"></mat-datepicker-toggle>
-                                        </div>
-                                        <input matInput [matDatepicker]="picker1" formControlName="Fecha_nacimiento"
-                                            class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                            placeholder="D/M/A" autocomplete="off">
-                                    </div>
-                                    <mat-datepicker #picker1></mat-datepicker>
-                                </div>
-                            </div>
-                            
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Año que ingresó
-                                    <span class="text-red-500">*</span></label>
-                                <input formControlName="Anio_ingreso_carrera" autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="Año que ingresó" />
+                                <ng-select formControlName="Dominio_lengua" placeholder="Seleccione"
+                                    [items]="dimensionNacionalidad" appendTo="html" bindLabel="name" bindValue="id">
+                                </ng-select>
                             </div>
                         </div>
                         <div class="flex flex-col mt-12 lg:mt-10">
@@ -102,112 +147,97 @@
                         </div>
                     </mat-step>
 
-                    <mat-step label="DATOS PERSONALES">
+                    <mat-step label="ORIGEN Y RESIDENCIAS">
                         <div class="grid gap-8 lg:grid-cols-2 mt-6 lg:mt-2 text-lg lg:text-sm uppercase">
                             <div class="h-10 w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Nacionalidad
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_dimension_nacionalidad"
-                                    [items]="dimensionNacionalidad" appendTo="html" bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="dimensionNacionalidad" appendTo="html"
+                                    bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-0">
                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    País
+                                    País de origen
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_pais_origen"
-                                    [items]="paises" appendTo="html" bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="paises" appendTo="html" bindLabel="name"
+                                    bindValue="id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    Departamento
+                                    Departamento de origen
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_departamento_origen"
-                                    [items]="departamentos" appendTo="html" bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="departamentos" appendTo="html"
+                                    bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    Municipio
+                                    Municipio de origen
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_municipio_origen"
-                                    [items]="municipio" appendTo="html" bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="municipio" appendTo="html" bindLabel="name"
+                                    bindValue="id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    Comunidad
+                                    Zona de origen
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_comunidad_origen"
-                                    [items]="people$ | async" appendTo="html" bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="municipio" appendTo="html" bindLabel="name"
+                                    bindValue="id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    Sexo
+                                    Comunidad de origen
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_sexo" [items]="sexo"
-                                    appendTo="html" bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="people$ | async" appendTo="html"
+                                    bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    Etnia
+                                    Departamento de residencia
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_etnia" [items]="etnias"
-                                    appendTo="html" bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="departamentos" appendTo="html"
+                                    bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    Tipo de sangre
+                                    Municipio de residencia
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_tipo_sangre"
-                                    [items]="tiposangre" appendTo="html" bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="municipio" appendTo="html" bindLabel="name"
+                                    bindValue="id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    Tipo de Identidad
+                                    Zona de residencia
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_tipo_identidad"
-                                    [items]="tipoidentidad" appendTo="html" bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="municipio" appendTo="html" bindLabel="name"
+                                    bindValue="id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    zona de procedencia
+                                    Comunidad de residencia
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_zona_procedencia"
-                                    [items]="procedencia" appendTo="html" bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="people$ | async" appendTo="html"
+                                    bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Carrera técnica
-                                    <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_carrera_tecnica"
-                                    [items]="carrerastecnica" appendTo="html" bindLabel="name" bindValue="id">
-                                </ng-select>
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block  tracking-wide text-black font-bold mb-2">
-                                    Opción que clasificó
-                                    <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_opcion_clasifico"
-                                    [items]="opcionclasifico" appendTo="html" bindLabel="name" bindValue="id">
-                                </ng-select>
-                            </div>
+
                         </div>
                         <div class="h-10 w-full min-w-[200px] text-lg lg:text-sm mt-14 lg:mt-10">
                             <label class="block uppercase tracking-wide text-black font-bold mb-2">
-                                Centro de secundaria
+                                DIRECCIÓN DE RESIDENCIA
                                 <span class="text-red-500">*</span></label>
-                            <ng-select placeholder="Seleccione" formControlName="Id_centro_secundaria"
-                                [items]="people$ | async" appendTo="html" bindLabel="name" bindValue="id">
-                            </ng-select>
+                            <input  autocomplete="off" type="text"
+                                class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                placeholder="DIRECCIÓN DE RESIDENCIA" />
                         </div>
                         <div class="grid gap-6 lg:grid-cols-2 mt-14">
                             <button
@@ -219,85 +249,88 @@
                                 matStepperNext>Siguiente</button>
                         </div>
                     </mat-step>
-                    <mat-step label="DATOS ADICIONALES">
+
+                    <mat-step label="SITUACIÓN LABORAL">
                         <div class="grid gap-8 lg:grid-cols-2 mt-6 lg:mt-6 text-lg lg:text-sm uppercase">
                             <div class="h-10 w-full min-w-[200px]">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Municipio de residencia
+                                 <label class="block tracking-wide text-black font-bold mb-2">
+                                    ¿Trabaja?
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_municipio_residencia"
-                                    [items]="people$ | async" appendTo="html" bindLabel="name" bindValue="id">
-                                </ng-select>
+                                <label for="toggle-embarazo" class="flex items-center cursor-pointer">
+                                    <span class="mr-3 text-gray-900 text-sm font-medium">No</span>
+                                    <mat-slide-toggle formControlName="Trabaja"></mat-slide-toggle>
+                                    <span class="ml-3 text-gray-900 text-sm font-medium">Si</span>
+                                </label>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-0">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Comunidad de residencia
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_comunidad_residencia"
-                                    [items]="people$ | async" appendTo="html" bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="people$ | async" appendTo="html"
+                                    bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block  tracking-wide text-black font-bold mb-2">
                                     Zona de residencia
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_zona_residencia"
-                                    [items]="people$ | async" appendTo="html" bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="people$ | async" appendTo="html"
+                                    bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block  tracking-wide text-black font-bold mb-2">
                                     Estado Civil
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_estado_civil"
-                                    [items]="estadocivil" appendTo="html" bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="estadocivil" appendTo="html"
+                                    bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block  tracking-wide text-black font-bold mb-2">
                                     Tipo de conexión
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_tipo_conexion"
-                                    [items]="tipoconexion" appendTo="html" bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="tipoconexion" appendTo="html"
+                                    bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block  tracking-wide text-black font-bold mb-2">
                                     Ocupación
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_ocupacion"
-                                    [items]="people$ | async" appendTo="html" bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="people$ | async" appendTo="html"
+                                    bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block  tracking-wide text-black font-bold mb-2">
                                     Sector Ocupación
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_sector_ocupacion"
-                                    [items]="people$ | async" appendTo="html" bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="people$ | async" appendTo="html"
+                                    bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block  tracking-wide text-black font-bold mb-2">
                                     Entidad Laboral
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_entidad_laboral"
-                                    [items]="people$ | async" appendTo="html" bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="people$ | async" appendTo="html"
+                                    bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block  tracking-wide text-black font-bold mb-2">
                                     Empresa de Internet
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_empesa_internet"
-                                    [items]="people$ | async" appendTo="html" bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="people$ | async" appendTo="html"
+                                    bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     N.° de hijos
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Numero_hijos" autocomplete="off"
+                                <input autocomplete="off"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="N.° de hijos" />
                             </div>
@@ -305,7 +338,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Dirección de residencia
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Direccion_residencia" autocomplete="off"
+                                <input autocomplete="off"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Dirección de residencia" />
                             </div>
@@ -313,7 +346,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Peso en libras
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Peso_libras" autocomplete="off"
+                                <input autocomplete="off"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Peso en libras" />
                             </div>
@@ -321,7 +354,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Altura en cm
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Altura_cm" autocomplete="off"
+                                <input autocomplete="off"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Altura en cm" />
                             </div>
@@ -329,7 +362,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Embarazo
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Embarazo" autocomplete="off"
+                                <input autocomplete="off"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Embarazo" />
                             </div>
@@ -337,7 +370,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Meses de embarazo
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Meses_embarazo" autocomplete="off"
+                                <input autocomplete="off"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Meses de embarazo" />
                             </div>
@@ -345,7 +378,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Dominio lengua
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Dominio_lengua" autocomplete="off"
+                                <input autocomplete="off"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Dominio lengua" />
                             </div>
@@ -353,7 +386,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Dominio idioma
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Dominio_idioma" autocomplete="off"
+                                <input autocomplete="off"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Dominio idioma" />
                             </div>
@@ -361,7 +394,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Trabaja
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Trabaja" autocomplete="off"
+                                <input autocomplete="off"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Trabaja" />
                             </div>
@@ -376,37 +409,37 @@
                                 matStepperNext>Siguiente</button>
                         </div>
                     </mat-step>
-                    <mat-step label="DATOS ADICIONALES DOS">
+                    <mat-step label="FORMACIÓN ACADEMICA">
                         <div class="grid gap-8 lg:grid-cols-2 mt-6 lg:mt-6 text-lg lg:text-sm uppercase">
                             <div class="h-10 w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Periodo Académico
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_periodo" [items]="datos"
-                                    appendTo="html" bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="datos" appendTo="html" bindLabel="name"
+                                    bindValue="id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-0">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Oferta Académica
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_oferta"
-                                    [items]="people$ | async" appendTo="html" bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="people$ | async" appendTo="html"
+                                    bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block  tracking-wide text-black font-bold mb-2">
                                     Ingreso
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_ingreso"
-                                    [items]="people$ | async" appendTo="html" bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="people$ | async" appendTo="html"
+                                    bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Motivo de traslado
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Motivo_traslado" autocomplete="off"
+                                <input autocomplete="off"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Motivo de traslado" />
                             </div>
@@ -414,7 +447,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     N.° de asignaturas según plan
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Numero_asignaturas_segun_plan" autocomplete="off"
+                                <input autocomplete="off"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="N.° de asignaturas según plan" />
                             </div>
@@ -422,7 +455,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     N.° de asignaturas inscritas
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Numero_asignaturas_inscritas" autocomplete="off"
+                                <input autocomplete="off"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="N.° de asignaturas inscritas" />
                             </div>
@@ -430,7 +463,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     N.° de electivas
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Numero_asignaturas_inscritas_mas1" autocomplete="off"
+                                <input autocomplete="off"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="N.° de electivas" />
                             </div>
@@ -438,7 +471,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     N.° de asignaturas convalidadas
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Numero_asignaturas_convalidadas" autocomplete="off"
+                                <input autocomplete="off"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="N.° de asignaturas convalidadas" />
                             </div>
@@ -446,7 +479,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     N.° de asignaturas aprobadas
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Numero_asignaturas_aprovadas" autocomplete="off"
+                                <input autocomplete="off"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="N.° de asignaturas aprobadas" />
                             </div>
@@ -454,7 +487,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     N.° de asignaturas reprobadas
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Numero_asignaturas_reprobadas" autocomplete="off"
+                                <input autocomplete="off"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="N.° de asignaturas reprobadas" />
                             </div>
@@ -462,7 +495,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Movilidad académica
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Movilidad_academica" autocomplete="off"
+                                <input autocomplete="off"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Movilidad académica" />
                             </div>
@@ -473,6 +506,12 @@
                                 matStepperNext>Guardar</button>
                         </div>
                     </mat-step>
+                    <mat-step label="DISPOSITIVOS Y CONECTIVIDAD">
+
+                    </mat-step>
+                    <mat-step label="ESTRUCTURA FAMILIAR"></mat-step>
+                    <mat-step label="INSCRIPCIÓN DE ASIGNATURA"></mat-step>
+
                 </form>
             </mat-stepper>
         </div>
@@ -482,3 +521,21 @@
     </footer>
 
 </section>
+
+<!-- <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    Fecha de Nacimiento
+                                    <span class="text-red-500">*</span></label>
+                                <div class="relative h-10 w-full">
+                                    <div class="relative h-10 w-full">
+                                        <div class="absolute top-0 right-1">
+                                            <mat-datepicker-toggle matIconSuffix
+                                                [for]="picker1"></mat-datepicker-toggle>
+                                        </div>
+                                        <input matInput [matDatepicker]="picker1"
+                                            class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                            placeholder="D/M/A" autocomplete="off">
+                                    </div>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                </div>
+                            </div> -->
