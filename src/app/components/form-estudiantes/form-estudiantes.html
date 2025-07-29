@@ -14,16 +14,16 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Estado Civil
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="dimensionNacionalidad" appendTo="html"
-                                    bindLabel="name" bindValue="id">
+                                <ng-select formControlName="Id_estado_civil" placeholder="Seleccione" [items]="listestadocivil()" appendTo="html"
+                                    bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-0">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Tipo de Sangre
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="dimensionNacionalidad" appendTo="html"
-                                    bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="tiposangre()" appendTo="html"
+                                    bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
@@ -54,8 +54,8 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Etnia
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="etnias" appendTo="html" bindLabel="name"
-                                    bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="listetnias()" appendTo="html" bindLabel="Nombre"
+                                    bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class=" w-full min-w-[200px] mt-4 lg:mt-2">
@@ -120,7 +120,16 @@
                                         Dominio de idiomas
                                         <span class="text-red-500">*</span></label>
                                     <ng-select formControlName="Dominio_idioma" placeholder="Seleccione"
-                                        [items]="dimensionNacionalidad" appendTo="html" bindLabel="name" bindValue="id">
+                                        [items]="" appendTo="html" bindLabel="name" bindValue="id">
+                                    </ng-select>
+                                </div>
+                                <div class=" w-full min-w-[200px] mt-2 lg:mt-2"
+                                    *ngIf="estudiantesForm.get('Domina_idioma')?.value">
+                                    <label class="block tracking-wide text-black font-bold mb-2">
+                                        Nivel alcanzado
+                                        <span class="text-red-500">*</span></label>
+                                    <ng-select formControlName="Dominio_idioma" placeholder="Seleccione"
+                                        [items]="" appendTo="html" bindLabel="name" bindValue="id">
                                     </ng-select>
                                 </div>
                             </div>
@@ -136,10 +145,19 @@
                                 <div class=" w-full min-w-[200px] mt-2 lg:mt-2"
                                     *ngIf="estudiantesForm.get('Domina_lenguas')?.value">
                                     <label class="block tracking-wide text-black font-bold mb-2">
-                                        Dominio de idiomas
+                                        Dominio de lenguas
                                         <span class="text-red-500">*</span></label>
                                     <ng-select formControlName="Dominio_lengua" placeholder="Seleccione"
-                                        [items]="dimensionNacionalidad" appendTo="html" bindLabel="name" bindValue="id">
+                                        [items]="" appendTo="html" bindLabel="name" bindValue="id">
+                                    </ng-select>
+                                </div>
+                                <div class=" w-full min-w-[200px] mt-2 lg:mt-2"
+                                    *ngIf="estudiantesForm.get('Domina_lenguas')?.value">
+                                    <label class="block tracking-wide text-black font-bold mb-2">
+                                        Nivel alcanzado
+                                        <span class="text-red-500">*</span></label>
+                                    <ng-select formControlName="Dominio_lengua" placeholder="Seleccione"
+                                        [items]="" appendTo="html" bindLabel="name" bindValue="id">
                                     </ng-select>
                                 </div>
                             </div>
@@ -157,47 +175,47 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Nacionalidad
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="dimensionNacionalidad" appendTo="html"
-                                    bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="dimensionNacionalidad()" appendTo="html"
+                                    bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-0">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     País de origen
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="paises" appendTo="html" bindLabel="name"
-                                    bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="listpais()" appendTo="html" bindLabel="Nombre"
+                                    bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Departamento de origen
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="departamentos" appendTo="html"
-                                    bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" formControlName="Id_departamento_origen" [items]="listdepartamentos()" (change)="getMunicipiosByDepartamento()" appendTo="html"
+                                    bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Municipio de origen
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="municipio" appendTo="html" bindLabel="name"
-                                    bindValue="id">
+                                <ng-select formControlName="Id_municipio_origen" placeholder="Seleccione" [items]="listmunicipio()" appendTo="html" bindLabel="Nombre"
+                                    bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Zona de origen
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="municipio" appendTo="html" bindLabel="name"
-                                    bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="listzona()" appendTo="html" bindLabel="Nombre"
+                                    bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Comunidad de origen
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="people$ | async" appendTo="html"
+                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
                                     bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
@@ -205,7 +223,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Departamento de residencia
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="departamentos" appendTo="html"
+                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
                                     bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
@@ -213,7 +231,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Municipio de residencia
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="municipio" appendTo="html" bindLabel="name"
+                                <ng-select placeholder="Seleccione" [items]="" appendTo="html" bindLabel="name"
                                     bindValue="id">
                                 </ng-select>
                             </div>
@@ -221,7 +239,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Zona de residencia
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="municipio" appendTo="html" bindLabel="name"
+                                <ng-select placeholder="Seleccione" [items]="" appendTo="html" bindLabel="name"
                                     bindValue="id">
                                 </ng-select>
                             </div>
@@ -229,7 +247,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Comunidad de residencia
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="people$ | async" appendTo="html"
+                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
                                     bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
@@ -270,7 +288,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Ocupación
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="people$ | async" appendTo="html"
+                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
                                     bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
@@ -279,7 +297,7 @@
                                 <label class="block  tracking-wide text-black font-bold mb-2">
                                     Sector de Ocupación
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="people$ | async" appendTo="html"
+                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
                                     bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
@@ -288,7 +306,7 @@
                                 <label class="block  tracking-wide text-black font-bold mb-2">
                                     Entidad Laboral
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="estadocivil" appendTo="html"
+                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
                                     bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
@@ -318,7 +336,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Departamento que culminó
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="departamentos" appendTo="html"
+                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
                                     bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
@@ -326,7 +344,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Municipio que culminó
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="departamentos" appendTo="html"
+                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
                                     bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
@@ -334,7 +352,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Centro de secundaria
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="departamentos" appendTo="html"
+                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
                                     bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
@@ -359,7 +377,7 @@
                                     <label class="block tracking-wide text-black font-bold mb-2">
                                         Carrera Técnica
                                         <span class="text-red-500">*</span></label>
-                                    <ng-select placeholder="Seleccione" [items]="departamentos" appendTo="html"
+                                    <ng-select placeholder="Seleccione" [items]="" appendTo="html"
                                         bindLabel="name" bindValue="id">
                                     </ng-select>
                                 </div>
@@ -368,7 +386,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Año que ingresó a la universidad
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="anio_ingreso" appendTo="html"
+                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
                                     bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
@@ -389,7 +407,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Dipositivo
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="dimensionNacionalidad" appendTo="html"
+                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
                                     bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
@@ -397,7 +415,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     tipo DE CONEXIÓN A INTERNET
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="dimensionNacionalidad" appendTo="html"
+                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
                                     bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
@@ -405,7 +423,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Proveedor de internet
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="dimensionNacionalidad" appendTo="html"
+                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
                                     bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
@@ -422,7 +440,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     COMPAÑÍA TELEFóNICA
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="dimensionNacionalidad" appendTo="html"
+                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
                                     bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
@@ -447,13 +465,13 @@
                         </div>
                     </mat-step>
 
-                    <mat-step label="ESTRUCTURA FAMILIAR">
+                    <mat-step label="DATOS FAMILIAR">
                         <div class="grid gap-8 lg:grid-cols-2 mt-2 lg:mt-2 text-lg lg:text-sm uppercase">
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Tipo de parentesco
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="dimensionNacionalidad" appendTo="html"
+                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
                                     bindLabel="name" bindValue="id">
                                 </ng-select>
                             </div>
@@ -534,8 +552,6 @@
                                 matStepperNext>Siguiente</button>
                         </div>
                     </mat-step>
-                    <mat-step label="INSCRIPCIÓN DE ASIGNATURA"></mat-step>
-
                 </form>
             </mat-stepper>
         </div>

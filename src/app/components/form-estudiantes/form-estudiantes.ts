@@ -1,38 +1,43 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators, } from '@angular/forms';
+import { Component, inject, signal, ViewChild } from '@angular/core';
 import {
-  StepperOrientation, MatStepperModule, MatStepper,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import {
+  StepperOrientation,
+  MatStepperModule,
+  MatStepper,
 } from '@angular/material/stepper';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
-import { provideNativeDateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
+import {
+  provideNativeDateAdapter,
+  MAT_DATE_LOCALE,
+} from '@angular/material/core';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { Data, Person } from '../../services/data/data';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { PAISES } from '../../services/data/paises';
-import { CARERRASTECNICA } from '../../services/data/carrerratecnica';
-import { DIMENSIONNACIONALIDAD } from '../../services/data/dimensionnacionalidad';
-import { DEPARTAMENTOS } from '../../services/data/departamentos';
-import { MUNICIPIOS } from '../../services/data/municipios';
-import { SEXO } from '../../services/data/sexo';
-import { ETNIAS } from '../../services/data/etnias';
-import { TIPOS_SANGRE } from '../../services/data/tiposangre';
-import { TIPOS_IDENTIDAD } from '../../services/data/tipoidentidad';
-import { ZONAS_PROCEDENCIA } from '../../services/data/zonaprocedencia';
-import { OPCIONES_CLASIFICO } from '../../services/data/opcionclasifico';
-import { ESTADO_CIVIL } from '../../services/data/estadocivil';
-import { TIPO_CONEXION } from '../../services/data/tipoconexion';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { ANIO_INGRESO } from '../../services/data/anio_ingreso';
 import { CatalogosService } from '../../services/matricula/catalogos/catalogos';
 
 @Component({
   selector: 'app-form-estudiantes',
-  imports: [MatStepperModule, MatSlideToggleModule, FormsModule, ReactiveFormsModule, CommonModule, MatInputModule, MatDatepickerModule, NgSelectModule, MatFormFieldModule, MatInputModule],
+  imports: [
+    MatStepperModule,
+    MatSlideToggleModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    MatInputModule,
+    MatDatepickerModule,
+    NgSelectModule,
+    MatInputModule,
+  ],
   templateUrl: './form-estudiantes.html',
   styleUrl: './form-estudiantes.css',
   providers: [
@@ -46,27 +51,26 @@ export default class FormEstudiantes {
   stepperOrientation: Observable<StepperOrientation>;
   estudiantesForm!: FormGroup;
 
-  paises = PAISES;
-  carrerastecnica = CARERRASTECNICA
-  dimensionNacionalidad = DIMENSIONNACIONALIDAD
-  departamentos = DEPARTAMENTOS
-  municipio = MUNICIPIOS
-  sexo = SEXO
-  etnias = ETNIAS
-  tiposangre = TIPOS_SANGRE
-  tipoidentidad = TIPOS_IDENTIDAD
-  procedencia = ZONAS_PROCEDENCIA
-  opcionclasifico = OPCIONES_CLASIFICO
-  estadocivil = ESTADO_CIVIL
-  tipoconexion = TIPO_CONEXION
-  anio_ingreso = ANIO_INGRESO;
-
-  people$!: Observable<Person[]>;
+  listpais = signal([]);
+  listzona = signal([]);
+  carrerastecnica = signal([]);
+  dimensionNacionalidad = signal([]);
+  listdepartamentos = signal([]);
+  listmunicipio = signal<any[]>([]);
+  listsexo = signal([]);
+  listetnias = signal([]);
+  tiposangre = signal([]);
+  tipoidentidad = signal([]);
+  procedencia = signal([]);
+  opcionclasifico = signal([]);
+  listestadocivil = signal([]);
+  tipoconexion = signal([]);
+  anio_ingreso = signal([]);
   selectedPersonId = '5a15b13c36e7a7f00cf0d7cb';
 
   catalogosService = inject(CatalogosService);
 
-  constructor(private readonly dataService: Data) {
+  constructor() {
     const breakpointObserver = inject(BreakpointObserver);
 
     this.stepperOrientation = breakpointObserver
@@ -95,7 +99,7 @@ export default class FormEstudiantes {
       Id_pais_origen: new FormControl(null, [Validators.required]),
       Id_departamento_origen: new FormControl(null, [Validators.required]), //para filtrar el municipio este no es guardado
       Id_municipio_origen: new FormControl(null, [Validators.required]),
-      //PENDIENTE COMUNIDAD 
+      //PENDIENTE COMUNIDAD
       Id_comunidad_origen: new FormControl(null, [Validators.required]),
       //PENDIENTE provicia
       Id_estado_provincia: new FormControl(null, [Validators.required]), //queda pendiente
@@ -160,41 +164,81 @@ export default class FormEstudiantes {
       Ingreso_mensual: new FormControl('', [Validators.required]),
       // -----------------------------------------------------------
     });
-  }
-  ngOnInit() {
-    this.people$ = this.dataService.getPeople();
+
     this.getCatalogos();
-
+    this.getMunicipiosByDepartamento();
   }
-
-  datos = [
-    {
-      id: '5a15b13c36e7a7f00cf0d7cb',
-      name: 'John Doe',
-    },
-    {
-      id: '5a15b13c36e7a7f00cf0d7cc',
-      name: 'Jane Smith',
-    }
-  ]
-
 
   async getCatalogos() {
-    const { data } = await this.catalogosService.getAllCatalogos([
-      "sexo", "etnia",
-      "dimension_Nacionalidad", "pais",
-      "departamento", "comunidad_Comarca",
-      "tipo_Sangre", "zona",
-      "opcion_Clasifico", "estado_Civil",
-      "tipo_Conexion", "ocupacion",
-      "sector_Ocupacion", "entidad_Laboral",
-      "empresa_Internet", "discapacidad",
-      "deficiencia", "compania_Telefonica"
-    ]);
+    try {
+      const { data } = await this.catalogosService.getAllCatalogos([
+        'sexo',
+        'etnia',
+        'dimension_Nacionalidad',
+        'pais',
+        'departamento',
+        'comunidad_Comarca',
+        'tipo_Sangre',
+        'zona',
+        'opcion_Clasifico',
+        'estado_Civil',
+        'tipo_Conexion',
+        'ocupacion',
+        'sector_Ocupacion',
+        'entidad_Laboral',
+        'empresa_Internet',
+        'discapacidad',
+        'deficiencia',
+        'compania_Telefonica',
+      ]);
 
-    console.log('Catalogos obtenidos:', data);
+      this.tiposangre.set(
+        Array.isArray(data.tipo_Sangre) ? data.tipo_Sangre : []
+      );
+      this.listsexo.set(Array.isArray(data.sexo) ? data.sexo : []);
+      this.listestadocivil.set(
+        Array.isArray(data.estado_Civil) ? data.estado_Civil : []
+      );
+      this.listetnias.set(Array.isArray(data.etnia) ? data.etnia : []);
+      this.dimensionNacionalidad.set(
+        Array.isArray(data.dimension_Nacionalidad)
+          ? data.dimension_Nacionalidad
+          : []
+      );
+      this.listpais.set(Array.isArray(data.pais) ? data.pais : []);
+      this.listzona.set(Array.isArray(data.zona) ? data.zona : []);
+      this.listdepartamentos.set(
+        Array.isArray(data.departamento) ? data.departamento : []
+      );
 
+      console.log('Catalogos obtenidos:', data);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
+  async getMunicipiosByDepartamento() {
+    try {
+      const idDepartamento = this.estudiantesForm.get('Id_departamento_origen')?.value;
 
+      if (!idDepartamento) {
+        this.listmunicipio.set([]);
+        this.estudiantesForm.get('Id_municipio_origen')?.reset();
+        return;
+      }
+      const { data } = await this.catalogosService.getMunicipioBydepartamento(idDepartamento);
+
+      if (!Array.isArray(data)) {
+        this.listmunicipio.set([]);
+        return;
+      }
+      this.listmunicipio.set(data);
+      this.estudiantesForm.get('Id_municipio_origen')?.reset();
+      console.log('datos municipios', data);
+    } catch (error) {
+      console.error('Error al obtener municipios:', error);
+      this.listmunicipio.set([]);
+      this.estudiantesForm.get('Id_municipio_origen')?.reset();
+    }
+  }
 }

@@ -42,7 +42,7 @@
             class="absolute top-full mt-1 left-0 w-max max-w-full rounded bg-gray-800 text-white text-sm px-3 py-2 opacity-0 group-focus-within:opacity-100 transition-opacity z-10">
             Su contraseña corresponde a los últimos cuatro dígitos de su número de cédula.
           </div>
-          <div *ngIf="loginForm.controls['Cedula'].touched && loginForm.controls['Cedula'].invalid"
+          <div *ngIf="loginForm.controls['Pass'].touched && loginForm.controls['Pass'].invalid"
             class="text-red-500 text-xs font-medium ml-2">
             Este campo es requerido
           </div>
