@@ -15,6 +15,7 @@ export class CatalogosService {
 
   private get_AllCatalogos = DICTIONARY_URL.URL_API_MATRICULA + URL_MATRICULA.CATALOGOS.GET_ALL_CATALOGOS;
   private get_municipiobydepartamento = DICTIONARY_URL.URL_API_MATRICULA + URL_MATRICULA.CATALOGOS.FILTER_MUNICIPIO_BY_DEPARTAMENTO;
+  private get_municipiobycomunidad = DICTIONARY_URL.URL_API_MATRICULA + URL_MATRICULA.CATALOGOS.FILTER_MUNICIPIO_BY_COMUNIDAD;
 
   async getAllCatalogos(catalogNames: string[]): Promise<ApiResponse> {
     const params = new HttpParams().set('catalogo', catalogNames.join(','));
@@ -23,6 +24,11 @@ export class CatalogosService {
 
    getMunicipioBydepartamento(departamentoId: number) {
     return lastValueFrom(this.http.get<ApiResponse>(this.get_municipiobydepartamento + departamentoId)
+    .pipe(catchError(this.error.handleError)));
+    }
+    
+   getMunicipioByComunidad(comunidadId: number) {
+    return lastValueFrom(this.http.get<ApiResponse>(this.get_municipiobycomunidad + comunidadId)
     .pipe(catchError(this.error.handleError)));
     }
 }

@@ -53,10 +53,15 @@ export default class FormEstudiantes {
 
   listpais = signal([]);
   listzona = signal([]);
+  listzonaresidencia = signal([]);
   carrerastecnica = signal([]);
   dimensionNacionalidad = signal([]);
   listdepartamentos = signal([]);
   listmunicipio = signal<any[]>([]);
+  listdepartamentosresidencia = signal([]);
+  listmunicipioresidencia = signal<any[]>([]);
+  listcomunidadorigen = signal<any[]>([]);
+  listcomunidadresidencia = signal<any[]>([]);
   listsexo = signal([]);
   listetnias = signal([]);
   tiposangre = signal([]);
@@ -69,14 +74,14 @@ export default class FormEstudiantes {
   selectedPersonId = '5a15b13c36e7a7f00cf0d7cb';
 
   catalogosService = inject(CatalogosService);
-  
+
   constructor() {
     const breakpointObserver = inject(BreakpointObserver);
-    
+
     this.stepperOrientation = breakpointObserver
-    .observe('(min-width: 800px)')
-    .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
-    
+      .observe('(min-width: 800px)')
+      .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
+
     this.estudiantesForm = new FormGroup({
       // Stpper 1
       Id_estado_civil: new FormControl(null, [Validators.required]), //tabla detalle_estudiante
@@ -90,36 +95,35 @@ export default class FormEstudiantes {
       Dominio_lengua: new FormControl(null, [Validators.required]), //tabla detalle_estudiante lo ocupo para el toggle
       Dominio_idioma: new FormControl(null, [Validators.required]), //tabla detalle_estudiante lo ocupo para el toggle
       Id_idioma_lengua: new FormControl(null, [Validators.required]), //tabla Detalle_Estudiante_Lengua
-      Id_nivel_alcanzado: new FormControl(null, [Validators.required]), //tabla Detalle_Estudiante_Lengua
-      
-      
+      Id_nivel_alcanzado: new FormControl(null, [Validators.required]), //Detalle_Estudiante_Lengua
+
       // Stepper 2
-      
+      Id_dimension_nacionalidad: new FormControl(null, [Validators.required]), //tabla estudiante
+      Id_pais_origen: new FormControl(null, [Validators.required]), //tabla estudiante
+      Id_departamento_origen: new FormControl(null, [Validators.required]), //para filtrar el municipio este no es guardado
+      Id_municipio_origen: new FormControl(null, [Validators.required]), //tabla estudiante 
+      Id_zona_procedencia: new FormControl(null, [Validators.required]), //tabla estudiante 
+      Id_comunidad_origen: new FormControl(null, [Validators.required]), //tabla estudiante 
+      Id_departamento_residencia: new FormControl(null, [Validators.required]), //para filtrar el municipio este no es guardado
+      Id_municipio_residencia: new FormControl(null, [Validators.required]), //tabla detalle_estudiante 
+      Id_zona_residencia: new FormControl(null, [Validators.required]), //tabla detalle_estudiante 
+      Id_comunidad_residencia: new FormControl(null, [Validators.required]), //tabla detalle_estudiante 
+
       // pendiente
       tiene_tecnica: new FormControl(false),
       Carrera_tecnica: new FormControl('', [Validators.required]),
 
       // Stepper 2
-      Id_dimension_nacionalidad: new FormControl(null, [Validators.required]),
-      Id_pais_origen: new FormControl(null, [Validators.required]),
-      Id_departamento_origen: new FormControl(null, [Validators.required]), //para filtrar el municipio este no es guardado
-      Id_municipio_origen: new FormControl(null, [Validators.required]),
-      //PENDIENTE COMUNIDAD
-      Id_comunidad_origen: new FormControl(null, [Validators.required]),
       //PENDIENTE provicia
       Id_estado_provincia: new FormControl(null, [Validators.required]), //queda pendiente
       Id_sexo: new FormControl(null, [Validators.required]),
       Id_tipo_identidad: new FormControl(null, [Validators.required]),
-      Id_zona_procedencia: new FormControl(null, [Validators.required]),
       //hay muchos datos para ponere en centro secu
       Id_centro_secundaria: new FormControl(null, [Validators.required]),
       Id_carrera_tecnica: new FormControl(null, [Validators.required]),
       Id_opcion_clasifico: new FormControl(null, [Validators.required]),
 
       // Stepper 3
-      Id_municipio_residencia: new FormControl(null, [Validators.required]),
-      Id_comunidad_residencia: new FormControl(null, [Validators.required]),
-      Id_zona_residencia: new FormControl(null, [Validators.required]),
       Id_tipo_conexion: new FormControl(null, [Validators.required]),
       // Id_ocupacion: new FormControl(null,[Validators.required]),
       // Id_sector_ocupacion: new FormControl(null,[Validators.required]),
@@ -160,7 +164,6 @@ export default class FormEstudiantes {
     });
 
     this.getCatalogos();
-    this.getMunicipiosByDepartamento();
   }
 
   async getCatalogos() {
@@ -186,24 +189,18 @@ export default class FormEstudiantes {
         'compania_Telefonica',
       ]);
 
-      this.tiposangre.set(
-        Array.isArray(data.tipo_Sangre) ? data.tipo_Sangre : []
-      );
+      this.tiposangre.set(Array.isArray(data.tipo_Sangre) ? data.tipo_Sangre : []);
       this.listsexo.set(Array.isArray(data.sexo) ? data.sexo : []);
-      this.listestadocivil.set(
-        Array.isArray(data.estado_Civil) ? data.estado_Civil : []
-      );
+      this.listestadocivil.set(Array.isArray(data.estado_Civil) ? data.estado_Civil : []);
       this.listetnias.set(Array.isArray(data.etnia) ? data.etnia : []);
-      this.dimensionNacionalidad.set(
-        Array.isArray(data.dimension_Nacionalidad)
-          ? data.dimension_Nacionalidad
-          : []
-      );
+      this.dimensionNacionalidad.set(Array.isArray(data.dimension_Nacionalidad) ? data.dimension_Nacionalidad : []);
       this.listpais.set(Array.isArray(data.pais) ? data.pais : []);
       this.listzona.set(Array.isArray(data.zona) ? data.zona : []);
-      this.listdepartamentos.set(
-        Array.isArray(data.departamento) ? data.departamento : []
-      );
+      this.listzonaresidencia.set(Array.isArray(data.zona) ? data.zona : []);
+      this.listdepartamentos.set(Array.isArray(data.departamento) ? data.departamento : []);
+      this.listdepartamentosresidencia.set(Array.isArray(data.departamento) ? data.departamento : []);
+      this.listcomunidadorigen.set(Array.isArray(data.comunidad_Comarca) ? data.comunidad_Comarca : []);
+      this.listcomunidadresidencia.set(Array.isArray(data.comunidad_Comarca) ? data.comunidad_Comarca : []);
 
       console.log('Catalogos obtenidos:', data);
     } catch (error) {
@@ -218,6 +215,7 @@ export default class FormEstudiantes {
       if (!idDepartamento) {
         this.listmunicipio.set([]);
         this.estudiantesForm.get('Id_municipio_origen')?.reset();
+        this.estudiantesForm.get('Id_comunidad_origen')?.reset();
         return;
       }
       const { data } = await this.catalogosService.getMunicipioBydepartamento(idDepartamento);
@@ -233,6 +231,72 @@ export default class FormEstudiantes {
       console.error('Error al obtener municipios:', error);
       this.listmunicipio.set([]);
       this.estudiantesForm.get('Id_municipio_origen')?.reset();
+    }
+  }
+
+  async getMunicipioByComunidadesOrigen(){
+    try {
+      const idMunicipioOrigen = this.estudiantesForm.get('Id_municipio_origen')?.value;
+      const {data} = await this.catalogosService.getMunicipioByComunidad(idMunicipioOrigen)
+
+       if (!Array.isArray(data)) {
+        this.listcomunidadorigen.set([]);
+        return;
+      }
+      this.listcomunidadorigen.set(data)
+      this.estudiantesForm.get('Id_comunidad_origen')?.reset();
+      console.log('DAtos comunidad', data);
+      
+    } catch (error) {
+      console.error('Error al obtener municipios:', error);
+      this.listmunicipio.set([]);
+      this.estudiantesForm.get('Id_comunidad_origen')?.reset();
+    }
+  }
+
+  async getMunicipiosByDepartamentoResidencia() {
+    try {
+      const idDepartamentoResidencia = this.estudiantesForm.get('Id_departamento_residencia')?.value;
+
+      if (!idDepartamentoResidencia) {
+        this.listmunicipioresidencia.set([]);
+        this.estudiantesForm.get('Id_municipio_residencia')?.reset();
+        this.estudiantesForm.get('Id_comunidad_residencia')?.reset();
+        return;
+      }
+      const { data } = await this.catalogosService.getMunicipioBydepartamento(idDepartamentoResidencia);
+
+      if (!Array.isArray(data)) {
+        this.listmunicipioresidencia.set([]);
+        return;
+      }
+      this.listmunicipioresidencia.set(data);
+      this.estudiantesForm.get('Id_municipio_residencia')?.reset();
+      console.log('datos municipios', data);
+    } catch (error) {
+      console.error('Error al obtener municipios:', error);
+      this.listmunicipioresidencia.set([]);
+      this.estudiantesForm.get('Id_municipio_residencia')?.reset();
+    }
+  }
+
+  async getMunicipioByComunidadesResidencia(){
+    try {
+      const idMunicipioResidencia = this.estudiantesForm.get('Id_municipio_residencia')?.value;
+      const {data} = await this.catalogosService.getMunicipioByComunidad(idMunicipioResidencia)
+
+       if (!Array.isArray(data)) {
+        this.listcomunidadresidencia.set([]);
+        return;
+      }
+      this.listcomunidadresidencia.set(data)
+      this.estudiantesForm.get('Id_comunidad_residencia')?.reset();
+      console.log('DAtos comunidad residencia', data);
+      
+    } catch (error) {
+      console.error('Error al obtener municipios:', error);
+      this.listmunicipio.set([]);
+      this.estudiantesForm.get('Id_comunidad_residencia')?.reset();
     }
   }
 }

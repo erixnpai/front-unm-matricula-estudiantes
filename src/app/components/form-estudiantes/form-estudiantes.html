@@ -198,15 +198,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Municipio de origen
                                     <span class="text-red-500">*</span></label>
-                                <ng-select formControlName="Id_municipio_origen" placeholder="Seleccione" [items]="listmunicipio()" appendTo="html" bindLabel="Nombre"
-                                    bindValue="Id">
-                                </ng-select>
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Zona de origen
-                                    <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="listzona()" appendTo="html" bindLabel="Nombre"
+                                <ng-select formControlName="Id_municipio_origen" placeholder="Seleccione" [items]="listmunicipio()" (change)="getMunicipioByComunidadesOrigen()" appendTo="html" bindLabel="Nombre"
                                     bindValue="Id">
                                 </ng-select>
                             </div>
@@ -214,40 +206,48 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Comunidad de origen
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
-                                    bindLabel="name" bindValue="id">
+                                <ng-select formControlName="Id_comunidad_origen" placeholder="Seleccione" [items]="listcomunidadorigen()" appendTo="html"
+                                    bindLabel="Nombre" bindValue="Id">
+                                </ng-select>
+                            </div>
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    Zona de origen
+                                    <span class="text-red-500">*</span></label>
+                                <ng-select formControlName="Id_zona_procedencia" placeholder="Seleccione" [items]="listzona()" appendTo="html" bindLabel="Nombre"
+                                    bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Departamento de residencia
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
-                                    bindLabel="name" bindValue="id">
+                                <ng-select formControlName="Id_departamento_residencia" placeholder="Seleccione" [items]="listdepartamentosresidencia()" (change)="getMunicipiosByDepartamentoResidencia()" appendTo="html"
+                                    bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Municipio de residencia
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="" appendTo="html" bindLabel="name"
-                                    bindValue="id">
-                                </ng-select>
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Zona de residencia
-                                    <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="" appendTo="html" bindLabel="name"
-                                    bindValue="id">
+                                <ng-select formControlName="Id_municipio_residencia" placeholder="Seleccione" [items]="listmunicipioresidencia()" (change)="getMunicipioByComunidadesResidencia()" appendTo="html"
+                                bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Comunidad de residencia
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
-                                    bindLabel="name" bindValue="id">
+                                <ng-select formControlName="Id_comunidad_residencia" placeholder="Seleccione" [items]="listcomunidadresidencia()" appendTo="html"
+                                    bindLabel="Nombre" bindValue="Id">
+                                </ng-select>
+                            </div>
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    Zona de residencia
+                                    <span class="text-red-500">*</span></label>
+                                <ng-select formControlName="Id_zona_residencia" placeholder="Seleccione" [items]="listzonaresidencia()" appendTo="html" 
+                                bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
 
