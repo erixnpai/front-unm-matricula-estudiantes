@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators,} from '@angular/forms';
-import { StepperOrientation, MatStepperModule, MatStepper,
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators, } from '@angular/forms';
+import {
+  StepperOrientation, MatStepperModule, MatStepper,
 } from '@angular/material/stepper';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatInputModule} from '@angular/material/input';
-import {provideNativeDateAdapter, MAT_DATE_LOCALE} from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { provideNativeDateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Data, Person } from '../../services/data/data';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { PAISES } from '../../services/data/paises';
 import { CARERRASTECNICA } from '../../services/data/carrerratecnica';
 import { DIMENSIONNACIONALIDAD } from '../../services/data/dimensionnacionalidad';
@@ -25,8 +26,9 @@ import { ZONAS_PROCEDENCIA } from '../../services/data/zonaprocedencia';
 import { OPCIONES_CLASIFICO } from '../../services/data/opcionclasifico';
 import { ESTADO_CIVIL } from '../../services/data/estadocivil';
 import { TIPO_CONEXION } from '../../services/data/tipoconexion';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ANIO_INGRESO } from '../../services/data/anio_ingreso';
+import { CatalogosService } from '../../services/matricula/catalogos/catalogos';
 
 @Component({
   selector: 'app-form-estudiantes',
@@ -44,23 +46,25 @@ export default class FormEstudiantes {
   stepperOrientation: Observable<StepperOrientation>;
   estudiantesForm!: FormGroup;
 
-   paises = PAISES;
-   carrerastecnica = CARERRASTECNICA
-   dimensionNacionalidad = DIMENSIONNACIONALIDAD
-   departamentos = DEPARTAMENTOS
-   municipio = MUNICIPIOS 
-   sexo = SEXO
-   etnias = ETNIAS
-   tiposangre = TIPOS_SANGRE
-   tipoidentidad = TIPOS_IDENTIDAD
-   procedencia = ZONAS_PROCEDENCIA
-   opcionclasifico = OPCIONES_CLASIFICO
-   estadocivil = ESTADO_CIVIL
-   tipoconexion = TIPO_CONEXION
-   anio_ingreso = ANIO_INGRESO;
+  paises = PAISES;
+  carrerastecnica = CARERRASTECNICA
+  dimensionNacionalidad = DIMENSIONNACIONALIDAD
+  departamentos = DEPARTAMENTOS
+  municipio = MUNICIPIOS
+  sexo = SEXO
+  etnias = ETNIAS
+  tiposangre = TIPOS_SANGRE
+  tipoidentidad = TIPOS_IDENTIDAD
+  procedencia = ZONAS_PROCEDENCIA
+  opcionclasifico = OPCIONES_CLASIFICO
+  estadocivil = ESTADO_CIVIL
+  tipoconexion = TIPO_CONEXION
+  anio_ingreso = ANIO_INGRESO;
 
   people$!: Observable<Person[]>;
-	selectedPersonId = '5a15b13c36e7a7f00cf0d7cb';
+  selectedPersonId = '5a15b13c36e7a7f00cf0d7cb';
+
+  catalogosService = inject(CatalogosService);
 
   constructor(private readonly dataService: Data) {
     const breakpointObserver = inject(BreakpointObserver);
@@ -87,36 +91,36 @@ export default class FormEstudiantes {
       Anio_ingreso_carrera: new FormControl('', [Validators.required]),
 
       // Stepper 2
-      Id_dimension_nacionalidad: new FormControl(null,[Validators.required]),
-      Id_pais_origen: new FormControl(null,[Validators.required]),
+      Id_dimension_nacionalidad: new FormControl(null, [Validators.required]),
+      Id_pais_origen: new FormControl(null, [Validators.required]),
       Id_departamento_origen: new FormControl(null, [Validators.required]), //para filtrar el municipio este no es guardado
-      Id_municipio_origen: new FormControl(null,[Validators.required]),
+      Id_municipio_origen: new FormControl(null, [Validators.required]),
       //PENDIENTE COMUNIDAD 
-      Id_comunidad_origen: new FormControl(null,[Validators.required]),
+      Id_comunidad_origen: new FormControl(null, [Validators.required]),
       //PENDIENTE provicia
-      Id_estado_provincia: new FormControl(null,[Validators.required]), //queda pendiente
-      Id_sexo: new FormControl(null,[Validators.required]),
-      Id_etnia: new FormControl(null,[Validators.required]),
-      Id_tipo_sangre: new FormControl(null,[Validators.required]),
-      Id_tipo_identidad: new FormControl(null,[Validators.required]),
-      Id_zona_procedencia: new FormControl(null,[Validators.required]),
+      Id_estado_provincia: new FormControl(null, [Validators.required]), //queda pendiente
+      Id_sexo: new FormControl(null, [Validators.required]),
+      Id_etnia: new FormControl(null, [Validators.required]),
+      Id_tipo_sangre: new FormControl(null, [Validators.required]),
+      Id_tipo_identidad: new FormControl(null, [Validators.required]),
+      Id_zona_procedencia: new FormControl(null, [Validators.required]),
       //hay muchos datos para ponere en centro secu
-      Id_centro_secundaria: new FormControl(null,[Validators.required]),
-      Id_carrera_tecnica: new FormControl(null,[Validators.required]),
-      Id_opcion_clasifico: new FormControl(null,[Validators.required]),
+      Id_centro_secundaria: new FormControl(null, [Validators.required]),
+      Id_carrera_tecnica: new FormControl(null, [Validators.required]),
+      Id_opcion_clasifico: new FormControl(null, [Validators.required]),
 
       // Stepper 3
-      Id_municipio_residencia: new FormControl(null,[Validators.required]),
-      Id_comunidad_residencia: new FormControl(null,[Validators.required]),
-      Id_zona_residencia: new FormControl(null,[Validators.required]),
-      Id_estado_civil: new FormControl(null,[Validators.required]),
-      Id_tipo_conexion: new FormControl(null,[Validators.required]),
+      Id_municipio_residencia: new FormControl(null, [Validators.required]),
+      Id_comunidad_residencia: new FormControl(null, [Validators.required]),
+      Id_zona_residencia: new FormControl(null, [Validators.required]),
+      Id_estado_civil: new FormControl(null, [Validators.required]),
+      Id_tipo_conexion: new FormControl(null, [Validators.required]),
       // Id_ocupacion: new FormControl(null,[Validators.required]),
       // Id_sector_ocupacion: new FormControl(null,[Validators.required]),
-      Id_entidad_laboral: new FormControl(null,[Validators.required]),
-      Id_empesa_internet: new FormControl(null,[Validators.required]),
+      Id_entidad_laboral: new FormControl(null, [Validators.required]),
+      Id_empesa_internet: new FormControl(null, [Validators.required]),
       Tiene_hijos: new FormControl(false),
-      Numero_hijos: new FormControl(null,[Validators.required]),
+      Numero_hijos: new FormControl(null, [Validators.required]),
       Direccion_residencia: new FormControl('', [Validators.required]),
       Peso_libras: new FormControl('', [Validators.required]),
       Altura_cm: new FormControl('', [Validators.required]),
@@ -130,46 +134,67 @@ export default class FormEstudiantes {
       Trabaja: new FormControl('', [Validators.required]),
 
       // Stepper 4
-      Id_periodo: new FormControl(null,[Validators.required]),
-      Id_oferta: new FormControl(null,[Validators.required]),
-      Id_ingreso: new FormControl(null,[Validators.required]),
-      Motivo_traslado: new FormControl(null,[Validators.required]),
-      Numero_asignaturas_segun_plan: new FormControl(null,[Validators.required]),
-      Numero_asignaturas_inscritas: new FormControl(null,[Validators.required]),
-      Numero_asignaturas_inscritas_mas1: new FormControl(null,[Validators.required]),
-      Numero_asignaturas_convalidadas: new FormControl(null,[Validators.required]),
-      Numero_asignaturas_aprovadas: new FormControl(null,[Validators.required]),
-      Numero_asignaturas_reprobadas: new FormControl(null,[Validators.required]),
-      Movilidad_academica: new FormControl(null,[Validators.required]),
+      Id_periodo: new FormControl(null, [Validators.required]),
+      Id_oferta: new FormControl(null, [Validators.required]),
+      Id_ingreso: new FormControl(null, [Validators.required]),
+      Motivo_traslado: new FormControl(null, [Validators.required]),
+      Numero_asignaturas_segun_plan: new FormControl(null, [Validators.required]),
+      Numero_asignaturas_inscritas: new FormControl(null, [Validators.required]),
+      Numero_asignaturas_inscritas_mas1: new FormControl(null, [Validators.required]),
+      Numero_asignaturas_convalidadas: new FormControl(null, [Validators.required]),
+      Numero_asignaturas_aprovadas: new FormControl(null, [Validators.required]),
+      Numero_asignaturas_reprobadas: new FormControl(null, [Validators.required]),
+      Movilidad_academica: new FormControl(null, [Validators.required]),
 
       // ESTRUCTURA FAMILIAR STEPPER 6
-      Id_tipo_parentesco: new FormControl(null,[Validators.required]),
-      Id_ocupacion: new FormControl(null,[Validators.required]),
-      Id_sector_ocupacion: new FormControl(null,[Validators.required]),
-      NombresTutor: new FormControl('',[Validators.required]),
-      Apellidos1tutor: new FormControl('',[Validators.required]),
-      Apellidos2tutor: new FormControl('',[Validators.required]),
-      Centro_trabajo: new FormControl('',[Validators.required]),
-      Fecha_nacimientoTutor: new FormControl('',[Validators.required]),
-      TrabajaTutor: new FormControl('',[Validators.required]),
-      Depende_economicamente: new FormControl('',[Validators.required]),
-      Ingreso_mensual: new FormControl('',[Validators.required]),
+      Id_tipo_parentesco: new FormControl(null, [Validators.required]),
+      Id_ocupacion: new FormControl(null, [Validators.required]),
+      Id_sector_ocupacion: new FormControl(null, [Validators.required]),
+      NombresTutor: new FormControl('', [Validators.required]),
+      Apellidos1tutor: new FormControl('', [Validators.required]),
+      Apellidos2tutor: new FormControl('', [Validators.required]),
+      Centro_trabajo: new FormControl('', [Validators.required]),
+      Fecha_nacimientoTutor: new FormControl('', [Validators.required]),
+      TrabajaTutor: new FormControl('', [Validators.required]),
+      Depende_economicamente: new FormControl('', [Validators.required]),
+      Ingreso_mensual: new FormControl('', [Validators.required]),
       // -----------------------------------------------------------
     });
   }
   ngOnInit() {
     this.people$ = this.dataService.getPeople();
+    this.getCatalogos();
+
   }
 
   datos = [
     {
       id: '5a15b13c36e7a7f00cf0d7cb',
-      name: 'John Doe', 
+      name: 'John Doe',
     },
     {
       id: '5a15b13c36e7a7f00cf0d7cc',
-      name: 'Jane Smith',}
+      name: 'Jane Smith',
+    }
   ]
+
+
+  async getCatalogos() {
+    const { data } = await this.catalogosService.getAllCatalogos([
+      "sexo", "etnia",
+      "dimension_Nacionalidad", "pais",
+      "departamento", "comunidad_Comarca",
+      "tipo_Sangre", "zona",
+      "opcion_Clasifico", "estado_Civil",
+      "tipo_Conexion", "ocupacion",
+      "sector_Ocupacion", "entidad_Laboral",
+      "empresa_Internet", "discapacidad",
+      "deficiencia", "compania_Telefonica"
+    ]);
+
+    console.log('Catalogos obtenidos:', data);
+
+  }
 
 
 }
