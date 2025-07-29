@@ -69,30 +69,35 @@ export default class FormEstudiantes {
   selectedPersonId = '5a15b13c36e7a7f00cf0d7cb';
 
   catalogosService = inject(CatalogosService);
-
+  
   constructor() {
     const breakpointObserver = inject(BreakpointObserver);
-
+    
     this.stepperOrientation = breakpointObserver
-      .observe('(min-width: 800px)')
-      .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
-
+    .observe('(min-width: 800px)')
+    .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
+    
     this.estudiantesForm = new FormGroup({
       // Stpper 1
-      Nombres: new FormControl('', [Validators.required]),
-      Apellidos1: new FormControl('', [Validators.required]),
-      Apellido2: new FormControl('', [Validators.required]),
-      Codigo_MINED: new FormControl('', [Validators.required]),
-      Codigo_Persona: new FormControl('', [Validators.required]),
-      Anio_bachillerato: new FormControl('', [Validators.required]),
+      Id_estado_civil: new FormControl(null, [Validators.required]), //tabla detalle_estudiante
+      Codigo_MINED: new FormControl('', [Validators.required]), //tabla estudiante
+      Id_tipo_sangre: new FormControl(null, [Validators.required]), //tabla estudiante
+      Id_etnia: new FormControl(null, [Validators.required]), //tabla estudiante
+      Embarazo: new FormControl('', [Validators.required]), //tabla detalle_estudiante
+      Meses_embarazo: new FormControl('', [Validators.required]), //tabla detalle_estudiante
+      Tiene_hijos: new FormControl(false), // solo lo ocupo para el toggle
+      Numero_hijos: new FormControl('', [Validators.required]), //tabla detalle_estudiante
+      Dominio_lengua: new FormControl(null, [Validators.required]), //tabla detalle_estudiante lo ocupo para el toggle
+      Dominio_idioma: new FormControl(null, [Validators.required]), //tabla detalle_estudiante lo ocupo para el toggle
+      Id_idioma_lengua: new FormControl(null, [Validators.required]), //tabla Detalle_Estudiante_Lengua
+      Id_nivel_alcanzado: new FormControl(null, [Validators.required]), //tabla Detalle_Estudiante_Lengua
+      
+      
+      // Stepper 2
+      
       // pendiente
       tiene_tecnica: new FormControl(false),
       Carrera_tecnica: new FormControl('', [Validators.required]),
-      Numero_identidad: new FormControl('', [Validators.required]),
-      // Fecha_nacimiento: new FormControl('', [Validators.required]),
-      FNota_promedio_ingreso: new FormControl('', [Validators.required]),
-      Nota_final_ingreso: new FormControl('', [Validators.required]),
-      Anio_ingreso_carrera: new FormControl('', [Validators.required]),
 
       // Stepper 2
       Id_dimension_nacionalidad: new FormControl(null, [Validators.required]),
@@ -104,8 +109,6 @@ export default class FormEstudiantes {
       //PENDIENTE provicia
       Id_estado_provincia: new FormControl(null, [Validators.required]), //queda pendiente
       Id_sexo: new FormControl(null, [Validators.required]),
-      Id_etnia: new FormControl(null, [Validators.required]),
-      Id_tipo_sangre: new FormControl(null, [Validators.required]),
       Id_tipo_identidad: new FormControl(null, [Validators.required]),
       Id_zona_procedencia: new FormControl(null, [Validators.required]),
       //hay muchos datos para ponere en centro secu
@@ -117,23 +120,14 @@ export default class FormEstudiantes {
       Id_municipio_residencia: new FormControl(null, [Validators.required]),
       Id_comunidad_residencia: new FormControl(null, [Validators.required]),
       Id_zona_residencia: new FormControl(null, [Validators.required]),
-      Id_estado_civil: new FormControl(null, [Validators.required]),
       Id_tipo_conexion: new FormControl(null, [Validators.required]),
       // Id_ocupacion: new FormControl(null,[Validators.required]),
       // Id_sector_ocupacion: new FormControl(null,[Validators.required]),
       Id_entidad_laboral: new FormControl(null, [Validators.required]),
       Id_empesa_internet: new FormControl(null, [Validators.required]),
-      Tiene_hijos: new FormControl(false),
-      Numero_hijos: new FormControl(null, [Validators.required]),
       Direccion_residencia: new FormControl('', [Validators.required]),
       Peso_libras: new FormControl('', [Validators.required]),
       Altura_cm: new FormControl('', [Validators.required]),
-      Embarazo: new FormControl('', [Validators.required]),
-      Meses_embarazo: new FormControl('', [Validators.required]),
-      Domina_lenguas: new FormControl(false),
-      Dominio_lengua: new FormControl(null, [Validators.required]),
-      Domina_idioma: new FormControl(false),
-      Dominio_idioma: new FormControl(null, [Validators.required]),
       // PregTrabaja: new FormControl(false),
       Trabaja: new FormControl('', [Validators.required]),
 

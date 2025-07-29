@@ -22,7 +22,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Tipo de Sangre
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="tiposangre()" appendTo="html"
+                                <ng-select formControlName="Id_tipo_sangre" placeholder="Seleccione" [items]="tiposangre()" appendTo="html"
                                     bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
@@ -44,8 +44,7 @@
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
-                                    Código Mined
-                                    <span class="text-red-500">*</span></label>
+                                    Código Mined</label>
                                 <input autocomplete="off"
                                     class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     type="" placeholder="Código Mined">
@@ -110,25 +109,25 @@
                                     <span class="text-red-500">*</span></label>
                                 <label for="toggle-embarazo" class="flex items-center cursor-pointer">
                                     <span class="mr-3 text-gray-900 text-sm font-medium">No</span>
-                                    <mat-slide-toggle formControlName="Domina_idioma"></mat-slide-toggle>
+                                    <mat-slide-toggle formControlName="Dominio_idioma"></mat-slide-toggle>
                                     <span class="ml-3 text-gray-900 text-sm font-medium">Si</span>
                                 </label>
 
                                 <div class=" w-full min-w-[200px] mt-2 lg:mt-2"
-                                    *ngIf="estudiantesForm.get('Domina_idioma')?.value">
+                                    *ngIf="estudiantesForm.get('Dominio_idioma')?.value">
                                     <label class="block tracking-wide text-black font-bold mb-2">
                                         Dominio de idiomas
                                         <span class="text-red-500">*</span></label>
-                                    <ng-select formControlName="Dominio_idioma" placeholder="Seleccione"
+                                    <ng-select formControlName="Id_idioma_lengua" placeholder="Seleccione"
                                         [items]="" appendTo="html" bindLabel="name" bindValue="id">
                                     </ng-select>
                                 </div>
                                 <div class=" w-full min-w-[200px] mt-2 lg:mt-2"
-                                    *ngIf="estudiantesForm.get('Domina_idioma')?.value">
+                                    *ngIf="estudiantesForm.get('Dominio_idioma')?.value">
                                     <label class="block tracking-wide text-black font-bold mb-2">
                                         Nivel alcanzado
                                         <span class="text-red-500">*</span></label>
-                                    <ng-select formControlName="Dominio_idioma" placeholder="Seleccione"
+                                    <ng-select formControlName="Id_nivel_alcanzado" placeholder="Seleccione"
                                         [items]="" appendTo="html" bindLabel="name" bindValue="id">
                                     </ng-select>
                                 </div>
@@ -139,24 +138,24 @@
                                     <span class="text-red-500">*</span></label>
                                 <label for="toggle-embarazo" class="flex items-center cursor-pointer">
                                     <span class="mr-3 text-gray-900 text-sm font-medium">No</span>
-                                    <mat-slide-toggle formControlName="Domina_lenguas"></mat-slide-toggle>
+                                    <mat-slide-toggle formControlName="Dominio_lengua"></mat-slide-toggle>
                                     <span class="ml-3 text-gray-900 text-sm font-medium">Si</span>
                                 </label>
                                 <div class=" w-full min-w-[200px] mt-2 lg:mt-2"
-                                    *ngIf="estudiantesForm.get('Domina_lenguas')?.value">
+                                    *ngIf="estudiantesForm.get('Dominio_lengua')?.value">
                                     <label class="block tracking-wide text-black font-bold mb-2">
                                         Dominio de lenguas
                                         <span class="text-red-500">*</span></label>
-                                    <ng-select formControlName="Dominio_lengua" placeholder="Seleccione"
+                                    <ng-select formControlName="Id_idioma_lengua" placeholder="Seleccione"
                                         [items]="" appendTo="html" bindLabel="name" bindValue="id">
                                     </ng-select>
                                 </div>
                                 <div class=" w-full min-w-[200px] mt-2 lg:mt-2"
-                                    *ngIf="estudiantesForm.get('Domina_lenguas')?.value">
+                                    *ngIf="estudiantesForm.get('Dominio_lengua')?.value">
                                     <label class="block tracking-wide text-black font-bold mb-2">
                                         Nivel alcanzado
                                         <span class="text-red-500">*</span></label>
-                                    <ng-select formControlName="Dominio_lengua" placeholder="Seleccione"
+                                    <ng-select formControlName="Id_nivel_alcanzado" placeholder="Seleccione"
                                         [items]="" appendTo="html" bindLabel="name" bindValue="id">
                                     </ng-select>
                                 </div>
