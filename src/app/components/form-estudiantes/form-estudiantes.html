@@ -1,5 +1,5 @@
 <!-- component -->
-<section class="lg:h-screen overflow-hidden relative px-4 lg:px-0 bg-gradient-to-tl from-[#009DD5] to-[#5AB24B]">
+<section class="lg:h-screen overflow-y-auto relative px-4 lg:px-0 bg-gradient-to-tl from-[#009DD5] to-[#5AB24B]">
     <div class=" flex items-start justify-start space-x-2">
         <img src="/assets/img/Logo_negativo.png" class="h-34 lg:h-28" alt="">
     </div>
@@ -14,47 +14,63 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Estado Civil
                                     <span class="text-red-500">*</span></label>
-                                <ng-select formControlName="Id_estado_civil" placeholder="Seleccione" [items]="listestadocivil()" appendTo="html"
-                                    bindLabel="Nombre" bindValue="Id">
+                                <ng-select formControlName="Id_estado_civil" placeholder="Seleccione"
+                                    [items]="listestadocivil()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-0">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Tipo de Sangre
                                     <span class="text-red-500">*</span></label>
-                                <ng-select formControlName="Id_tipo_sangre" placeholder="Seleccione" [items]="tiposangre()" appendTo="html"
-                                    bindLabel="Nombre" bindValue="Id">
+                                <ng-select formControlName="Id_tipo_sangre" placeholder="Seleccione"
+                                    [items]="tiposangre()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Peso en libras
                                     <span class="text-red-500">*</span></label>
-                                <input autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                <input formControlName="Peso_libras" autocomplete="off"
+                                    class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     type="" placeholder="Peso libras">
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Altura en centímetros
                                     <span class="text-red-500">*</span></label>
-                                <input autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                <input formControlName="Altura_cm" autocomplete="off"
+                                    class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     type="" placeholder="Altura en centímetros">
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Código Mined</label>
-                                <input autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                <input formControlName="Codigo_MINED" autocomplete="off"
+                                    class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     type="" placeholder="Código Mined">
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Etnia
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="listetnias()" appendTo="html" bindLabel="Nombre"
-                                    bindValue="Id">
+                                <ng-select formControlName="Id_etnia" placeholder="Seleccione" [items]="listetnias()"
+                                    appendTo="html" bindLabel="Nombre" bindValue="Id">
+                                </ng-select>
+                            </div>
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    Discapacidad
+                                    <span class="text-red-500">*</span></label>
+                                <ng-select formControlName="Id_discapacidad" placeholder="Seleccione"
+                                    [items]="listDiscapacidad()" appendTo="html" bindLabel="Nombre" bindValue="Id">
+                                </ng-select>
+                            </div>
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                                <label class="block tracking-wide text-black font-bold mb-2">
+                                    Deficiencia
+                                    <span class="text-red-500">*</span></label>
+                                <ng-select formControlName="Id_deficiencia" placeholder="Seleccione"
+                                    [items]="listDeficiencia()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class=" w-full min-w-[200px] mt-4 lg:mt-2">
@@ -75,7 +91,7 @@
                                     </label>
                                     <input formControlName="Meses_embarazo" autocomplete="off" type="number" min="1"
                                         max="12"
-                                        class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                        class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                         placeholder="Meses de embarazo" />
                                 </div>
                             </div>
@@ -99,7 +115,7 @@
                                     </label>
                                     <input formControlName="Numero_hijos" autocomplete="off" type="number" min="1"
                                         max="12"
-                                        class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                        class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                         placeholder="N.° de hijos" />
                                 </div>
                             </div>
@@ -118,8 +134,8 @@
                                     <label class="block tracking-wide text-black font-bold mb-2">
                                         Dominio de idiomas
                                         <span class="text-red-500">*</span></label>
-                                    <ng-select formControlName="Id_idioma_lengua" placeholder="Seleccione"
-                                        [items]="" appendTo="html" bindLabel="name" bindValue="id">
+                                    <ng-select formControlName="Id_idioma_lengua" placeholder="Seleccione" [items]="listIdiomas()"
+                                        appendTo="html" bindLabel="Nombre" bindValue="Id">
                                     </ng-select>
                                 </div>
                                 <div class=" w-full min-w-[200px] mt-2 lg:mt-2"
@@ -127,8 +143,8 @@
                                     <label class="block tracking-wide text-black font-bold mb-2">
                                         Nivel alcanzado
                                         <span class="text-red-500">*</span></label>
-                                    <ng-select formControlName="Id_nivel_alcanzado" placeholder="Seleccione"
-                                        [items]="" appendTo="html" bindLabel="name" bindValue="id">
+                                    <ng-select formControlName="Id_nivel_alcanzado" placeholder="Seleccione" [items]="listNivelAlcanzadoIdiomas()"
+                                        appendTo="html" bindLabel="Nombre" bindValue="Id">
                                     </ng-select>
                                 </div>
                             </div>
@@ -146,8 +162,8 @@
                                     <label class="block tracking-wide text-black font-bold mb-2">
                                         Dominio de lenguas
                                         <span class="text-red-500">*</span></label>
-                                    <ng-select formControlName="Id_idioma_lengua" placeholder="Seleccione"
-                                        [items]="" appendTo="html" bindLabel="name" bindValue="id">
+                                    <ng-select formControlName="Id_idioma_lengua" placeholder="Seleccione" [items]="listLenguas()"
+                                        appendTo="html" bindLabel="Nombre" bindValue="Id">
                                     </ng-select>
                                 </div>
                                 <div class=" w-full min-w-[200px] mt-2 lg:mt-2"
@@ -155,8 +171,8 @@
                                     <label class="block tracking-wide text-black font-bold mb-2">
                                         Nivel alcanzado
                                         <span class="text-red-500">*</span></label>
-                                    <ng-select formControlName="Id_nivel_alcanzado" placeholder="Seleccione"
-                                        [items]="" appendTo="html" bindLabel="name" bindValue="id">
+                                    <ng-select formControlName="Id_nivel_alcanzado" placeholder="Seleccione" [items]="listNivelAlcanzadoLenguas()"
+                                        appendTo="html" bindLabel="Nombre" bindValue="Id">
                                     </ng-select>
                                 </div>
                             </div>
@@ -174,55 +190,59 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Nacionalidad
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="dimensionNacionalidad()" appendTo="html"
-                                    bindLabel="Nombre" bindValue="Id">
+                                <ng-select formControlName="Id_dimension_nacionalidad" placeholder="Seleccione"
+                                    [items]="dimensionNacionalidad()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-0">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     País de origen
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="listpais()" appendTo="html" bindLabel="Nombre"
-                                    bindValue="Id">
+                                <ng-select formControlName="Id_pais_origen" placeholder="Seleccione"
+                                    [items]="listpais()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Departamento de origen
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" formControlName="Id_departamento_origen" [items]="listdepartamentos()" (change)="getMunicipiosByDepartamento()" appendTo="html"
-                                    bindLabel="Nombre" bindValue="Id">
+                                <ng-select formControlName="Id_departamento_origen" placeholder="Seleccione"
+                                    [items]="listdepartamentos()" (change)="getMunicipiosByDepartamento()"
+                                    appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Municipio de origen
                                     <span class="text-red-500">*</span></label>
-                                <ng-select formControlName="Id_municipio_origen" placeholder="Seleccione" [items]="listmunicipio()" (change)="getMunicipioByComunidadesOrigen()" appendTo="html" bindLabel="Nombre"
-                                    bindValue="Id">
+                                <ng-select formControlName="Id_municipio_origen" placeholder="Seleccione"
+                                    [items]="listmunicipio()" (change)="getMunicipioByComunidadesOrigen()"
+                                    appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Comunidad de origen
                                     <span class="text-red-500">*</span></label>
-                                <ng-select formControlName="Id_comunidad_origen" placeholder="Seleccione" [items]="listcomunidadorigen()" appendTo="html"
-                                    bindLabel="Nombre" bindValue="Id">
+                                <ng-select formControlName="Id_comunidad_origen" placeholder="Seleccione"
+                                    [items]="listcomunidadorigen()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Zona de origen
                                     <span class="text-red-500">*</span></label>
-                                <ng-select formControlName="Id_zona_procedencia" placeholder="Seleccione" [items]="listzona()" appendTo="html" bindLabel="Nombre"
-                                    bindValue="Id">
+                                <ng-select formControlName="Id_zona_procedencia" placeholder="Seleccione"
+                                    [items]="listzona()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Departamento de residencia
                                     <span class="text-red-500">*</span></label>
-                                <ng-select formControlName="Id_departamento_residencia" placeholder="Seleccione" [items]="listdepartamentosresidencia()" (change)="getMunicipiosByDepartamentoResidencia()" appendTo="html"
+                                <ng-select formControlName="Id_departamento_residencia" placeholder="Seleccione"
+                                    [items]="listdepartamentosresidencia()"
+                                    (change)="getMunicipiosByDepartamentoResidencia()" appendTo="html"
                                     bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
@@ -230,24 +250,26 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Municipio de residencia
                                     <span class="text-red-500">*</span></label>
-                                <ng-select formControlName="Id_municipio_residencia" placeholder="Seleccione" [items]="listmunicipioresidencia()" (change)="getMunicipioByComunidadesResidencia()" appendTo="html"
-                                bindLabel="Nombre" bindValue="Id">
+                                <ng-select formControlName="Id_municipio_residencia" placeholder="Seleccione"
+                                    [items]="listmunicipioresidencia()" (change)="getMunicipioByComunidadesResidencia()"
+                                    appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Comunidad de residencia
                                     <span class="text-red-500">*</span></label>
-                                <ng-select formControlName="Id_comunidad_residencia" placeholder="Seleccione" [items]="listcomunidadresidencia()" appendTo="html"
-                                    bindLabel="Nombre" bindValue="Id">
+                                <ng-select formControlName="Id_comunidad_residencia" placeholder="Seleccione"
+                                    [items]="listcomunidadresidencia()" appendTo="html" bindLabel="Nombre"
+                                    bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Zona de residencia
                                     <span class="text-red-500">*</span></label>
-                                <ng-select formControlName="Id_zona_residencia" placeholder="Seleccione" [items]="listzonaresidencia()" appendTo="html" 
-                                bindLabel="Nombre" bindValue="Id">
+                                <ng-select formControlName="Id_zona_residencia" placeholder="Seleccione"
+                                    [items]="listzonaresidencia()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
 
@@ -256,8 +278,8 @@
                             <label class="block uppercase tracking-wide text-black font-bold mb-2">
                                 DIRECCIÓN DE RESIDENCIA
                                 <span class="text-red-500">*</span></label>
-                            <input autocomplete="off" type="text"
-                                class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                            <input formControlName="Direccion_residencia" autocomplete="off" type="text"
+                                class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                 placeholder="DIRECCIÓN DE RESIDENCIA" />
                         </div>
                         <div class="grid gap-6 lg:grid-cols-2 mt-14">
@@ -287,8 +309,8 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Ocupación
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
-                                    bindLabel="name" bindValue="id">
+                                <ng-select formControlName="Id_ocupacion" placeholder="Seleccione"
+                                    [items]="listocupacion()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-6 lg:mt-4"
@@ -296,8 +318,8 @@
                                 <label class="block  tracking-wide text-black font-bold mb-2">
                                     Sector de Ocupación
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
-                                    bindLabel="name" bindValue="id">
+                                <ng-select formControlName="Id_sector_ocupacion" placeholder="Seleccione"
+                                    [items]="listsectorocupacion()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2"
@@ -305,17 +327,16 @@
                                 <label class="block  tracking-wide text-black font-bold mb-2">
                                     Entidad Laboral
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
-                                    bindLabel="name" bindValue="id">
+                                <ng-select formControlName="Id_entidad_laboral" placeholder="Seleccione"
+                                    [items]="listentidadlaboral()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2"
                                 *ngIf="estudiantesForm.get('Trabaja')?.value">
                                 <label class="block  tracking-wide text-black font-bold mb-2">
-                                    N.° de inss
-                                    <span class="text-red-500">*</span></label>
-                                <input autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    N.° de inss</label>
+                                <input formControlName="Numero_inss" autocomplete="off"
+                                    class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="N.° de inss" />
                             </div>
                         </div>
@@ -329,39 +350,42 @@
                                 matStepperNext>Siguiente</button>
                         </div>
                     </mat-step>
+
                     <mat-step label="FORMACIÓN ACADEMICA">
                         <div class="grid gap-8 lg:grid-cols-2 mt-6 lg:mt-6 text-lg lg:text-sm uppercase">
                             <div class="h-10 w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Departamento que culminó
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
-                                    bindLabel="name" bindValue="id">
+                                <ng-select formControlName="Id_departamento_culmino" placeholder="Seleccione"
+                                    [items]="listdepartamentosculmino()" (change)="getMunicipiosByDepartamentoCulmino()"
+                                    appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-0">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Municipio que culminó
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
-                                    bindLabel="name" bindValue="id">
+                                <ng-select formControlName="Id_municipio_culmino" placeholder="Seleccione"
+                                    [items]="listmunicipioculmino()" (change)="getMunicipiosByCentroSecundaria()"
+                                    appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Centro de secundaria
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
-                                    bindLabel="name" bindValue="id">
+                                <ng-select formControlName="Id_centro_secundaria" placeholder="Seleccione"
+                                    [items]="listcentrosecundario()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Año bachillerato
                                     <span class="text-red-500">*</span></label>
-                                <input autocomplete="off"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="Motivo de traslado" />
+                                <input formControlName="Anio_bachillerato" autocomplete="off"
+                                    class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    placeholder="Año bachillerato" />
                             </div>
                             <div class="w-full min-w-[200px] mt-6 lg:mt-6 text-lg lg:text-sm uppercase">
                                 <label class="block tracking-wide text-black font-bold mb-2">
@@ -376,8 +400,8 @@
                                     <label class="block tracking-wide text-black font-bold mb-2">
                                         Carrera Técnica
                                         <span class="text-red-500">*</span></label>
-                                    <ng-select placeholder="Seleccione" [items]="" appendTo="html"
-                                        bindLabel="name" bindValue="id">
+                                    <ng-select formControlName="Carrera_tecnica" placeholder="Seleccione" [items]=""
+                                        appendTo="html" bindLabel="Nombre" bindValue="Id">
                                     </ng-select>
                                 </div>
                             </div>
@@ -385,8 +409,8 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Año que ingresó a la universidad
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
-                                    bindLabel="name" bindValue="id">
+                                <ng-select formControlName="Anio_ingreso_carrera" placeholder="Seleccione" [items]=""
+                                    appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                         </div>
@@ -394,7 +418,6 @@
                             <button
                                 class="uppercase cursor-pointer w-full border border-green-500 hover:bg-[#5AB24B] text-green-500 hover:text-white py-4 lg:py-2 rounded-md transition duration-100"
                                 matStepperPrevious>Anterior</button>
-
                             <button
                                 class="uppercase cursor-pointer w-full bg-[#1da2fc] hover:bg-[#009cd5] text-white py-4 lg:py-2 rounded-md transition duration-100"
                                 matStepperNext>Siguiente</button>
@@ -402,57 +425,138 @@
                     </mat-step>
                     <mat-step label="DISPOSITIVOS Y CONECTIVIDAD">
                         <div class="grid gap-8 lg:grid-cols-2 mt-2 lg:mt-2 text-lg lg:text-sm uppercase">
-                            <div class="h-10 w-full min-w-[200px]">
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-0">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Dipositivo
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
-                                    bindLabel="name" bindValue="id">
+                                <ng-select [multiple]="true" [closeOnSelect]="false" [hideSelected]="true"
+                                    placeholder="Seleccione" [items]="listdispositivos()" appendTo="html"
+                                    bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-0">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     tipo DE CONEXIÓN A INTERNET
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
-                                    bindLabel="name" bindValue="id">
+                                <ng-select formControlName="Id_tipo_conexion" placeholder="Seleccione"
+                                    [items]="listTipoConexion()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2 mb-6">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Proveedor de internet
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
-                                    bindLabel="name" bindValue="id">
+                                <ng-select formControlName="Id_empesa_internet" placeholder="Seleccione"
+                                    [items]="listproveedorInternet()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
-                            </div>
-                            <!-- <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    ¿Posee teléfono móvil?</label>
-                                <label for="toggle-embarazo" class="flex items-center cursor-pointer">
-                                    <span class="mr-3 text-gray-900 text-sm font-medium">No</span>
-                                    <mat-slide-toggle></mat-slide-toggle>
-                                    <span class="ml-3 text-gray-900 text-sm font-medium">Si</span>
-                                </label>
-                            </div> -->
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    COMPAÑÍA TELEFóNICA
-                                    <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
-                                    bindLabel="name" bindValue="id">
-                                </ng-select>
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Numero celular
-                                    <span class="text-red-500">*</span>
-                                </label>
-                                <input formControlName="Numero_hijos" autocomplete="off" type="number" min="1" max="12"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="Numero celular" />
                             </div>
                         </div>
+
+                        <div class="w-full mt-10">
+
+                            <!-- Formulario para agregar teléfono -->
+                            <div class="rounded-lg border bg-white shadow-sm mb-10">
+                                <div class="border-b px-6 py-4">
+                                    <div class="flex items-center gap-2 text-lg font-semibold">
+                                        <i class="fa-solid fa-phone h-5 w-5"></i>
+                                        Agregar Número Telefónico
+                                    </div>
+                                </div>
+                                <div class="p-6">
+                                    <div class="grid gap-6 md:grid-cols-3">
+
+                                        <!-- Compañía Telefónica -->
+                                        <div class="space-x-0">
+                                            <label class="block tracking-wide text-black font-bold mb-2">
+                                    Compañía Telefónica
+                                    <span class="text-red-500">*</span></label>
+                                            <ng-select [items]="listCompaniaTelef()" bindLabel="Nombre" bindValue="Id"
+                                                [(ngModel)]="nuevoTelefono.Id_compania_telefonica"
+                                                formControlName="Id_compania_telefonica"
+                                                placeholder="Seleccione compañía" class="h-11">
+                                            </ng-select>
+                                        </div>
+
+                                        <!-- Número Celular -->
+                                        <div class="space-x-0">
+                                             <label class="block tracking-wide text-black font-bold mb-2">
+                                    Número Celular
+                                    <span class="text-red-500">*</span></label>
+                                            <input id="phone" type="tel" maxlength="12" autocomplete="off"
+                                                [(ngModel)]="nuevoTelefono.Numero_telefono"
+                                                formControlName="Numero_telefono" (input)="formatearTelefono($event)"
+                                                placeholder="000-000-0000"
+                                                class="h-11 w-full rounded-md border border-black px-3 py-2 placeholder:uppercase focus:outline-none focus:bg-gray-100 focus:border-[#009DD5]" />
+                                        </div>
+
+                                        <!-- Botón Agregar -->
+                                        <div class="space-x-0">
+                                            <label class="block tracking-wide text-transparent font-bold mb-2">Acción</label>
+                                            <button (click)="agregarTelefono()"
+                                                [disabled]="!nuevoTelefono.Id_compania_telefonica || !nuevoTelefono.Numero_telefono"
+                                                class="w-full cursor-pointer h-11 bg-blue-600 hover:bg-blue-700 text-white rounded-md disabled:opacity-50 transition duration-100 uppercase">
+                                                Agregar Número
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Lista de teléfonos agregados -->
+                            <div *ngIf="telefonosAgregados.length > 0" class="rounded-lg border bg-white shadow-sm">
+                                <div class="p-4 border-b flex items-center justify-between">
+                                    <div class="flex items-center gap-2 text-lg font-semibold">
+                                        <i class="fa-solid fa-building h-5 w-5"></i>
+                                        Números Registrados
+                                    </div>
+                                    <span class="bg-gray-100 text-gray-800 text-sm px-3 py-1 rounded">
+                                        {{ telefonosAgregados.length }} número{{ telefonosAgregados.length !== 1 ? 's' :
+                                        '' }}
+                                    </span>
+                                </div>
+
+                                <div class="p-4 space-y-3">
+                                    <div *ngFor="let tel of telefonosAgregados; let i = index"
+                                        class="flex items-center justify-between p-4 bg-gray-50 rounded-lg border hover:bg-gray-100 transition-colors">
+                                        <div class="flex items-center gap-4">
+                                            <div
+                                                class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                                                {{ i + 1 }}
+                                            </div>
+                                            <div>
+                                                <p class="font-semibold text-gray-900 text-lg">{{ tel.Numero_telefono }}
+                                                </p>
+                                                <p class="text-sm text-gray-600 flex items-center gap-2">
+                                                    <i class="fa-solid fa-building h-3 w-3"></i>
+                                                    {{ obtenerNombreCompania(tel.Id_compania_telefonica) }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <button (click)="eliminarTelefono(i)"
+                                            class="text-red-500 hover:text-red-700 hover:bg-red-50 p-2 rounded-full">
+                                            <i class="fa-solid fa-trash-can h-4 w-4"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Estado vacío -->
+                            <div *ngIf="telefonosAgregados.length === 0"
+                                class="rounded-lg border border-dashed bg-white shadow-sm">
+                                <div class="flex flex-col items-center justify-center py-12 text-center">
+                                    <div
+                                        class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                                        <i class="fa-solid fa-phone text-gray-400 text-2xl"></i>
+                                    </div>
+                                    <h3 class="text-lg font-semibold text-gray-900 mb-2">No hay teléfonos registrados
+                                    </h3>
+                                    <p class="text-gray-600 max-w-sm">Agregue su primer número usando el formulario de
+                                        arriba</p>
+                                </div>
+                            </div>
+                        </div>
+
+
                         <div class="grid gap-6 lg:grid-cols-2 mt-14">
                             <button
                                 class="uppercase cursor-pointer w-full border border-green-500 hover:bg-[#5AB24B] text-green-500 hover:text-white py-4 lg:py-2 rounded-md transition duration-100"
@@ -470,8 +574,8 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Tipo de parentesco
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="" appendTo="html"
-                                    bindLabel="name" bindValue="id">
+                                <ng-select placeholder="Seleccione" [items]="" appendTo="html" bindLabel="name"
+                                    bindValue="id">
                                 </ng-select>
                             </div>
                             <div class="h-10 w-full min-w-[200px]">
@@ -479,7 +583,7 @@
                                     Nombres del Tutor
                                     <span class="text-red-500">*</span></label>
                                 <input autocomplete="off" type="number" min="1" max="12"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Nombres del Tutor" />
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-0">
@@ -487,7 +591,7 @@
                                     Primer apellido del Tutor
                                     <span class="text-red-500">*</span></label>
                                 <input autocomplete="off" type="number" min="1" max="12"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Primer apellido del Tutor" />
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
@@ -495,7 +599,7 @@
                                     Segundo apellido del Tutor
                                     <span class="text-red-500">*</span></label>
                                 <input autocomplete="off" type="number" min="1" max="12"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Segundo apellido del Tutor" />
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
@@ -509,7 +613,7 @@
                                                 [for]="picker1"></mat-datepicker-toggle>
                                         </div>
                                         <input matInput [matDatepicker]="picker1"
-                                            class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                            class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                             placeholder="D/M/A" autocomplete="off">
                                     </div>
                                     <mat-datepicker #picker1></mat-datepicker>
@@ -529,7 +633,7 @@
                                     Centro de trabajo del Tutor
                                     <span class="text-red-500">*</span></label>
                                 <input autocomplete="off" type="number" min="1" max="12"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Centro de trabajo del Tutor" />
                             </div>
                             <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
@@ -537,7 +641,7 @@
                                     Ingresos mensual
                                     <span class="text-red-500">*</span></label>
                                 <input autocomplete="off" type="number" min="1" max="12"
-                                    class="h-full w-full rounded-[7px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Numero celular" />
                             </div>
                         </div>
