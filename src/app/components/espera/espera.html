@@ -1,30 +1,193 @@
-<!-- component -->
-<div class="fondo bg-black h-screen flex items-center justify-center p-2">
-	<div class="bg-white p-8 rounded-lg shadow-md max-w-md w-full">
-		<!-- Banner Profile -->
-		<!-- <div class="relative">
-			<img src="https://placekitten.com/500/150" alt="Banner Profile" class="w-full rounded-t-lg">
-			<img src="https://placekitten.com/150/150" alt="Profile Picture" class="absolute bottom-0 left-2/4 transform -translate-x-1/2 translate-y-1/2 w-24 h-24 rounded-full border-4 border-white">
-		</div> -->
-		<!-- User Info with Verified Button -->
-		<div class="flex items-center mt-4">
-			<h2 class="text-xl font-bold text-gray-800">Estimado estudiante:</h2>
+<div class="bg-gray-100 h-screen flex items-center justify-center p-5">
+
+	<div class="w-full max-w-svh shadow-2xl bg-white/95 backdrop-blur-md rounded-b-xl">
+
+		<!-- Header with gradient background -->
+		<div class="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 p-6 text-white relative">
+			<div class="absolute inset-0 bg-black/10"></div>
+			<div class="relative z-10 text-center p-0">
+				<!-- Avatar -->
+				<div
+					class="w-32 h-32 mx-auto mb-4 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-xl border-4 border-white/30">
+					EH
+				</div>
+
+				<!-- Name -->
+				<h1 class="text-3xl font-bold mb-3 drop-shadow-sm">
+					Erian Hernández
+				</h1>
+
+				<!-- ID -->
+				<div
+					class="flex items-center justify-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-5 py-2 w-fit mx-auto">
+					<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+						stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+							d="M15 7h.01M12 4a4 4 0 014 4v1a4 4 0 01-4 4h-1a4 4 0 01-4-4V8a4 4 0 014-4z" />
+					</svg>
+					<span class="text-sm font-mono font-medium tracking-wider">17261726716</span>
+				</div>
+			</div>
 		</div>
-		<!-- Bio -->
-		<p class="text-gray-700 mt-2"> Antes de completar el formulario, tenga en cuenta que los datos que registre no podrán ser editados posteriormente. Le recomendamos ingresar la información con precisión y verificar cada campo antes de enviarlo.</p>
-		<!-- Social Links -->
-		<!-- <div class="flex items-center mt-4 space-x-4">
-			<a href="#" class="text-blue-500 hover:underline"> Twitter </a>
-			<a href="#" class="text-blue-500 hover:underline"> GitHub </a>
-			<a href="#" class="text-blue-500 hover:underline"> LinkedIn </a>
-		</div> -->
-		<!-- Separator Line -->
-		<hr class="my-4 border-t border-gray-300">
-		<!-- Stats -->
-		<div class="flex justify-center text-gray-600 mx-2">
-            <button (click)="formregistro()" class="cursor-pointer mb-3 w-full bg-green-500 hover:bg-[#5AB24B] text-white py-2 rounded-md transition duration-100">
-                Continuar
-            </button>
+
+		<!-- Card Content -->
+		<div class="p-6 space-y-5">
+
+			<!-- Centro Universitario -->
+			<div
+				class="group hover:bg-blue-50 transition-all duration-300 rounded-xl p-5 border border-blue-100 hover:border-blue-200 hover:shadow-md">
+				<div class="flex items-start gap-4">
+					<div class="bg-blue-100 p-3 rounded-xl group-hover:bg-blue-200 transition-colors">
+						<!-- Icon: MapPin -->
+						<svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" stroke-width="2"
+							viewBox="0 0 24 24">
+							<path d="M12 11.5a3.5 3.5 0 100-7 3.5 3.5 0 000 7z" />
+							<path d="M19.5 10.5C19.5 14.642 12 21 12 21s-7.5-6.358-7.5-10.5a7.5 7.5 0 1115 0z" />
+						</svg>
+					</div>
+					<div class="flex-1">
+						<div class="flex items-center gap-2 mb-2">
+							<p class="text-sm font-semibold text-blue-800">Centro Universitario</p>
+							<svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+								<path fill-rule="evenodd"
+									d="M16.707 5.293a1 1 0 010 1.414L8.414 15H7v-1.414l8.293-8.293a1 1 0 011.414 0z"
+									clip-rule="evenodd" />
+							</svg>
+						</div>
+						<p class="text-sm text-gray-700 leading-relaxed">UNRAMA</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Carrera -->
+			<div
+				class="group hover:bg-emerald-50 transition-all duration-300 rounded-xl p-5 border border-emerald-100 hover:border-emerald-200 hover:shadow-md">
+				<div class="flex items-start gap-4">
+					<div class="bg-emerald-100 p-3 rounded-xl group-hover:bg-emerald-200 transition-colors">
+						<!-- Icon: GraduationCap -->
+						<svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2"
+							viewBox="0 0 24 24">
+							<path d="M12 14L2 9l10-5 10 5-10 5zm0 0v6m0 0l3-2m-3 2l-3-2" />
+						</svg>
+					</div>
+					<div class="flex-1">
+						<div class="flex items-center gap-2 mb-2">
+							<p class="text-sm font-semibold text-emerald-800">Carrera</p>
+							<svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+								<path fill-rule="evenodd"
+									d="M16.707 5.293a1 1 0 010 1.414L8.414 15H7v-1.414l8.293-8.293a1 1 0 011.414 0z"
+									clip-rule="evenodd" />
+							</svg>
+						</div>
+						<p class="text-sm text-gray-700 leading-relaxed">Informatica Educativa</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Información Personal -->
+			<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+				<!-- Fecha de Nacimiento -->
+				<div
+					class="group hover:bg-purple-50 transition-all duration-300 rounded-xl p-4 border border-purple-100 hover:border-purple-200 hover:shadow-md">
+					<div class="flex items-center gap-3">
+						<div class="bg-purple-100 p-2 rounded-lg group-hover:bg-purple-200 transition-colors">
+							<!-- Icon: Calendar -->
+							<svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" stroke-width="2"
+								viewBox="0 0 24 24">
+								<path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
+							</svg>
+						</div>
+						<div class="flex-1">
+							<div class="flex items-center gap-2 mb-1">
+								<p class="text-sm font-semibold text-purple-800">Fecha de Nacimiento</p>
+								<svg class="w-3 h-3 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+									<path fill-rule="evenodd"
+										d="M16.707 5.293a1 1 0 010 1.414L8.414 15H7v-1.414l8.293-8.293a1 1 0 011.414 0z"
+										clip-rule="evenodd" />
+								</svg>
+							</div>
+							<p class="text-sm text-gray-700">9 de febrero 2024</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Género -->
+				<div
+					class="group hover:bg-orange-50 transition-all duration-300 rounded-xl p-4 border border-orange-100 hover:border-orange-200 hover:shadow-md">
+					<div class="flex items-center gap-3">
+						<div class="bg-orange-100 p-2 rounded-lg group-hover:bg-orange-200 transition-colors">
+							<!-- Icon: User -->
+							<svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" stroke-width="2"
+								viewBox="0 0 24 24">
+								<path d="M12 14a5 5 0 100-10 5 5 0 000 10zm0 2c-5 0-8 2.5-8 4v2h16v-2c0-1.5-3-4-8-4z" />
+							</svg>
+						</div>
+						<div class="flex-1">
+							<div class="flex items-center gap-2 mb-2">
+								<p class="text-sm font-semibold text-orange-800">Género</p>
+								<svg class="w-3 h-3 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+									<path fill-rule="evenodd"
+										d="M16.707 5.293a1 1 0 010 1.414L8.414 15H7v-1.414l8.293-8.293a1 1 0 011.414 0z"
+										clip-rule="evenodd" />
+								</svg>
+							</div>
+							<span class="px-2 py-1 rounded-full text-xs font-medium border">
+								Masculino
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Footer Verificado -->
+			<!-- advertencia.component.html -->
+			<div class="border border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50 shadow-lg rounded-xl">
+				<div class="p-6">
+					<div class="flex items-start gap-4">
+						<!-- Icono de alerta -->
+						<div class="bg-amber-100 p-2 rounded-full flex-shrink-0">
+							<!-- AlertTriangle -->
+							<svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" stroke-width="2"
+								viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round"
+									d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+								<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01" />
+							</svg>
+						</div>
+
+						<!-- Contenido principal -->
+						<div class="flex-1">
+							<h3 class="text-lg font-semibold text-amber-800 mb-3 flex items-center gap-2">
+								<!-- Info icon -->
+								<svg class="w-5 h-5 text-amber-800" fill="none" stroke="currentColor" stroke-width="2"
+									viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round"
+										d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" />
+								</svg>
+								Estimado estudiante:
+							</h3>
+
+							<div class="bg-white/60 backdrop-blur-sm rounded-lg p-4 border border-amber-200">
+								<p class="text-amber-900 leading-relaxed">
+									Antes de completar el formulario, ten en cuenta que
+									<span class="font-semibold text-amber-800">
+										los datos que ingreses no podrán ser editados posteriormente
+									</span>.
+									Te recomendamos ingresar la información de manera precisa y verificar cada campo
+									antes de enviarlo.
+								</p>
+							</div>
+
+							<div class="mt-4 flex items-center gap-2 text-sm text-amber-700">
+								<div class="w-2 h-2 bg-amber-500 rounded-full"></div>
+								<span class="font-medium">Revisa cuidadosamente antes de continuar</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
 		</div>
 	</div>
 </div>
