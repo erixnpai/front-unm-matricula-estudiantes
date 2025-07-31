@@ -24,7 +24,7 @@ export default class Login {
   }
 
   esperaBtn(){
-    this.router.navigate(['/espera']);
+    this.router.navigate(['espera']);
   }
 
 
