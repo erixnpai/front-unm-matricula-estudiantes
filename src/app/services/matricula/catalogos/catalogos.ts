@@ -20,6 +20,7 @@ export class CatalogosService {
   private get_dispositivos = DICTIONARY_URL.URL_API_MATRICULA + URL_MATRICULA.CATALOGOS.ALL_DISPOSITIVOS;
   private get_idiomas_lenguas_by_number = DICTIONARY_URL.URL_API_MATRICULA + URL_MATRICULA.CATALOGOS.ALL_IDIOMAS_BY_NUMBER;
   private get_nivel_alcanzado = DICTIONARY_URL.URL_API_MATRICULA + URL_MATRICULA.CATALOGOS.ALL_NIVEL_ALCANZADO;
+  private get_tipo_parentesco = DICTIONARY_URL.URL_API_MATRICULA + URL_MATRICULA.CATALOGOS.ALL_TIPO_PARENTESCO;
 
 
   async getAllCatalogos(catalogNames: string[]): Promise<ApiResponse> {
@@ -53,6 +54,11 @@ export class CatalogosService {
 
     getNivelAlcanzado() {
       return lastValueFrom(this.http.get<ApiResponse>(this.get_nivel_alcanzado)
+      .pipe(catchError(this.error.handleError)));
+    }
+
+    getTipoParentesco() {
+      return lastValueFrom(this.http.get<ApiResponse>(this.get_tipo_parentesco)
       .pipe(catchError(this.error.handleError)));
     }
 }

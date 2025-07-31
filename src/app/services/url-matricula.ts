@@ -7,6 +7,7 @@ export const URL_MATRICULA = {
         ALL_DISPOSITIVOS: 'catalogos-generales/dispositivos',
         ALL_IDIOMAS_BY_NUMBER: 'catalogos-generales/idiomaslengua/',
         ALL_NIVEL_ALCANZADO: 'catalogos-generales/nivelalcanzado/',
+        ALL_TIPO_PARENTESCO: 'catalogos-generales/tipoparentesco/',
     },
     MUNICIPIO: {
             ALL_MUNICIPIO: "/municipio",

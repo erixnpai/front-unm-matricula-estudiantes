@@ -30,7 +30,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Peso en libras
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Peso_libras" autocomplete="off"
+                                <input (input)="formatearPeso($event)" formControlName="Peso_libras" autocomplete="off"
                                     class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     type="" placeholder="Peso libras">
                             </div>
@@ -38,7 +38,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Altura en centímetros
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Altura_cm" autocomplete="off"
+                                <input (input)="formatearAltura($event)" formControlName="Altura_cm" autocomplete="off"
                                     class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     type="" placeholder="Altura en centímetros">
                             </div>
@@ -128,24 +128,112 @@
                                     <mat-slide-toggle formControlName="Dominio_idioma"></mat-slide-toggle>
                                     <span class="ml-3 text-gray-900 text-sm font-medium">Si</span>
                                 </label>
+                                <div class="w-full mt-10">
+                                    <!-- Sección para agregar idiomas (solo visible si Dominio_idioma es true) -->
+                                    <div *ngIf="estudiantesForm.get('Dominio_idioma')?.value"
+                                        class="rounded-lg border bg-white shadow-sm mb-10">
+                                        <div class="border-b px-6 py-4">
+                                            <div class="flex items-center gap-2 text-lg font-semibold">
+                                                <i class="fa-solid fa-globe h-5 w-5"></i>
+                                                Agregar Idioma
+                                            </div>
+                                        </div>
+                                        <div class="p-6">
+                                            <div class="grid gap-6 md:grid-cols-3">
+                                                <!-- Idioma -->
+                                                <div class="space-x-0">
+                                                    <label class="block tracking-wide text-black font-bold mb-2">
+                                                        Idioma
+                                                        <span class="text-red-500">*</span>
+                                                    </label>
+                                                    <ng-select [items]="listIdiomas()" bindLabel="Nombre" bindValue="Id"
+                                                        placeholder="Seleccione idioma" class="h-11"
+                                                        [(ngModel)]="nuevoIdioma.Id_idioma_lengua"
+                                                        [ngModelOptions]="{standalone: true}">
+                                                    </ng-select>
+                                                </div>
 
-                                <div class=" w-full min-w-[200px] mt-2 lg:mt-2"
-                                    *ngIf="estudiantesForm.get('Dominio_idioma')?.value">
-                                    <label class="block tracking-wide text-black font-bold mb-2">
-                                        Dominio de idiomas
-                                        <span class="text-red-500">*</span></label>
-                                    <ng-select formControlName="Id_idioma_lengua" placeholder="Seleccione" [items]="listIdiomas()"
-                                        appendTo="html" bindLabel="Nombre" bindValue="Id">
-                                    </ng-select>
-                                </div>
-                                <div class=" w-full min-w-[200px] mt-2 lg:mt-2"
-                                    *ngIf="estudiantesForm.get('Dominio_idioma')?.value">
-                                    <label class="block tracking-wide text-black font-bold mb-2">
-                                        Nivel alcanzado
-                                        <span class="text-red-500">*</span></label>
-                                    <ng-select formControlName="Id_nivel_alcanzado" placeholder="Seleccione" [items]="listNivelAlcanzadoIdiomas()"
-                                        appendTo="html" bindLabel="Nombre" bindValue="Id">
-                                    </ng-select>
+                                                <!-- Nivel Alcanzado -->
+                                                <div class="space-x-0">
+                                                    <label class="block tracking-wide text-black font-bold mb-2">
+                                                        Nivel Alcanzado
+                                                        <span class="text-red-500">*</span>
+                                                    </label>
+                                                    <ng-select [items]="listNivelAlcanzadoIdiomas()" bindLabel="Nombre"
+                                                        bindValue="Id" placeholder="Seleccione nivel" class="h-11"
+                                                        [(ngModel)]="nuevoIdioma.Id_nivel_alcanzado"
+                                                        [ngModelOptions]="{standalone: true}">
+                                                    </ng-select>
+                                                </div>
+
+                                                <!-- Botón Agregar -->
+                                                <div class="space-x-0">
+                                                    <label
+                                                        class="block tracking-wide text-transparent font-bold mb-2">Acción</label>
+                                                    <button (click)="agregarIdioma()"
+                                                        [disabled]="!nuevoIdioma.Id_idioma_lengua || !nuevoIdioma.Id_nivel_alcanzado"
+                                                        class="w-full cursor-pointer h-11 bg-blue-600 hover:bg-blue-700 text-white rounded-md disabled:opacity-50 transition duration-100 uppercase">
+                                                        Agregar Idioma
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Lista de idiomas agregados (solo si hay idiomas y Dominio_idioma es true) -->
+                                    <div *ngIf="estudiantesForm.get('Dominio_idioma')?.value && idiomasAgregados.length > 0"
+                                        class="rounded-lg border bg-white shadow-sm">
+                                        <div class="p-4 border-b flex items-center justify-between">
+                                            <div class="flex items-center gap-2 text-lg font-semibold">
+                                                <i class="fa-solid fa-globe h-5 w-5"></i>
+                                                Idiomas Registrados
+                                            </div>
+                                            <span class="bg-gray-100 text-gray-800 text-sm px-3 py-1 rounded">
+                                                {{ idiomasAgregados.length }} idioma{{ idiomasAgregados.length !== 1 ?
+                                                's' : '' }}
+                                            </span>
+                                        </div>
+
+                                        <div class="p-4 space-y-3">
+                                            <div *ngFor="let idioma of idiomasAgregados; let i = index"
+                                                class="flex items-center justify-between p-4 bg-gray-50 rounded-lg border hover:bg-gray-100 transition-colors">
+                                                <div class="flex items-center gap-4">
+                                                    <div
+                                                        class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                                                        {{ i + 1 }}
+                                                    </div>
+                                                    <div>
+                                                        <p class="font-semibold text-gray-900 text-lg">
+                                                            {{ obtenerNombreIdioma(idioma.Id_idioma_lengua) }}
+                                                        </p>
+                                                        <p class="text-sm text-gray-600 flex items-center gap-2">
+                                                            <i class="fa-solid fa-graduation-cap h-3 w-3"></i>
+                                                            {{ obtenerNivelIdioma(idioma.Id_nivel_alcanzado) }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <button (click)="eliminarIdioma(i)"
+                                                    class="text-red-500 hover:text-red-700 hover:bg-red-50 p-2 rounded-full">
+                                                    <i class="fa-solid fa-trash-can h-4 w-4"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Estado vacío (solo si Dominio_idioma es true y no hay idiomas) -->
+                                    <div *ngIf="estudiantesForm.get('Dominio_idioma')?.value && idiomasAgregados.length === 0"
+                                        class="rounded-lg border border-dashed bg-white shadow-sm">
+                                        <div class="flex flex-col items-center justify-center py-12 text-center">
+                                            <div
+                                                class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                                                <i class="fa-solid fa-globe text-gray-400 text-2xl"></i>
+                                            </div>
+                                            <h3 class="text-lg font-semibold text-gray-900 mb-2">No hay idiomas
+                                                registrados</h3>
+                                            <p class="text-gray-600 max-w-sm">Agregue su primer idioma usando el
+                                                formulario de arriba</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class=" w-full min-w-[200px] mt-0 lg:mt-2">
@@ -157,23 +245,113 @@
                                     <mat-slide-toggle formControlName="Dominio_lengua"></mat-slide-toggle>
                                     <span class="ml-3 text-gray-900 text-sm font-medium">Si</span>
                                 </label>
-                                <div class=" w-full min-w-[200px] mt-2 lg:mt-2"
-                                    *ngIf="estudiantesForm.get('Dominio_lengua')?.value">
-                                    <label class="block tracking-wide text-black font-bold mb-2">
-                                        Dominio de lenguas
-                                        <span class="text-red-500">*</span></label>
-                                    <ng-select formControlName="Id_idioma_lengua" placeholder="Seleccione" [items]="listLenguas()"
-                                        appendTo="html" bindLabel="Nombre" bindValue="Id">
-                                    </ng-select>
-                                </div>
-                                <div class=" w-full min-w-[200px] mt-2 lg:mt-2"
-                                    *ngIf="estudiantesForm.get('Dominio_lengua')?.value">
-                                    <label class="block tracking-wide text-black font-bold mb-2">
-                                        Nivel alcanzado
-                                        <span class="text-red-500">*</span></label>
-                                    <ng-select formControlName="Id_nivel_alcanzado" placeholder="Seleccione" [items]="listNivelAlcanzadoLenguas()"
-                                        appendTo="html" bindLabel="Nombre" bindValue="Id">
-                                    </ng-select>
+
+                                <div class="w-full mt-10">
+                                    <!-- Sección para agregar lenguas (solo visible si Dominio_lengua es true) -->
+                                    <div *ngIf="estudiantesForm.get('Dominio_lengua')?.value"
+                                        class="rounded-lg border bg-white shadow-sm mb-10">
+                                        <div class="border-b px-6 py-4">
+                                            <div class="flex items-center gap-2 text-lg font-semibold">
+                                                <i class="fa-solid fa-comments h-5 w-5"></i>
+                                                Agregar Lenguas
+                                            </div>
+                                        </div>
+                                        <div class="p-6">
+                                            <div class="grid gap-6 md:grid-cols-3">
+                                                <!-- Lengua Indígena -->
+                                                <div class="space-x-0">
+                                                    <label class="block tracking-wide text-black font-bold mb-2">
+                                                        Dominio de Lenguas
+                                                        <span class="text-red-500">*</span>
+                                                    </label>
+                                                    <ng-select [items]="listLenguas()" bindLabel="Nombre" bindValue="Id"
+                                                        placeholder="Seleccione lengua" class="h-11"
+                                                        [(ngModel)]="nuevaLengua.Id_idioma_lengua"
+                                                        [ngModelOptions]="{standalone: true}">
+                                                    </ng-select>
+                                                </div>
+
+                                                <!-- Nivel Alcanzado -->
+                                                <div class="space-x-0">
+                                                    <label class="block tracking-wide text-black font-bold mb-2">
+                                                        Nivel Alcanzado
+                                                        <span class="text-red-500">*</span>
+                                                    </label>
+                                                    <ng-select [items]="listNivelAlcanzadoLenguas()" bindLabel="Nombre"
+                                                        bindValue="Id" placeholder="Seleccione nivel" class="h-11"
+                                                        [(ngModel)]="nuevaLengua.Id_nivel_alcanzado"
+                                                        [ngModelOptions]="{standalone: true}">
+                                                    </ng-select>
+                                                </div>
+
+                                                <!-- Botón Agregar -->
+                                                <div class="space-x-0">
+                                                    <label
+                                                        class="block tracking-wide text-transparent font-bold mb-2">Acción</label>
+                                                    <button (click)="agregarLengua()"
+                                                        [disabled]="!nuevaLengua.Id_idioma_lengua || !nuevaLengua.Id_nivel_alcanzado"
+                                                        class="w-full cursor-pointer h-11 bg-blue-600 hover:bg-blue-700 text-white rounded-md disabled:opacity-50 transition duration-100 uppercase">
+                                                        Agregar Lengua
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Lista de lenguas agregadas (solo si hay lenguas y Dominio_lengua es true) -->
+                                    <div *ngIf="estudiantesForm.get('Dominio_lengua')?.value && lenguasAgregadas.length > 0"
+                                        class="rounded-lg border bg-white shadow-sm">
+                                        <div class="p-4 border-b flex items-center justify-between">
+                                            <div class="flex items-center gap-2 text-lg font-semibold">
+                                                <i class="fa-solid fa-comments h-5 w-5"></i>
+                                                Lenguas Registradas
+                                            </div>
+                                            <span class="bg-gray-100 text-gray-800 text-sm px-3 py-1 rounded">
+                                                {{ lenguasAgregadas.length }} lengua{{ lenguasAgregadas.length !== 1 ?
+                                                's' : '' }}
+                                            </span>
+                                        </div>
+
+                                        <div class="p-4 space-y-3">
+                                            <div *ngFor="let lengua of lenguasAgregadas; let i = index"
+                                                class="flex items-center justify-between p-4 bg-gray-50 rounded-lg border hover:bg-gray-100 transition-colors">
+                                                <div class="flex items-center gap-4">
+                                                    <div
+                                                        class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                                                        {{ i + 1 }}
+                                                    </div>
+                                                    <div>
+                                                        <p class="font-semibold text-gray-900 text-lg">
+                                                            {{ obtenerNombreLengua(lengua.Id_idioma_lengua) }}
+                                                        </p>
+                                                        <p class="text-sm text-gray-600 flex items-center gap-2">
+                                                            <i class="fa-solid fa-graduation-cap h-3 w-3"></i>
+                                                            {{ obtenerNivelLengua(lengua.Id_nivel_alcanzado) }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <button (click)="eliminarLengua(i)"
+                                                    class="text-red-500 hover:text-red-700 hover:bg-red-50 p-2 rounded-full">
+                                                    <i class="fa-solid fa-trash-can h-4 w-4"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Estado vacío (solo si Dominio_lengua es true y no hay lenguas) -->
+                                    <div *ngIf="estudiantesForm.get('Dominio_lengua')?.value && lenguasAgregadas.length === 0"
+                                        class="rounded-lg border border-dashed bg-white shadow-sm">
+                                        <div class="flex flex-col items-center justify-center py-12 text-center">
+                                            <div
+                                                class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                                                <i class="fa-solid fa-comments text-gray-400 text-2xl"></i>
+                                            </div>
+                                            <h3 class="text-lg font-semibold text-gray-900 mb-2">No hay lenguas
+                                                registradas</h3>
+                                            <p class="text-gray-600 max-w-sm">Agregue su primera lengua usando el
+                                                formulario de arriba</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -383,7 +561,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Año bachillerato
                                     <span class="text-red-500">*</span></label>
-                                <input formControlName="Anio_bachillerato" autocomplete="off"
+                                <input (input)="formatearAnioBachillerato($event)" formControlName="Anio_bachillerato" autocomplete="off"
                                     class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Año bachillerato" />
                             </div>
@@ -409,7 +587,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Año que ingresó a la universidad
                                     <span class="text-red-500">*</span></label>
-                                <ng-select formControlName="Anio_ingreso_carrera" placeholder="Seleccione" [items]=""
+                                <ng-select formControlName="Anio_ingreso_carrera" placeholder="Seleccione" [items]="anioIngreso"
                                     appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
@@ -468,8 +646,8 @@
                                         <!-- Compañía Telefónica -->
                                         <div class="space-x-0">
                                             <label class="block tracking-wide text-black font-bold mb-2">
-                                    Compañía Telefónica
-                                    <span class="text-red-500">*</span></label>
+                                                Compañía Telefónica
+                                                <span class="text-red-500">*</span></label>
                                             <ng-select [items]="listCompaniaTelef()" bindLabel="Nombre" bindValue="Id"
                                                 [(ngModel)]="nuevoTelefono.Id_compania_telefonica"
                                                 formControlName="Id_compania_telefonica"
@@ -479,19 +657,20 @@
 
                                         <!-- Número Celular -->
                                         <div class="space-x-0">
-                                             <label class="block tracking-wide text-black font-bold mb-2">
-                                    Número Celular
-                                    <span class="text-red-500">*</span></label>
+                                            <label class="block tracking-wide text-black font-bold mb-2">
+                                                Número Celular
+                                                <span class="text-red-500">*</span></label>
                                             <input id="phone" type="tel" maxlength="12" autocomplete="off"
                                                 [(ngModel)]="nuevoTelefono.Numero_telefono"
                                                 formControlName="Numero_telefono" (input)="formatearTelefono($event)"
-                                                placeholder="000-000-0000"
+                                                placeholder="0000-0000"
                                                 class="h-11 w-full rounded-md border border-black px-3 py-2 placeholder:uppercase focus:outline-none focus:bg-gray-100 focus:border-[#009DD5]" />
                                         </div>
 
                                         <!-- Botón Agregar -->
                                         <div class="space-x-0">
-                                            <label class="block tracking-wide text-transparent font-bold mb-2">Acción</label>
+                                            <label
+                                                class="block tracking-wide text-transparent font-bold mb-2">Acción</label>
                                             <button (click)="agregarTelefono()"
                                                 [disabled]="!nuevoTelefono.Id_compania_telefonica || !nuevoTelefono.Numero_telefono"
                                                 class="w-full cursor-pointer h-11 bg-blue-600 hover:bg-blue-700 text-white rounded-md disabled:opacity-50 transition duration-100 uppercase">
@@ -574,23 +753,23 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Tipo de parentesco
                                     <span class="text-red-500">*</span></label>
-                                <ng-select placeholder="Seleccione" [items]="" appendTo="html" bindLabel="name"
-                                    bindValue="id">
+                                <ng-select formControlName="Id_tipo_parentesco" placeholder="Seleccione" [items]="listTipoParentesco()" appendTo="html" 
+                                bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px]">
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Nombres del Tutor
                                     <span class="text-red-500">*</span></label>
-                                <input autocomplete="off" type="number" min="1" max="12"
+                                <input autocomplete="off" type="text"
                                     class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Nombres del Tutor" />
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-0">
+                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Primer apellido del Tutor
                                     <span class="text-red-500">*</span></label>
-                                <input autocomplete="off" type="number" min="1" max="12"
+                                <input autocomplete="off" type="text"
                                     class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Primer apellido del Tutor" />
                             </div>
@@ -598,7 +777,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Segundo apellido del Tutor
                                     <span class="text-red-500">*</span></label>
-                                <input autocomplete="off" type="number" min="1" max="12"
+                                <input autocomplete="off" type="text"
                                     class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Segundo apellido del Tutor" />
                             </div>
@@ -632,7 +811,7 @@
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Centro de trabajo del Tutor
                                     <span class="text-red-500">*</span></label>
-                                <input autocomplete="off" type="number" min="1" max="12"
+                                <input autocomplete="off" type="text"
                                     class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Centro de trabajo del Tutor" />
                             </div>
@@ -651,8 +830,9 @@
                                 matStepperPrevious>Anterior</button>
 
                             <button
+                            (click)="buttonSweet()"
                                 class="uppercase cursor-pointer w-full bg-[#1da2fc] hover:bg-[#009cd5] text-white py-4 lg:py-2 rounded-md transition duration-100"
-                                matStepperNext>Siguiente</button>
+                                matStepperNext>Guardar</button>
                         </div>
                     </mat-step>
                 </form>

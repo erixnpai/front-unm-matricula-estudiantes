@@ -25,20 +25,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CatalogosService } from '../../services/matricula/catalogos/catalogos';
 import { SweetModal } from '../../utils/sweetalert';
+import { ANIO_INGRESO } from '../../services/data/anioingreso';
 
 @Component({
   selector: 'app-form-estudiantes',
-  imports: [
-    MatStepperModule,
-    MatSlideToggleModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
-    MatInputModule,
-    MatDatepickerModule,
-    NgSelectModule,
-    MatInputModule,
-  ],
+  imports: [MatStepperModule, MatSlideToggleModule, FormsModule, ReactiveFormsModule, CommonModule, MatInputModule, MatDatepickerModule, NgSelectModule, MatInputModule,],
   templateUrl: './form-estudiantes.html',
   styleUrl: './form-estudiantes.css',
   providers: [
@@ -51,7 +42,7 @@ export default class FormEstudiantes {
   @ViewChild('stepper') private stepper: MatStepper | undefined;
   stepperOrientation: Observable<StepperOrientation>;
   estudiantesForm!: FormGroup;
-
+  anioIngreso = ANIO_INGRESO
   listpais = signal([]);
   listzona = signal([]);
   listzonaresidencia = signal([]);
@@ -71,7 +62,7 @@ export default class FormEstudiantes {
   listDeficiencia = signal([]);
   listCompaniaTelef = signal<{ Id: number; Nombre: string }[]>([]);
   listsexo = signal([]);
-  listIdiomas = signal([]);
+  listIdiomas = signal<{ Id: number; Nombre: string }[]>([]);
   listLenguas = signal<{ Id: number; Nombre: string }[]>([]);
   listNivelAlcanzadoIdiomas = signal([]);
   listNivelAlcanzadoLenguas = signal([]);
@@ -82,6 +73,7 @@ export default class FormEstudiantes {
   listocupacion = signal([]);
   listsectorocupacion = signal([]);
   listentidadlaboral = signal([]);
+  listTipoParentesco = signal([]);
   listdispositivos = signal<any[]>([]);
 
   nuevoTelefono: any = {
@@ -93,6 +85,12 @@ export default class FormEstudiantes {
   lenguasAgregadas: any[] = [];
   // dominaLenguas: boolean = false;
   nuevaLengua: any = {
+    Id_idioma_lengua: null,
+    Id_nivel_alcanzado: null
+  };
+
+  idiomasAgregados: any[] = [];
+  nuevoIdioma: any = {
     Id_idioma_lengua: null,
     Id_nivel_alcanzado: null
   };
@@ -161,6 +159,9 @@ export default class FormEstudiantes {
       Numero_telefono: new FormControl(null, [Validators.required]), // tabla telefono
       Id_compania_telefonica: new FormControl(null, [Validators.required]), // tabla telefono
 
+      // Stepper 6
+      Id_tipo_parentesco: new FormControl(null, [Validators.required]), // tabla Estructura_Familiar
+
       // -----------------------------------------------------------
     });
 
@@ -170,6 +171,7 @@ export default class FormEstudiantes {
     this.getIdiomas()
     this.getNivelAlcanzadoIdiomas()
     this.getNivelAlcanzadoLenguas()
+    this.getTipoParentesco();
   }
 
   async getCatalogos() {
@@ -197,15 +199,9 @@ export default class FormEstudiantes {
 
       this.tiposangre.set(Array.isArray(data.tipo_Sangre) ? data.tipo_Sangre : []);
       this.listsexo.set(Array.isArray(data.sexo) ? data.sexo : []);
-      this.listestadocivil.set(
-        Array.isArray(data.estado_Civil) ? data.estado_Civil : []
-      );
+      this.listestadocivil.set(Array.isArray(data.estado_Civil) ? data.estado_Civil : []);
       this.listetnias.set(Array.isArray(data.etnia) ? data.etnia : []);
-      this.dimensionNacionalidad.set(
-        Array.isArray(data.dimension_Nacionalidad)
-          ? data.dimension_Nacionalidad
-          : []
-      );
+      this.dimensionNacionalidad.set(Array.isArray(data.dimension_Nacionalidad) ? data.dimension_Nacionalidad : []);
       this.listpais.set(Array.isArray(data.pais) ? data.pais : []);
       this.listzona.set(Array.isArray(data.zona) ? data.zona : []);
       this.listzonaresidencia.set(Array.isArray(data.zona) ? data.zona : []);
@@ -261,12 +257,8 @@ export default class FormEstudiantes {
 
   async getMunicipioByComunidadesOrigen() {
     try {
-      const idMunicipioOrigen = this.estudiantesForm.get(
-        'Id_municipio_origen'
-      )?.value;
-      const { data } = await this.catalogosService.getMunicipioByComunidad(
-        idMunicipioOrigen
-      );
+      const idMunicipioOrigen = this.estudiantesForm.get('Id_municipio_origen')?.value;
+      const { data } = await this.catalogosService.getMunicipioByComunidad(idMunicipioOrigen);
 
       if (!Array.isArray(data)) {
         this.listcomunidadorigen.set([]);
@@ -314,12 +306,8 @@ export default class FormEstudiantes {
 
   async getMunicipioByComunidadesResidencia() {
     try {
-      const idMunicipioResidencia = this.estudiantesForm.get(
-        'Id_municipio_residencia'
-      )?.value;
-      const { data } = await this.catalogosService.getMunicipioByComunidad(
-        idMunicipioResidencia
-      );
+      const idMunicipioResidencia = this.estudiantesForm.get('Id_municipio_residencia')?.value;
+      const { data } = await this.catalogosService.getMunicipioByComunidad(idMunicipioResidencia);
 
       if (!Array.isArray(data)) {
         this.listcomunidadresidencia.set([]);
@@ -337,9 +325,7 @@ export default class FormEstudiantes {
 
   async getMunicipiosByDepartamentoCulmino() {
     try {
-      const idDepartamentoCulmino = this.estudiantesForm.get(
-        'Id_departamento_culmino'
-      )?.value;
+      const idDepartamentoCulmino = this.estudiantesForm.get('Id_departamento_culmino')?.value;
 
       if (!idDepartamentoCulmino) {
         this.listmunicipioculmino.set([]);
@@ -367,13 +353,8 @@ export default class FormEstudiantes {
 
   async getMunicipiosByCentroSecundaria() {
     try {
-      const idMunicipioCulmino = this.estudiantesForm.get(
-        'Id_municipio_culmino'
-      )?.value;
-      const { data } =
-        await this.catalogosService.getMunicipioByCentroSecundaria(
-          idMunicipioCulmino
-        );
+      const idMunicipioCulmino = this.estudiantesForm.get('Id_municipio_culmino')?.value;
+      const { data } = await this.catalogosService.getMunicipioByCentroSecundaria(idMunicipioCulmino);
 
       if (!Array.isArray(data)) {
         this.listcentrosecundario.set([]);
@@ -389,7 +370,7 @@ export default class FormEstudiantes {
     }
   }
 
-  async getIdiomas(){
+  async getIdiomas() {
     try {
       const { data } = await this.catalogosService.getIdiomasLenguasByNumber(1);
       this.listIdiomas.set(data);
@@ -398,7 +379,7 @@ export default class FormEstudiantes {
       this.listIdiomas.set([]);
     }
   }
-  async getLenguas(){
+  async getLenguas() {
     try {
       const { data } = await this.catalogosService.getIdiomasLenguasByNumber(2);
       this.listLenguas.set(data);
@@ -425,7 +406,7 @@ export default class FormEstudiantes {
       this.listNivelAlcanzadoIdiomas.set(data);
       console.log('Nivel alcanzado obtenido:', this.listNivelAlcanzadoIdiomas);
     } catch (error) {
-      console.error('Error al obtener nivel alcanzado:', error);  
+      console.error('Error al obtener nivel alcanzado:', error);
       this.listNivelAlcanzadoIdiomas.set([]);
     }
   }
@@ -435,8 +416,20 @@ export default class FormEstudiantes {
       this.listNivelAlcanzadoLenguas.set(data);
       console.log('Nivel alcanzado obtenido:', this.listNivelAlcanzadoLenguas);
     } catch (error) {
-      console.error('Error al obtener nivel alcanzado:', error);  
+      console.error('Error al obtener nivel alcanzado:', error);
       this.listNivelAlcanzadoLenguas.set([]);
+    }
+  }
+
+  async getTipoParentesco() {
+    try {
+      const {data} = await this.catalogosService.getTipoParentesco();
+      this.listTipoParentesco.set(data);
+      console.log('Tipo parentesco obtenido:', this.listTipoParentesco);
+    } catch (error) {
+      console.error('Error al obtener tipo parentesco:', error);
+      this.listTipoParentesco.set([]);
+      
     }
   }
 
@@ -464,6 +457,48 @@ export default class FormEstudiantes {
     this.estudiantesForm.controls['Numero_telefono'].updateValueAndValidity();
   }
 
+  formatearAnioBachillerato(event: any) {
+    const input = event.target.value;
+
+    // Eliminar todo lo que no sea número
+    const digitsOnly = input.replace(/\D/g, '').slice(0, 4); // máximo 4 dígitos
+
+    // Setear el valor limpio al campo sin disparar eventos
+    this.estudiantesForm.controls['Anio_bachillerato'].setValue(digitsOnly, {
+      emitEvent: false,
+    });
+
+    this.estudiantesForm.controls['Anio_bachillerato'].updateValueAndValidity();
+  }
+
+  formatearPeso(event: any) {
+     const input = event.target.value;
+
+    // Eliminar todo lo que no sea número
+    const digitsOnly = input.replace(/\D/g, '').slice(0, 3); // máximo 4 dígitos
+
+    // Setear el valor limpio al campo sin disparar eventos
+    this.estudiantesForm.controls['Peso_libras'].setValue(digitsOnly, {
+      emitEvent: false,
+    });
+
+    this.estudiantesForm.controls['Peso_libras'].updateValueAndValidity();
+  }
+  formatearAltura(event: any) {
+     const input = event.target.value;
+
+    // Eliminar todo lo que no sea número
+    const digitsOnly = input.replace(/\D/g, '').slice(0, 3); // máximo 4 dígitos
+
+    // Setear el valor limpio al campo sin disparar eventos
+    this.estudiantesForm.controls['Altura_cm'].setValue(digitsOnly, {
+      emitEvent: false,
+    });
+
+    this.estudiantesForm.controls['Altura_cm'].updateValueAndValidity();
+  }
+
+
   // Función para agregar teléfono
   agregarTelefono() {
     if (
@@ -483,60 +518,106 @@ export default class FormEstudiantes {
     }
   }
 
-  
+
   // Función para obtener nombre de compañía
   obtenerNombreCompania(id: number): string {
     const compania = this.listCompaniaTelef().find((c) => c.Id === id);
     return compania ? compania.Nombre : 'Desconocida';
   }
-  
+
   // Función para eliminar teléfono
   eliminarTelefono(index: number) {
     this.telefonosAgregados.splice(index, 1);
   }
-  
+
   toggleDominioLenguas() {
     const dominioLengua = this.estudiantesForm.get('Dominio_lengua')?.value;
     if (!dominioLengua) {
       this.lenguasAgregadas = []; // Limpiar lista si desactiva
     }
   }
+
+  // Método para agregar una lengua
   agregarLengua() {
-  if (this.nuevaLengua.Id_idioma_lengua && this.nuevaLengua.Id_nivel_alcanzado) {
-    const nueva = {...this.nuevaLengua};
-    this.lenguasAgregadas.push(nueva);
-    
-    // Resetear formulario
-    this.nuevaLengua = {
-      Id_idioma_lengua: null,
-      Id_nivel_alcanzado: null
-    };
+    if (this.nuevaLengua.Id_idioma_lengua && this.nuevaLengua.Id_nivel_alcanzado) {
+      // Clonamos el objeto para evitar referencias
+      const nueva = { ...this.nuevaLengua };
+      this.lenguasAgregadas.push(nueva);
+
+      // Limpiamos el formulario de nueva lengua
+      this.nuevaLengua = {
+        Id_idioma_lengua: null,
+        Id_nivel_alcanzado: null
+      };
+    }
   }
-}
 
-eliminarLengua(index: number) {
-  this.lenguasAgregadas.splice(index, 1);
-}
+  // Método para eliminar una lengua
+  eliminarLengua(index: number) {
+    this.lenguasAgregadas.splice(index, 1);
+  }
 
-obtenerNombreLengua(id: number): string {
-  const lengua = this.listLenguas().find(l => l.Id === id);
-  return lengua ? lengua.Nombre : 'Lengua desconocida';
-}
+  // Métodos para obtener nombres (asumiendo que tus listas devuelven objetos con Id y Nombre)
+  obtenerNombreLengua(id: number): string {
+    const lengua = this.listLenguas().find(l => l.Id === id);
+    return lengua ? lengua.Nombre : 'Lengua desconocida';
+  }
 
-obtenerNivelLengua(id: number): string {
-  const niveles = this.listNivelAlcanzadoLenguas() as { Id: number; Nombre: string }[];
-  const nivel = niveles.find(n => n.Id === id);
-  return nivel ? nivel.Nombre : 'Nivel desconocido';
-}
+  obtenerNivelLengua(id: number): string {
+    const niveles = this.listNivelAlcanzadoLenguas() as { Id: number; Nombre: string }[];
+    const nivel = niveles.find(n => n.Id === id);
+    return nivel ? nivel.Nombre : 'Nivel desconocido';
+  }
+
+  // Método para agregar un idioma
+  agregarIdioma() {
+    if (this.nuevoIdioma.Id_idioma_lengua && this.nuevoIdioma.Id_nivel_alcanzado) {
+      // Clonamos el objeto para evitar referencias
+      const nuevo = { ...this.nuevoIdioma };
+      this.idiomasAgregados.push(nuevo);
+
+      // Limpiamos el formulario de nuevo idioma
+      this.nuevoIdioma = {
+        Id_idioma_lengua: null,
+        Id_nivel_alcanzado: null
+      };
+    }
+  }
+
+  // Método para eliminar un idioma
+  eliminarIdioma(index: number) {
+    this.idiomasAgregados.splice(index, 1);
+  }
+
+  // Métodos para obtener nombres
+  obtenerNombreIdioma(id: number): string {
+    const idioma = this.listIdiomas().find(i => i.Id === id);
+    return idioma ? idioma.Nombre : 'Idioma desconocido';
+  }
+
+  obtenerNivelIdioma(id: number): string {
+    const niveleles = this.listNivelAlcanzadoIdiomas() as { Id: number; Nombre: string }[];
+    const nivel = niveleles.find(n => n.Id === id);
+    return nivel ? nivel.Nombre : 'Nivel desconocido';
+  }
+
   async buttonSweet() {
-    SweetModal({
-      icon: 'info',
-      title: 'Estado de cuenta',
-      html: `
-                <p class="mb-2 text-center">Está seguro de guardar sus datos?</p>
-            `,
-      confirmButtonText: 'Entendido',
-      confirmButtonColor: '#6b7280',
-    });
+     await SweetModal({
+    icon: 'warning',
+    title: 'Confirmación antes de guardar',
+    html: `
+      <p class="text-center text-gray-800">
+        Antes de continuar, revise cuidadosamente todos los datos ingresados.
+      </p>
+      <p class="text-center mt-2 font-semibold text-red-500">
+        ¿Está seguro de que desea guardar esta información?
+      </p>
+    `,
+    confirmButtonText: 'Sí, guardar',
+    showCancelButton: true,
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#22c55e',  
+    cancelButtonColor: '#ef4444',  
+  });
   }
 }
