@@ -1,24 +1,28 @@
 <!-- component -->
-<section class="lg:h-screen overflow-y-auto relative px-4 lg:px-0 bg-gradient-to-tl from-[#009DD5] to-[#5AB24B]">
+<section class="lg:h-screen overflow-y-auto relative px-4 lg:px-0 bg-[#009DD5]">
     <div class=" flex items-start justify-start space-x-2">
         <img src="/assets/img/Logo_negativo.png" class="h-34 lg:h-28" alt="">
     </div>
     <div class="flex flex-col items-center justify-center">
 
-        <div class="bg-white rounded z-50 w-full mt-0 lg:mt-2 xl:mt-2 lg:full xl:w-5/6 px-4 shadow-lg">
+        <div class="bg-white rounded z-50 w-full xl:mt-2 xl:w-5/6 px-4 shadow-lg">
             <mat-stepper linear #stepper [orientation]="(stepperOrientation | async)!">
                 <form [formGroup]="estudiantesForm" class="flex flex-col min-w-full space-y-8 mt-0 relative">
                     <mat-step label="DATOS PERSONALES">
-                        <div class="grid gap-8 lg:grid-cols-2 mt-2 lg:mt-2 text-lg lg:text-sm uppercase">
-                            <div class="h-10 w-full min-w-[200px]">
+                        <div class="grid gap-4 lg:grid-cols-2 text-lg lg:text-sm uppercase">
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Estado Civil
                                     <span class="text-red-500">*</span></label>
                                 <ng-select formControlName="Id_estado_civil" placeholder="Seleccione"
                                     [items]="listestadocivil()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
+                                 <div *ngIf="estudiantesForm.get('Id_estado_civil')?.invalid && estudiantesForm.get('Id_estado_civil')?.touched"
+                                        class="text-red-500 text-xs mt-1">
+                                        Este campo es requerido
+                                    </div>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-0">
+                            <div class="w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Tipo de Sangre
                                     <span class="text-red-500">*</span></label>
@@ -26,30 +30,30 @@
                                     [items]="tiposangre()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Peso en libras
                                     <span class="text-red-500">*</span></label>
                                 <input (input)="formatearPeso($event)" formControlName="Peso_libras" autocomplete="off"
-                                    class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    class="h-10 w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     type="" placeholder="Peso libras">
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Altura en centímetros
                                     <span class="text-red-500">*</span></label>
                                 <input (input)="formatearAltura($event)" formControlName="Altura_cm" autocomplete="off"
-                                    class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    class="h-10 w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     type="" placeholder="Altura en centímetros">
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Código Mined</label>
                                 <input formControlName="Codigo_MINED" autocomplete="off"
-                                    class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    class="h-10 w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     type="" placeholder="Código Mined">
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Etnia
                                     <span class="text-red-500">*</span></label>
@@ -57,7 +61,7 @@
                                     appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Discapacidad
                                     <span class="text-red-500">*</span></label>
@@ -65,7 +69,7 @@
                                     [items]="listDiscapacidad()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Deficiencia
                                     <span class="text-red-500">*</span></label>
@@ -73,29 +77,65 @@
                                     [items]="listDeficiencia()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
-                            <div class=" w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div *ngIf="requiereConyugue" class=" w-full min-w-[200px]">
+                                <label class="block uppercase tracking-wide text-black font-bold mb-2">
+                                    Nombres del conyugue
+                                    <span class="text-red-500">*</span></label>
+                                <input formControlName="nombre_conyugue" autocomplete="off" type="text"
+                                    class="h-10 w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    placeholder="Nombre del conyugue" />
+                            </div>
+                            <div *ngIf="requiereConyugue" class=" w-full min-w-[200px]">
+                                <label class="block uppercase tracking-wide text-black font-bold mb-2">
+                                    Primer Apellido del conyugue
+                                    <span class="text-red-500">*</span></label>
+                                <input formControlName="apellido1_conyugue" autocomplete="off" type="text"
+                                    class="h-10 w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    placeholder="Primer Apellido del conyugue" />
+                            </div>
+                            <div *ngIf="requiereConyugue" class=" w-full min-w-[200px]">
+                                <label class="block uppercase tracking-wide text-black font-bold mb-2">
+                                    Segundo Apellido del conyugue
+                                    <span class="text-red-500">*</span></label>
+                                <input formControlName="apellido2_conyugue" autocomplete="off" type="text"
+                                    class="h-10 w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    placeholder="Segundo Apellido del conyugue" />
+                            </div>
+                            <div *ngIf="requiereConyugue" class=" w-full min-w-[200px]">
+                                <label class="block uppercase tracking-wide text-black font-bold mb-2">
+                                    Número celular del conyugue
+                                    <span class="text-red-500">*</span></label>
+                                <input formControlName="telefono_conyugue" (input)="formatearTelefonoCOnyugue($event)"
+                                    autocomplete="off" type="tel"
+                                    class="h-10 w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    placeholder="0000-0000" />
+                            </div>
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     ¿Está embarazada?
                                     <span class="text-red-500">*</span></label>
-                                <label for="toggle-embarazo" class="flex items-center cursor-pointer">
+                                <label for="toggle" class="flex items-center cursor-pointer">
                                     <span class="mr-3 text-gray-900 text-sm font-medium">No</span>
                                     <mat-slide-toggle formControlName="Embarazo"></mat-slide-toggle>
                                     <span class="ml-3 text-gray-900 text-sm font-medium">Si</span>
                                 </label>
 
-                                <div class=" w-full min-w-[200px] mt-2 lg:mt-2 mb-0"
+                                <div class=" w-full min-w-[200px] "
                                     *ngIf="estudiantesForm.get('Embarazo')?.value">
                                     <label class="block tracking-wide text-black font-bold mb-2">
                                         Meses de embarazo
                                         <span class="text-red-500">*</span>
                                     </label>
-                                    <input formControlName="Meses_embarazo" autocomplete="off" type="number" min="1"
-                                        max="12"
-                                        class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                        placeholder="Meses de embarazo" />
+                                    <ng-select formControlName="Meses_embarazo" placeholder="Seleccione"
+                                        [items]="mes_embarazo" appendTo="html" bindLabel="Nombre" bindValue="Id">
+                                    </ng-select>
+                                    <div *ngIf="estudiantesForm.get('Meses_embarazo')?.invalid && estudiantesForm.get('Meses_embarazo')?.touched"
+                                        class="text-red-500 text-xs mt-1">
+                                        Este campo es requerido
+                                    </div>
                                 </div>
                             </div>
-                            <div class=" w-full min-w-[200px] mt-0 lg:mt-2">
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     ¿Tiene Hijos?
                                     <span class="text-red-500">*</span>
@@ -107,23 +147,27 @@
                                     <span class="ml-3 text-gray-900 text-sm font-medium">Sí</span>
                                 </label>
 
-                                <div class=" w-full min-w-[200px] mt-2 lg:mt-2"
+                                <div class=" w-full min-w-[200px] "
                                     *ngIf="estudiantesForm.get('Tiene_hijos')?.value">
                                     <label class="block tracking-wide text-black font-bold mb-2">
                                         N.° de hijos
                                         <span class="text-red-500">*</span>
                                     </label>
-                                    <input formControlName="Numero_hijos" autocomplete="off" type="number" min="1"
-                                        max="12"
-                                        class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                    <input formControlName="Numero_hijos" (input)="formatearNumHijos($event)"
+                                        autocomplete="off" type="tel"
+                                        class="h-10 w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                         placeholder="N.° de hijos" />
+                                    <div *ngIf="estudiantesForm.get('Numero_hijos')?.invalid && estudiantesForm.get('Numero_hijos')?.touched"
+                                        class="text-red-500 text-xs mt-1">
+                                        Este campo es requerido
+                                    </div>
                                 </div>
                             </div>
-                            <div class=" w-full min-w-[200px] mt-0 lg:mt-2">
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     ¿Domina Idiomas?
                                     <span class="text-red-500">*</span></label>
-                                <label for="toggle-embarazo" class="flex items-center cursor-pointer">
+                                <label for="toggle" class="flex items-center cursor-pointer">
                                     <span class="mr-3 text-gray-900 text-sm font-medium">No</span>
                                     <mat-slide-toggle formControlName="Dominio_idioma"></mat-slide-toggle>
                                     <span class="ml-3 text-gray-900 text-sm font-medium">Si</span>
@@ -236,11 +280,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class=" w-full min-w-[200px] mt-0 lg:mt-2">
+                            <div class=" w-full min-w-[200px] ">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     ¿Domina lenguas?
                                     <span class="text-red-500">*</span></label>
-                                <label for="toggle-embarazo" class="flex items-center cursor-pointer">
+                                <label for="toggle" class="flex items-center cursor-pointer">
                                     <span class="mr-3 text-gray-900 text-sm font-medium">No</span>
                                     <mat-slide-toggle formControlName="Dominio_lengua"></mat-slide-toggle>
                                     <span class="ml-3 text-gray-900 text-sm font-medium">Si</span>
@@ -363,8 +407,8 @@
                     </mat-step>
 
                     <mat-step label="ORIGEN Y RESIDENCIAS">
-                        <div class="grid gap-8 lg:grid-cols-2 mt-6 lg:mt-2 text-lg lg:text-sm uppercase">
-                            <div class="h-10 w-full min-w-[200px]">
+                        <div class="grid gap-4 lg:grid-cols-2 text-lg lg:text-sm uppercase">
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Nacionalidad
                                     <span class="text-red-500">*</span></label>
@@ -372,7 +416,7 @@
                                     [items]="dimensionNacionalidad()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-0">
+                            <div class=" w-full min-w-[200px] mt-4 lg:mt-0">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     País de origen
                                     <span class="text-red-500">*</span></label>
@@ -380,7 +424,7 @@
                                     [items]="listpais()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Departamento de origen
                                     <span class="text-red-500">*</span></label>
@@ -389,7 +433,7 @@
                                     appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Municipio de origen
                                     <span class="text-red-500">*</span></label>
@@ -398,7 +442,7 @@
                                     appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Comunidad de origen
                                     <span class="text-red-500">*</span></label>
@@ -406,7 +450,7 @@
                                     [items]="listcomunidadorigen()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Zona de origen
                                     <span class="text-red-500">*</span></label>
@@ -414,7 +458,7 @@
                                     [items]="listzona()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Departamento de residencia
                                     <span class="text-red-500">*</span></label>
@@ -424,7 +468,7 @@
                                     bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Municipio de residencia
                                     <span class="text-red-500">*</span></label>
@@ -433,7 +477,7 @@
                                     appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Comunidad de residencia
                                     <span class="text-red-500">*</span></label>
@@ -442,7 +486,7 @@
                                     bindValue="Id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Zona de residencia
                                     <span class="text-red-500">*</span></label>
@@ -452,12 +496,12 @@
                             </div>
 
                         </div>
-                        <div class="h-10 w-full min-w-[200px] text-lg lg:text-sm mt-14 lg:mt-10">
+                        <div class=" w-full min-w-[200px] text-lg lg:text-sm mt-4 lg:mt-4">
                             <label class="block uppercase tracking-wide text-black font-bold mb-2">
                                 DIRECCIÓN DE RESIDENCIA
                                 <span class="text-red-500">*</span></label>
                             <input formControlName="Direccion_residencia" autocomplete="off" type="text"
-                                class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                class="h-10 w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                 placeholder="DIRECCIÓN DE RESIDENCIA" />
                         </div>
                         <div class="grid gap-6 lg:grid-cols-2 mt-14">
@@ -472,17 +516,17 @@
                     </mat-step>
 
                     <mat-step label="SITUACIÓN LABORAL">
-                        <div class="h-10 w-full min-w-[200px] mt-6 lg:mt-6 text-lg lg:text-sm uppercase">
+                        <div class=" w-full min-w-[200px] text-lg lg:text-sm uppercase">
                             <label class="block tracking-wide text-black font-bold mb-2">
                                 ¿Trabaja?</label>
-                            <label for="toggle-embarazo" class="flex items-center cursor-pointer">
+                            <label for="toggle" class="flex items-center cursor-pointer">
                                 <span class="mr-3 text-gray-900 text-sm font-medium">No</span>
                                 <mat-slide-toggle formControlName="Trabaja"></mat-slide-toggle>
                                 <span class="ml-3 text-gray-900 text-sm font-medium">Si</span>
                             </label>
                         </div>
                         <div class="grid gap-8 lg:grid-cols-2 mt-6 lg:mt-6 text-lg lg:text-sm uppercase">
-                            <div class="h-10 w-full min-w-[200px] mt-6 lg:mt-4"
+                            <div class=" w-full min-w-[200px]"
                                 *ngIf="estudiantesForm.get('Trabaja')?.value">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Ocupación
@@ -490,8 +534,12 @@
                                 <ng-select formControlName="Id_ocupacion" placeholder="Seleccione"
                                     [items]="listocupacion()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
+                                <div *ngIf="estudiantesForm.get('Id_ocupacion')?.invalid && estudiantesForm.get('Id_ocupacion')?.touched"
+                                    class="text-red-500 text-xs mt-1">
+                                    Este campo es requerido
+                                </div>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-6 lg:mt-4"
+                            <div class=" w-full min-w-[200px]"
                                 *ngIf="estudiantesForm.get('Trabaja')?.value">
                                 <label class="block  tracking-wide text-black font-bold mb-2">
                                     Sector de Ocupación
@@ -499,8 +547,12 @@
                                 <ng-select formControlName="Id_sector_ocupacion" placeholder="Seleccione"
                                     [items]="listsectorocupacion()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
+                                <div *ngIf="estudiantesForm.get('Id_sector_ocupacion')?.invalid && estudiantesForm.get('Id_sector_ocupacion')?.touched"
+                                    class="text-red-500 text-xs mt-1">
+                                    Este campo es requerido
+                                </div>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2"
+                            <div class=" w-full min-w-[200px]"
                                 *ngIf="estudiantesForm.get('Trabaja')?.value">
                                 <label class="block  tracking-wide text-black font-bold mb-2">
                                     Entidad Laboral
@@ -508,13 +560,18 @@
                                 <ng-select formControlName="Id_entidad_laboral" placeholder="Seleccione"
                                     [items]="listentidadlaboral()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
+                                <div *ngIf="estudiantesForm.get('Id_entidad_laboral')?.invalid && estudiantesForm.get('Id_entidad_laboral')?.touched"
+                                    class="text-red-500 text-xs mt-1">
+                                    Este campo es requerido
+                                </div>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2"
+                            <div class=" w-full min-w-[200px]"
                                 *ngIf="estudiantesForm.get('Trabaja')?.value">
                                 <label class="block  tracking-wide text-black font-bold mb-2">
                                     N.° de inss</label>
-                                <input formControlName="Numero_inss" autocomplete="off"
-                                    class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                <input formControlName="Numero_inss" autocomplete="off" type="tel"
+                                    (input)="formatearInss($event)"
+                                    class="h-10 w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="N.° de inss" />
                             </div>
                         </div>
@@ -530,8 +587,8 @@
                     </mat-step>
 
                     <mat-step label="FORMACIÓN ACADEMICA">
-                        <div class="grid gap-8 lg:grid-cols-2 mt-6 lg:mt-6 text-lg lg:text-sm uppercase">
-                            <div class="h-10 w-full min-w-[200px]">
+                        <div class="grid gap-4 lg:grid-cols-2 text-lg lg:text-sm uppercase">
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Departamento que culminó
                                     <span class="text-red-500">*</span></label>
@@ -540,7 +597,7 @@
                                     appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-0">
+                            <div class=" w-full min-w-[200px] mt-4 lg:mt-0">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Municipio que culminó
                                     <span class="text-red-500">*</span></label>
@@ -549,7 +606,7 @@
                                     appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Centro de secundaria
                                     <span class="text-red-500">*</span></label>
@@ -557,23 +614,24 @@
                                     [items]="listcentrosecundario()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Año bachillerato
                                     <span class="text-red-500">*</span></label>
-                                <input (input)="formatearAnioBachillerato($event)" formControlName="Anio_bachillerato" autocomplete="off"
-                                    class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
+                                <input (input)="formatearAnioBachillerato($event)" formControlName="Anio_bachillerato"
+                                    autocomplete="off"
+                                    class="h-10 w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
                                     placeholder="Año bachillerato" />
                             </div>
                             <div class="w-full min-w-[200px] mt-6 lg:mt-6 text-lg lg:text-sm uppercase">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     ¿Tiene carrera técnica?</label>
-                                <label for="toggle-embarazo" class="flex items-center cursor-pointer">
+                                <label for="toggle" class="flex items-center cursor-pointer">
                                     <span class="mr-3 text-gray-900 text-sm font-medium">No</span>
                                     <mat-slide-toggle formControlName="tiene_tecnica"></mat-slide-toggle>
                                     <span class="ml-3 text-gray-900 text-sm font-medium">Si</span>
                                 </label>
-                                <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2"
+                                <div class=" w-full min-w-[200px]"
                                     *ngIf="estudiantesForm.get('tiene_tecnica')?.value">
                                     <label class="block tracking-wide text-black font-bold mb-2">
                                         Carrera Técnica
@@ -581,14 +639,18 @@
                                     <ng-select formControlName="Carrera_tecnica" placeholder="Seleccione" [items]=""
                                         appendTo="html" bindLabel="Nombre" bindValue="Id">
                                     </ng-select>
+                                    <div *ngIf="estudiantesForm.get('Carrera_tecnica')?.invalid && estudiantesForm.get('Carrera_tecnica')?.touched"
+                                        class="text-red-500 text-xs mt-1">
+                                        Este campo es requerido
+                                    </div>
                                 </div>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Año que ingresó a la universidad
                                     <span class="text-red-500">*</span></label>
-                                <ng-select formControlName="Anio_ingreso_carrera" placeholder="Seleccione" [items]="anioIngreso"
-                                    appendTo="html" bindLabel="Nombre" bindValue="Id">
+                                <ng-select formControlName="Anio_ingreso_carrera" placeholder="Seleccione"
+                                    [items]="anioIngreso" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
                         </div>
@@ -602,8 +664,8 @@
                         </div>
                     </mat-step>
                     <mat-step label="DISPOSITIVOS Y CONECTIVIDAD">
-                        <div class="grid gap-8 lg:grid-cols-2 mt-2 lg:mt-2 text-lg lg:text-sm uppercase">
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-0">
+                        <div class="grid gap-4 lg:grid-cols-2 text-lg lg:text-sm uppercase">
+                            <div class=" w-full min-w-[200px] mt-4 lg:mt-0">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Dipositivo
                                     <span class="text-red-500">*</span></label>
@@ -612,7 +674,7 @@
                                     bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-0">
+                            <div class=" w-full min-w-[200px] mt-4 lg:mt-0">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     tipo DE CONEXIÓN A INTERNET
                                     <span class="text-red-500">*</span></label>
@@ -620,7 +682,7 @@
                                     [items]="listTipoConexion()" appendTo="html" bindLabel="Nombre" bindValue="Id">
                                 </ng-select>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2 mb-6">
+                            <div class=" w-full min-w-[200px] mt-6 lg:mt-2 mb-6">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Proveedor de internet
                                     <span class="text-red-500">*</span></label>
@@ -630,7 +692,7 @@
                             </div>
                         </div>
 
-                        <div class="w-full mt-10">
+                        <div class="w-full mt-4">
 
                             <!-- Formulario para agregar teléfono -->
                             <div class="rounded-lg border bg-white shadow-sm mb-10">
@@ -748,89 +810,207 @@
                     </mat-step>
 
                     <mat-step label="DATOS FAMILIAR">
-                        <div class="grid gap-8 lg:grid-cols-2 mt-2 lg:mt-2 text-lg lg:text-sm uppercase">
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Tipo de parentesco
-                                    <span class="text-red-500">*</span></label>
-                                <ng-select formControlName="Id_tipo_parentesco" placeholder="Seleccione" [items]="listTipoParentesco()" appendTo="html" 
-                                bindLabel="Nombre" bindValue="Id">
-                                </ng-select>
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Nombres del Tutor
-                                    <span class="text-red-500">*</span></label>
-                                <input autocomplete="off" type="text"
-                                    class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="Nombres del Tutor" />
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Primer apellido del Tutor
-                                    <span class="text-red-500">*</span></label>
-                                <input autocomplete="off" type="text"
-                                    class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="Primer apellido del Tutor" />
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Segundo apellido del Tutor
-                                    <span class="text-red-500">*</span></label>
-                                <input autocomplete="off" type="text"
-                                    class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="Segundo apellido del Tutor" />
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Fecha de Nacimiento del Tutor
-                                    <span class="text-red-500">*</span></label>
-                                <div class="relative h-10 w-full">
-                                    <div class="relative h-10 w-full">
-                                        <div class="absolute top-0 right-1">
-                                            <mat-datepicker-toggle matIconSuffix
-                                                [for]="picker1"></mat-datepicker-toggle>
-                                        </div>
-                                        <input matInput [matDatepicker]="picker1"
-                                            class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                            placeholder="D/M/A" autocomplete="off">
-                                    </div>
-                                    <mat-datepicker #picker1></mat-datepicker>
-                                </div>
-                            </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
+                        <div class="grid gap-4 lg:grid-cols-2 text-lg lg:text-sm uppercase">
+                            <div class=" w-full min-w-[200px]">
                                 <label class="block tracking-wide text-black font-bold mb-2">
                                     Depende económicamente </label>
-                                <label for="toggle-embarazo" class="flex items-center cursor-pointer">
+                                <label for="toggle" class="flex items-center cursor-pointer">
                                     <span class="mr-3 text-gray-900 text-sm font-medium">No</span>
-                                    <mat-slide-toggle formControlName="Trabaja"></mat-slide-toggle>
+                                    <mat-slide-toggle formControlName="Depende_economicamente"></mat-slide-toggle>
                                     <span class="ml-3 text-gray-900 text-sm font-medium">Si</span>
                                 </label>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Centro de trabajo del Tutor
-                                    <span class="text-red-500">*</span></label>
-                                <input autocomplete="off" type="text"
-                                    class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="Centro de trabajo del Tutor" />
+
+                            <div class="w-full mt-10">
+                                <!-- Sección para agregar tutores (solo visible si Depende_economicamente es true) -->
+                                <div *ngIf="estudiantesForm.get('Depende_economicamente')?.value"
+                                    class="rounded-lg border bg-white shadow-sm mb-10">
+                                    <div class="border-b px-6 py-4">
+                                        <div class="flex items-center gap-2 text-lg font-semibold">
+                                            <i class="fa-solid fa-user-shield h-5 w-5"></i>
+                                            Agregar Tutor
+                                        </div>
+                                    </div>
+                                    <div class="p-6">
+                                        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                                            <!-- Tipo de Parentesco -->
+                                            <div class="space-x-0">
+                                                <label class="block tracking-wide text-black font-bold mb-2">
+                                                    Tipo de parentesco
+                                                    <span class="text-red-500">*</span>
+                                                </label>
+                                                <ng-select [items]="listTipoParentesco()" bindLabel="Nombre"
+                                                    bindValue="Id" placeholder="Seleccione parentesco" class="h-11"
+                                                    [(ngModel)]="nuevoTutor.Id_tipo_parentesco"
+                                                    [ngModelOptions]="{standalone: true}">
+                                                </ng-select>
+                                            </div>
+
+                                            <!-- Nombres del Tutor -->
+                                            <div class="space-x-0">
+                                                <label class="block tracking-wide text-black font-bold mb-2">
+                                                    Nombres del Tutor
+                                                    <span class="text-red-500">*</span>
+                                                </label>
+                                                <input [(ngModel)]="nuevoTutor.Nombres" autocomplete="off" type="text"
+                                                    class="h-11 w-full rounded-md border border-black px-3 py-2 placeholder:uppercase focus:outline-none focus:bg-gray-100 focus:border-[#009DD5]"
+                                                    placeholder="Nombres del Tutor"
+                                                    [ngModelOptions]="{standalone: true}">
+                                            </div>
+
+                                            <!-- Primer Apellido -->
+                                            <div class="space-x-0">
+                                                <label class="block tracking-wide text-black font-bold mb-2">
+                                                    Primer Apellido
+                                                    <span class="text-red-500">*</span>
+                                                </label>
+                                                <input [(ngModel)]="nuevoTutor.Apellidos1" autocomplete="off"
+                                                    type="text"
+                                                    class="h-11 w-full rounded-md border border-black px-3 py-2 placeholder:uppercase focus:outline-none focus:bg-gray-100 focus:border-[#009DD5]"
+                                                    placeholder="Primer apellido" [ngModelOptions]="{standalone: true}">
+                                            </div>
+
+                                            <!-- Segundo Apellido -->
+                                            <div class="space-x-0">
+                                                <label class="block tracking-wide text-black font-bold mb-2">
+                                                    Segundo Apellido
+                                                    <span class="text-red-500">*</span>
+                                                </label>
+                                                <input [(ngModel)]="nuevoTutor.Apellido2" autocomplete="off" type="text"
+                                                    class="h-11 w-full rounded-md border border-black px-3 py-2 placeholder:uppercase focus:outline-none focus:bg-gray-100 focus:border-[#009DD5]"
+                                                    placeholder="Segundo apellido"
+                                                    [ngModelOptions]="{standalone: true}">
+                                            </div>
+
+                                            <!-- Fecha de Nacimiento -->
+                                            <div class="space-x-0">
+                                                <label class="block tracking-wide text-black font-bold mb-2">
+                                                    Fecha de Nacimiento
+                                                    <span class="text-red-500">*</span>
+                                                </label>
+                                                <div class="relative h-11 w-full">
+                                                    <div class="absolute top-0 right-1">
+                                                        <mat-datepicker-toggle matIconSuffix
+                                                            [for]="pickerTutor"></mat-datepicker-toggle>
+                                                    </div>
+                                                    <input [(ngModel)]="nuevoTutor.Fecha_nacimiento" matInput
+                                                        [matDatepicker]="pickerTutor"
+                                                        class="h-11 w-full rounded-md border border-black px-3 py-2 placeholder:uppercase focus:outline-none focus:bg-gray-100 focus:border-[#009DD5]"
+                                                        placeholder="D/M/A" autocomplete="off"
+                                                        [ngModelOptions]="{standalone: true}">
+                                                    <mat-datepicker #pickerTutor></mat-datepicker>
+                                                </div>
+                                            </div>
+
+                                            <!-- Centro de Trabajo -->
+                                            <div class="space-x-0">
+                                                <label class="block tracking-wide text-black font-bold mb-2">
+                                                    Centro de Trabajo
+                                                    <span class="text-red-500">*</span>
+                                                </label>
+                                                <input [(ngModel)]="nuevoTutor.Centro_trabajo" autocomplete="off"
+                                                    type="text"
+                                                    class="h-11 w-full rounded-md border border-black px-3 py-2 placeholder:uppercase focus:outline-none focus:bg-gray-100 focus:border-[#009DD5]"
+                                                    placeholder="Centro de trabajo"
+                                                    [ngModelOptions]="{standalone: true}">
+                                            </div>
+
+                                            <!-- Ingreso Mensual -->
+                                            <div class="space-x-0">
+                                                <label class="block tracking-wide text-black font-bold mb-2">
+                                                    Ingreso Mensual
+                                                    <span class="text-red-500">*</span>
+                                                </label>
+                                                <input [(ngModel)]="nuevoTutor.Ingreso_mensual" autocomplete="off"
+                                                    type="number"
+                                                    class="h-11 w-full rounded-md border border-black px-3 py-2 placeholder:uppercase focus:outline-none focus:bg-gray-100 focus:border-[#009DD5]"
+                                                    placeholder="Ingreso mensual" [ngModelOptions]="{standalone: true}">
+                                            </div>
+
+                                            <!-- Botón Agregar -->
+                                            <div class="space-x-0 md:col-span-2 lg:col-span-3">
+                                                <button (click)="agregarTutor()" [disabled]="!esTutorValido()"
+                                                    class="w-full cursor-pointer h-11 bg-blue-600 hover:bg-blue-700 text-white rounded-md disabled:opacity-50 transition duration-100 uppercase">
+                                                    Agregar Tutor
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Lista de tutores agregados -->
+                                <div *ngIf="estudiantesForm.get('Depende_economicamente')?.value && tutoresAgregados.length > 0"
+                                    class="rounded-lg border bg-white shadow-sm">
+                                    <div class="p-4 border-b flex items-center justify-between">
+                                        <div class="flex items-center gap-2 text-lg font-semibold">
+                                            <i class="fa-solid fa-user-shield h-5 w-5"></i>
+                                            Tutores Registrados
+                                        </div>
+                                        <span class="bg-gray-100 text-gray-800 text-sm px-3 py-1 rounded">
+                                            {{ tutoresAgregados.length }} tutor{{ tutoresAgregados.length !== 1 ? 'es' :
+                                            '' }}
+                                        </span>
+                                    </div>
+
+                                    <div class="p-4 space-y-3">
+                                        <div *ngFor="let tutor of tutoresAgregados; let i = index"
+                                            class="flex items-center justify-between p-4 bg-gray-50 rounded-lg border hover:bg-gray-100 transition-colors">
+                                            <div class="flex items-center gap-4">
+                                                <div
+                                                    class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                                                    {{ i + 1 }}
+                                                </div>
+                                                <div>
+                                                    <p class="font-semibold text-gray-900 text-lg">
+                                                        {{ tutor.Nombres }} {{ tutor.Apellidos1 }} {{ tutor.Apellido2 }}
+                                                    </p>
+                                                    <div class="grid grid-cols-2 md:grid-cols-3 gap-2 mt-1">
+                                                        <p class="text-sm text-gray-600 flex items-center gap-2">
+                                                            <i class="fa-solid fa-people-arrows h-3 w-3"></i>
+                                                            {{ obtenerParentesco(tutor.Id_tipo_parentesco) }}
+                                                        </p>
+                                                        <p class="text-sm text-gray-600 flex items-center gap-2">
+                                                            <i class="fa-solid fa-briefcase h-3 w-3"></i>
+                                                            {{ tutor.Centro_trabajo }}
+                                                        </p>
+                                                        <p class="text-sm text-gray-600 flex items-center gap-2">
+                                                            <i class="fa-solid fa-money-bill-wave h-3 w-3"></i>
+                                                            {{ tutor.Ingreso_mensual | currency :'C$' }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button (click)="eliminarTutor(i)"
+                                                class="text-red-500 hover:text-red-700 hover:bg-red-50 p-2 rounded-full">
+                                                <i class="fa-solid fa-trash-can h-4 w-4"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Estado vacío -->
+                                <div *ngIf="estudiantesForm.get('Depende_economicamente')?.value && tutoresAgregados.length === 0"
+                                    class="rounded-lg border border-dashed bg-white shadow-sm">
+                                    <div class="flex flex-col items-center justify-center py-12 text-center">
+                                        <div
+                                            class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                                            <i class="fa-solid fa-user-shield text-gray-400 text-2xl"></i>
+                                        </div>
+                                        <h3 class="text-lg font-semibold text-gray-900 mb-2">No hay tutores registrados
+                                        </h3>
+                                        <p class="text-gray-600 max-w-sm">Agregue su primer tutor usando el formulario
+                                            de arriba</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="h-10 w-full min-w-[200px] mt-4 lg:mt-2">
-                                <label class="block tracking-wide text-black font-bold mb-2">
-                                    Ingresos mensual
-                                    <span class="text-red-500">*</span></label>
-                                <input autocomplete="off" type="number" min="1" max="12"
-                                    class="h-full w-full rounded-[4px] bg-transparent placeholder:uppercase px-3 py-2.5 focus:bg-gray-100 border border-black focus:outline-none focus:border-[#009DD5]"
-                                    placeholder="Numero celular" />
-                            </div>
+
                         </div>
                         <div class="grid gap-6 lg:grid-cols-2 mt-14">
                             <button
                                 class="uppercase cursor-pointer w-full border border-green-500 hover:bg-[#5AB24B] text-green-500 hover:text-white py-4 lg:py-2 rounded-md transition duration-100"
                                 matStepperPrevious>Anterior</button>
 
-                            <button
-                            (click)="buttonSweet()"
+                            <button (click)="buttonSweet()"
                                 class="uppercase cursor-pointer w-full bg-[#1da2fc] hover:bg-[#009cd5] text-white py-4 lg:py-2 rounded-md transition duration-100"
                                 matStepperNext>Guardar</button>
                         </div>
@@ -839,7 +1019,7 @@
             </mat-stepper>
         </div>
     </div>
-    <footer class="absolute bottom-4 hidden md:block w-full z-9">
+    <footer class="mt-4 mb-4 hidden md:block w-full z-9">
         <img src="/assets/img/sol-negativo.png" alt="" class="w-full object-cover">
     </footer>
 

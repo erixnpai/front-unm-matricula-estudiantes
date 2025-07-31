@@ -26,6 +26,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CatalogosService } from '../../services/matricula/catalogos/catalogos';
 import { SweetModal } from '../../utils/sweetalert';
 import { ANIO_INGRESO } from '../../services/data/anioingreso';
+import { MES_EMBARAZO } from '../../services/data/embarazomes';
 
 @Component({
   selector: 'app-form-estudiantes',
@@ -43,6 +44,7 @@ export default class FormEstudiantes {
   stepperOrientation: Observable<StepperOrientation>;
   estudiantesForm!: FormGroup;
   anioIngreso = ANIO_INGRESO
+  mes_embarazo = MES_EMBARAZO
   listpais = signal([]);
   listzona = signal([]);
   listzonaresidencia = signal([]);
@@ -73,7 +75,7 @@ export default class FormEstudiantes {
   listocupacion = signal([]);
   listsectorocupacion = signal([]);
   listentidadlaboral = signal([]);
-  listTipoParentesco = signal([]);
+  listTipoParentesco = signal<{ Id: number; Nombre: string }[]>([]);
   listdispositivos = signal<any[]>([]);
 
   nuevoTelefono: any = {
@@ -95,6 +97,17 @@ export default class FormEstudiantes {
     Id_nivel_alcanzado: null
   };
 
+  tutoresAgregados: any[] = [];
+  nuevoTutor: any = {
+    Id_tipo_parentesco: null,
+    Nombres: '',
+    Apellidos1: '',
+    Apellido2: '',
+    Fecha_nacimiento: null,
+    Centro_trabajo: '',
+    Ingreso_mensual: null
+  };
+
   catalogosService = inject(CatalogosService);
 
   constructor() {
@@ -111,9 +124,9 @@ export default class FormEstudiantes {
       Id_tipo_sangre: new FormControl(null, [Validators.required]), //tabla estudiante
       Id_etnia: new FormControl(null, [Validators.required]), //tabla estudiante
       Embarazo: new FormControl('', [Validators.required]), //tabla detalle_estudiante
-      Meses_embarazo: new FormControl('', [Validators.required]), //tabla detalle_estudiante
+      Meses_embarazo: new FormControl(null), //tabla detalle_estudiante
       Tiene_hijos: new FormControl(false), // solo lo ocupo para el toggle
-      Numero_hijos: new FormControl('', [Validators.required]), //tabla detalle_estudiante
+      Numero_hijos: new FormControl(null), //tabla detalle_estudiante
       Dominio_lengua: new FormControl(null, [Validators.required]), //tabla detalle_estudiante lo ocupo para el toggle
       Dominio_idioma: new FormControl(null, [Validators.required]), //tabla detalle_estudiante lo ocupo para el toggle
       Id_idioma_lengua: new FormControl(null, [Validators.required]), //tabla Detalle_Estudiante_Lengua
@@ -122,6 +135,10 @@ export default class FormEstudiantes {
       Peso_libras: new FormControl('', [Validators.required]), //tabla detalle_estudiante
       Id_discapacidad: new FormControl(null, [Validators.required]), //tabla Detalle_Discapacidad
       Id_deficiencia: new FormControl(null, [Validators.required]), //tabla Detalle_Deficiencia
+      nombre_conyugue: new FormControl(''), //tabla estructura_familiar
+      apellido1_conyugue: new FormControl(''), //tabla estructura_familiar
+      apellido2_conyugue: new FormControl(''), //tabla estructura_familiar
+      telefono_conyugue: new FormControl(''), //tabla estructura_familiar
 
       // Stepper 2
       Id_dimension_nacionalidad: new FormControl(null, [Validators.required]), //tabla estudiante
@@ -137,7 +154,7 @@ export default class FormEstudiantes {
       Direccion_residencia: new FormControl(null, [Validators.required]), //tabla detalle_estudiante
 
       // Stepper 3
-      Trabaja: new FormControl('', [Validators.required]), //tabla detalle_estudiante
+      Trabaja: new FormControl(false), //tabla detalle_estudiante
       Id_ocupacion: new FormControl(null, [Validators.required]), //tabla detalle_estudiante
       Id_sector_ocupacion: new FormControl(null, [Validators.required]), //tabla detalle_estudiante
       Id_entidad_laboral: new FormControl(null, [Validators.required]), //tabla detalle_estudiante
@@ -149,7 +166,7 @@ export default class FormEstudiantes {
       Id_centro_secundaria: new FormControl(null, [Validators.required]), //tabla estudiante
       Anio_bachillerato: new FormControl(null, [Validators.required]), //tabla estudiante
       tiene_tecnica: new FormControl(false), // lo ocupo solo en toggle
-      Carrera_tecnica: new FormControl(null, [Validators.required]), //tabla estudiante
+      Carrera_tecnica: new FormControl(null), //tabla estudiante
       Anio_ingreso_carrera: new FormControl(null, [Validators.required]), //tabla estudiante
 
       // Stepper 5
@@ -160,7 +177,14 @@ export default class FormEstudiantes {
       Id_compania_telefonica: new FormControl(null, [Validators.required]), // tabla telefono
 
       // Stepper 6
-      Id_tipo_parentesco: new FormControl(null, [Validators.required]), // tabla Estructura_Familiar
+      Id_tipo_parentesco: new FormControl(null), // tabla Estructura_Familiar
+      Nombres: new FormControl(''), // tabla Estructura_Familiar
+      Apellidos1: new FormControl(''), // tabla Estructura_Familiar
+      Apellido2: new FormControl(''), // tabla Estructura_Familiar
+      Fecha_nacimiento: new FormControl(null), // tabla Estructura_Familiar
+      Depende_economicamente: new FormControl(false), // tabla Estructura_Familiar
+      Centro_trabajo: new FormControl(''), // tabla Estructura_Familiar
+      Ingreso_mensual: new FormControl(''), // tabla Estructura_Familiar
 
       // -----------------------------------------------------------
     });
@@ -172,8 +196,50 @@ export default class FormEstudiantes {
     this.getNivelAlcanzadoIdiomas()
     this.getNivelAlcanzadoLenguas()
     this.getTipoParentesco();
+    // Escuchar cambios en el estado civil
+    this.estudiantesForm.get('Id_estado_civil')?.valueChanges.subscribe(value => {
+      this.actualizarValidacionesConyugue(value);
+    });
+    // Escuchar cambios en el toggle de hijos
+    this.estudiantesForm.get('Tiene_hijos')?.valueChanges.subscribe(tieneHijos => {
+      this.actualizarValidacionesHijos(tieneHijos);
+    });
+    // Validación inicial
+    this.actualizarValidacionesHijos(false);
+    // // Escuchar cambios en el toggle de hijos
+
+    // Escuchar cambios en el toggle de embarazo
+    this.estudiantesForm.get('Embarazo')?.valueChanges.subscribe(embarazada => {
+      this.actualizarValidacionesEmbarazo(embarazada);
+    });
+
+    // Validación inicial
+    this.actualizarValidacionesEmbarazo(false);
+
+    this.estudiantesForm.get('Trabaja')?.valueChanges.subscribe(trabaja => {
+      this.actualizarValidacionesTrabajo(trabaja);
+    });
+
+    // Validación inicial
+    this.actualizarValidacionesTrabajo(false);
+
+    this.estudiantesForm.get('tiene_tecnica')?.valueChanges.subscribe(tieneTecnica => {
+      this.actualizarValidacionesCarrera(tieneTecnica);
+    });
+
+    // Validación inicial
+    this.actualizarValidacionesCarrera(false);
+
+    // Escuchar cambios en la dependencia económica
+    this.estudiantesForm.get('Depende_economicamente')?.valueChanges.subscribe(depende => {
+      this.actualizarValidacionesTutor(depende);
+    });
+
+    // Validación inicial
+    this.actualizarValidacionesTutor(false);
   }
 
+  // get de los catalogos------------------------------------------------
   async getCatalogos() {
     try {
       const { data } = await this.catalogosService.getAllCatalogos([
@@ -227,9 +293,7 @@ export default class FormEstudiantes {
 
   async getMunicipiosByDepartamento() {
     try {
-      const idDepartamento = this.estudiantesForm.get(
-        'Id_departamento_origen'
-      )?.value;
+      const idDepartamento = this.estudiantesForm.get('Id_departamento_origen')?.value;
 
       if (!idDepartamento) {
         this.listmunicipio.set([]);
@@ -423,14 +487,175 @@ export default class FormEstudiantes {
 
   async getTipoParentesco() {
     try {
-      const {data} = await this.catalogosService.getTipoParentesco();
+      const { data } = await this.catalogosService.getTipoParentesco();
       this.listTipoParentesco.set(data);
       console.log('Tipo parentesco obtenido:', this.listTipoParentesco);
     } catch (error) {
       console.error('Error al obtener tipo parentesco:', error);
       this.listTipoParentesco.set([]);
-      
+
     }
+  }
+
+  // termina get catalogosa------------------------------------------------
+
+  // funciones para validar------------------------------------------------
+  // Método para validar si el tutor está completo
+  esTutorValido(): boolean {
+    return this.nuevoTutor.Id_tipo_parentesco &&
+      this.nuevoTutor.Nombres &&
+      this.nuevoTutor.Apellidos1 &&
+      this.nuevoTutor.Apellido2 &&
+      this.nuevoTutor.Fecha_nacimiento &&
+      this.nuevoTutor.Centro_trabajo &&
+      this.nuevoTutor.Ingreso_mensual !== null;
+  }
+
+  // Método para agregar un tutor
+  agregarTutor() {
+    if (this.esTutorValido()) {
+      // Clonamos el objeto para evitar referencias
+      const nuevo = { ...this.nuevoTutor };
+      this.tutoresAgregados.push(nuevo);
+
+      // Limpiamos el formulario
+      this.nuevoTutor = {
+        Id_tipo_parentesco: null,
+        Nombres: '',
+        Apellidos1: '',
+        Apellido2: '',
+        Fecha_nacimiento: null,
+        Centro_trabajo: '',
+        Ingreso_mensual: null
+      };
+    }
+  }
+
+  // Método para eliminar un tutor
+  eliminarTutor(index: number) {
+    this.tutoresAgregados.splice(index, 1);
+  }
+
+  // Método para obtener nombre del parentesco
+  obtenerParentesco(id: number): string {
+    const parentesco = this.listTipoParentesco().find(p => p.Id === id);
+    return parentesco ? parentesco.Nombre : 'Parentesco desconocido';
+  }
+  actualizarValidacionesTutor(depende: boolean) {
+    const controlesTutor = [
+      'Id_tipo_parentesco',
+      'Nombres',
+      'Apellidos1',
+      'Apellido2',
+      'Fecha_nacimiento',
+      'Centro_trabajo',
+      'Ingreso_mensual'
+    ];
+
+    controlesTutor.forEach(controlName => {
+      const control = this.estudiantesForm.get(controlName);
+
+      if (depende) {
+        control?.setValidators([Validators.required]);
+      } else {
+        control?.clearValidators();
+        control?.reset();
+      }
+      control?.updateValueAndValidity();
+    });
+  }
+  actualizarValidacionesCarrera(tieneTecnica: boolean) {
+    const carreraControl = this.estudiantesForm.get('Carrera_tecnica');
+
+    if (tieneTecnica) {
+      carreraControl?.setValidators([Validators.required]);
+    } else {
+      carreraControl?.clearValidators();
+      carreraControl?.reset();
+    }
+
+    carreraControl?.updateValueAndValidity();
+  }
+  actualizarValidacionesTrabajo(trabaja: boolean) {
+    const controlesRequeridos = [
+      'Id_ocupacion',
+      'Id_sector_ocupacion',
+      'Id_entidad_laboral'
+    ];
+    controlesRequeridos.forEach(controlName => {
+      const control = this.estudiantesForm.get(controlName);
+
+      if (trabaja) {
+        control?.setValidators([Validators.required]);
+      } else {
+        control?.clearValidators();
+        control?.reset();
+      }
+      control?.updateValueAndValidity();
+    });
+
+    // Limpiar INSS si no trabaja (aunque no es requerido)
+    if (!trabaja) {
+      this.estudiantesForm.get('Numero_inss')?.reset();
+    }
+  }
+
+  actualizarValidacionesHijos(tieneHijos: boolean) {
+    const numeroHijosControl = this.estudiantesForm.get('Numero_hijos');
+
+    if (tieneHijos) {
+      numeroHijosControl?.setValidators([Validators.required]);
+    } else {
+      numeroHijosControl?.clearValidators();
+      numeroHijosControl?.reset();
+    }
+
+    numeroHijosControl?.updateValueAndValidity();
+  }
+
+  get requiereConyugue(): boolean {
+    const estadoCivil = this.estudiantesForm.get('Id_estado_civil')?.value;
+    return estadoCivil === 2 || estadoCivil === 5; // 2: Casado/a, 5: Unión de hecho
+  }
+  actualizarValidacionesConyugue(estadoCivilId: number) {
+    const requiereConyugue = this.requiereConyugue;
+
+    const nombreConyugueControl = this.estudiantesForm.get('nombre_conyugue');
+    const apellido1 = this.estudiantesForm.get('apellido1_conyugue');
+    const apellido2 = this.estudiantesForm.get('apellido2_conyugue');
+    const telefonoConyugueControl = this.estudiantesForm.get('telefono_conyugue');
+
+    if (requiereConyugue) {
+      nombreConyugueControl?.setValidators([Validators.required]);
+      apellido1?.setValidators([Validators.required]);
+      apellido2?.setValidators([Validators.required]);
+      telefonoConyugueControl?.setValidators([Validators.required]);
+    } else {
+      nombreConyugueControl?.clearValidators();
+      apellido1?.clearValidators();
+      apellido2?.clearValidators();
+      telefonoConyugueControl?.clearValidators();
+      nombreConyugueControl?.reset();
+      telefonoConyugueControl?.reset();
+    }
+
+    nombreConyugueControl?.updateValueAndValidity();
+    apellido1?.updateValueAndValidity();
+    apellido2?.updateValueAndValidity();
+    telefonoConyugueControl?.updateValueAndValidity();
+  }
+
+  actualizarValidacionesEmbarazo(embarazada: boolean) {
+    const mesesEmbarazoControl = this.estudiantesForm.get('Meses_embarazo');
+
+    if (embarazada) {
+      mesesEmbarazoControl?.setValidators([Validators.required]);
+    } else {
+      mesesEmbarazoControl?.clearValidators();
+      mesesEmbarazoControl?.reset();
+    }
+
+    mesesEmbarazoControl?.updateValueAndValidity();
   }
 
   formatearTelefono(event: any) {
@@ -452,9 +677,32 @@ export default class FormEstudiantes {
     this.estudiantesForm.controls['Numero_telefono'].setValue(formatted, {
       emitEvent: false,
     });
-
     // 5. Forzar validación
     this.estudiantesForm.controls['Numero_telefono'].updateValueAndValidity();
+  }
+
+  formatearTelefonoCOnyugue(event: any) {
+    const input = event.target.value;
+
+    // 1. Eliminar todos los caracteres no numéricos excepto guiones
+    const cleaned = input.replace(/[^\d-]/g, '');
+
+    // 2. Limitar a 8 dígitos + guión
+    const digits = cleaned.replace(/-/g, '').slice(0, 8);
+
+    // 3. Insertar guión después de 4 dígitos
+    let formatted = digits;
+    if (digits.length > 4) {
+      formatted = `${digits.slice(0, 4)}-${digits.slice(4)}`;
+    }
+
+    // 4. Actualizar el valor del formulario
+    this.estudiantesForm.controls['telefono_conyugue'].setValue(formatted, {
+      emitEvent: false,
+    });
+
+    // 5. Forzar validación
+    this.estudiantesForm.controls['telefono_conyugue'].updateValueAndValidity();
   }
 
   formatearAnioBachillerato(event: any) {
@@ -470,9 +718,35 @@ export default class FormEstudiantes {
 
     this.estudiantesForm.controls['Anio_bachillerato'].updateValueAndValidity();
   }
+  formatearInss(event: any) {
+    const input = event.target.value;
+
+    // Eliminar todo lo que no sea número
+    const digitsOnly = input.replace(/\D/g, '').slice(0, 9); // máximo 4 dígitos
+
+    // Setear el valor limpio al campo sin disparar eventos
+    this.estudiantesForm.controls['Numero_inss'].setValue(digitsOnly, {
+      emitEvent: false,
+    });
+
+    this.estudiantesForm.controls['Numero_inss'].updateValueAndValidity();
+  }
+  formatearNumHijos(event: any) {
+    const input = event.target.value;
+
+    // Eliminar todo lo que no sea número
+    const digitsOnly = input.replace(/\D/g, '').slice(0, 2); // máximo 23 dígitos
+
+    // Setear el valor limpio al campo sin disparar eventos
+    this.estudiantesForm.controls['Numero_hijos'].setValue(digitsOnly, {
+      emitEvent: false,
+    });
+
+    this.estudiantesForm.controls['Numero_hijos'].updateValueAndValidity();
+  }
 
   formatearPeso(event: any) {
-     const input = event.target.value;
+    const input = event.target.value;
 
     // Eliminar todo lo que no sea número
     const digitsOnly = input.replace(/\D/g, '').slice(0, 3); // máximo 4 dígitos
@@ -485,7 +759,7 @@ export default class FormEstudiantes {
     this.estudiantesForm.controls['Peso_libras'].updateValueAndValidity();
   }
   formatearAltura(event: any) {
-     const input = event.target.value;
+    const input = event.target.value;
 
     // Eliminar todo lo que no sea número
     const digitsOnly = input.replace(/\D/g, '').slice(0, 3); // máximo 4 dígitos
@@ -497,6 +771,8 @@ export default class FormEstudiantes {
 
     this.estudiantesForm.controls['Altura_cm'].updateValueAndValidity();
   }
+
+  // terminar funciones de validacion------------------------------------------------
 
 
   // Función para agregar teléfono
@@ -602,10 +878,10 @@ export default class FormEstudiantes {
   }
 
   async buttonSweet() {
-     await SweetModal({
-    icon: 'warning',
-    title: 'Confirmación antes de guardar',
-    html: `
+    await SweetModal({
+      icon: 'warning',
+      title: 'Confirmación antes de guardar',
+      html: `
       <p class="text-center text-gray-800">
         Antes de continuar, revise cuidadosamente todos los datos ingresados.
       </p>
@@ -613,11 +889,11 @@ export default class FormEstudiantes {
         ¿Está seguro de que desea guardar esta información?
       </p>
     `,
-    confirmButtonText: 'Sí, guardar',
-    showCancelButton: true,
-    cancelButtonText: 'Cancelar',
-    confirmButtonColor: '#22c55e',  
-    cancelButtonColor: '#ef4444',  
-  });
+      confirmButtonText: 'Sí, guardar',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#22c55e',
+      cancelButtonColor: '#ef4444',
+    });
   }
 }
